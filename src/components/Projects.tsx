@@ -187,10 +187,10 @@ export default function Projects() {
               </button>
 
               <div className="overflow-y-auto w-full flex-1 scrollbar-hide">
-                <div className={`bg-black flex items-center justify-center relative z-10 w-full ${
+                <div className={`bg-black flex items-center justify-center relative z-20 w-full ${
                   selectedProject.aspect === 'vertical' 
                     ? 'aspect-[9/16] max-h-[65vh] md:max-h-[80vh] mx-auto shadow-2xl' 
-                    : 'aspect-video max-h-[50vh] md:max-h-none'
+                    : 'aspect-video'
                 }`}>
                   {selectedProject.videoUrl ? (
                     selectedProject.videoUrl.endsWith('.mp4') ? (
@@ -207,7 +207,7 @@ export default function Projects() {
                     ) : (
                       <iframe
                         src={selectedProject.videoUrl}
-                        className="absolute inset-0 w-full h-full"
+                        className="absolute inset-0 w-full h-full pointer-events-auto"
                         allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; mute"
                         allowFullScreen
                         title={selectedProject.title}
@@ -219,7 +219,7 @@ export default function Projects() {
                   )}
                 </div>
 
-                <div className="p-6 md:p-12 relative z-20">
+                <div className="p-6 md:p-12 relative z-10">
                   <div className="flex flex-col md:flex-row justify-between gap-8">
                     <div className="flex-1">
                       <p className="text-sm font-bold text-accent uppercase tracking-widest mb-2">{selectedProject.category}</p>
