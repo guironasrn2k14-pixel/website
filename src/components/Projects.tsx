@@ -177,7 +177,7 @@ export default function Projects() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-5xl max-h-[92vh] bg-card-bg border border-gray-800 rounded-2xl md:rounded-[2rem] shadow-2xl z-10 overflow-hidden flex flex-col"
+              className={`relative w-full ${selectedProject.aspect === 'vertical' ? 'max-w-lg' : 'max-w-5xl'} max-h-[92vh] bg-card-bg border border-gray-800 rounded-2xl md:rounded-[2rem] shadow-2xl z-10 overflow-hidden flex flex-col`}
             >
               <button
                 onClick={() => setSelectedProject(null)}
@@ -189,7 +189,7 @@ export default function Projects() {
               <div className="overflow-y-auto w-full flex-1 scrollbar-hide">
                 <div className={`bg-black flex items-center justify-center relative z-10 w-full ${
                   selectedProject.aspect === 'vertical' 
-                    ? 'aspect-[9/16] md:aspect-video max-h-[70vh] md:max-h-none' 
+                    ? 'aspect-[9/16] max-h-[65vh] md:max-h-[75vh] mx-auto' 
                     : 'aspect-video'
                 }`}>
                   {selectedProject.videoUrl ? (
@@ -199,13 +199,16 @@ export default function Projects() {
                         className="w-full h-full object-contain"
                         controls
                         autoPlay
+                        muted={false}
                         playsInline
+                        loop
+                        preload="auto"
                       />
                     ) : (
                       <iframe
                         src={selectedProject.videoUrl}
                         className="absolute inset-0 w-full h-full"
-                        allow="autoplay; fullscreen; picture-in-picture"
+                        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
                         allowFullScreen
                         title={selectedProject.title}
                       />
