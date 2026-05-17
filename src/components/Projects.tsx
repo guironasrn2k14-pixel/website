@@ -11,7 +11,7 @@ const projects = [
     videoUrl: 'https://drive.google.com/file/d/1I6StjJdjTnh-m96bCMeslv29ebEd2jTR/preview',
     description: 'Um passeio tranquilo pela vida diária do Japão, onde cores vibrantes, paisagens serenas e momentos simples ganham vida. Com uma trilha calma e cortes suaves, este vídeo é uma colagem de cenas reais e imagens de banco, capturando a essência pacífica e poética do país.\n\nDa agitação delicada das ruas à quietude dos templos, cada frame foi pensado para fluir como um suspiro visual. 🎵⛩️',
     tags: ['Montagem', 'Storytelling', 'Color Grading'],
-    aspect: 'video',
+    aspect: 'vertical',
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const projects = [
     videoUrl: 'https://drive.google.com/file/d/1v2zAJp6gYr3EG3aeNAbzL5wOHMslWm1k/preview',
     description: 'Explore as cores, sabores e curiosidades do Ao Nang Night Market neste vlog dinâmico, que mostra desde pratos exóticos como carne de crocodilo até opções deliciosas e acessíveis da culinária tailandesa. Uma verdadeira imersão cultural gastronômica feita para inspirar e despertar o desejo de arrumar as malas agora mesmo!',
     tags: ['Vlog', 'Culinária', 'Cultura'],
-    aspect: 'video',
+    aspect: 'vertical',
   },
   {
     id: 3,
@@ -187,16 +187,16 @@ export default function Projects() {
               </button>
 
               <div className="overflow-y-auto w-full flex-1 scrollbar-hide">
-                <div className={`bg-black flex items-center justify-center relative z-20 w-full ${
+                <div className={`bg-black relative z-20 w-full ${
                   selectedProject.aspect === 'vertical' 
-                    ? 'aspect-[9/16] max-h-[65vh] md:max-h-[80vh] mx-auto shadow-2xl' 
-                    : 'aspect-video'
+                    ? 'aspect-[9/16] max-h-[65vh] md:max-h-[80vh] mx-auto shadow-2xl flex items-center justify-center' 
+                    : 'pt-[56.25%]'
                 }`}>
                   {selectedProject.videoUrl ? (
                     selectedProject.videoUrl.endsWith('.mp4') ? (
                       <video
                         src={selectedProject.videoUrl}
-                        className="w-full h-full object-contain"
+                        className="absolute top-0 left-0 w-full h-full object-contain"
                         controls
                         autoPlay
                         muted={false}
@@ -207,7 +207,7 @@ export default function Projects() {
                     ) : (
                       <iframe
                         src={selectedProject.videoUrl}
-                        className="absolute inset-0 w-full h-full pointer-events-auto"
+                        className="absolute top-0 left-0 w-full h-full pointer-events-auto border-0"
                         allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; mute"
                         allowFullScreen
                         title={selectedProject.title}
@@ -215,7 +215,7 @@ export default function Projects() {
                       />
                     )
                   ) : (
-                    <img src={selectedProject.image} alt={selectedProject.title} className="w-full h-full object-cover" />
+                    <img src={selectedProject.image} alt={selectedProject.title} className="absolute top-0 left-0 w-full h-full object-cover" />
                   )}
                 </div>
 
