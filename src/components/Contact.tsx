@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Mail, MapPin, Phone, Send, Instagram, Linkedin, Github } from 'lucide-react';
+import { Mail, MapPin, Phone, Send, Instagram, Linkedin, Mail as MailIcon } from 'lucide-react';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -54,6 +54,18 @@ export default function Contact() {
 
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-full bg-main-bg border border-gray-800 flex items-center justify-center text-accent shrink-0">
+                  <Mail size={20} />
+                </div>
+                <div>
+                  <h4 className="text-white font-bold mb-1">Email</h4>
+                  <a href="mailto:guironas@hotmail.com" className="text-gray-400 hover:text-accent transition-colors">
+                    guironas@hotmail.com
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-full bg-main-bg border border-gray-800 flex items-center justify-center text-accent shrink-0">
                   <MapPin size={20} />
                 </div>
                 <div>
@@ -71,6 +83,9 @@ export default function Contact() {
                 </a>
                 <a href="https://www.linkedin.com/in/guilherme-rodrigues-do-nascimento-029724a5/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-main-bg border border-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:border-accent transition-all group">
                   <Linkedin size={20} className="group-hover:scale-110 transition-transform" />
+                </a>
+                <a href="mailto:guironas@hotmail.com" className="w-12 h-12 rounded-full bg-main-bg border border-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:border-accent transition-all group">
+                  <MailIcon size={20} className="group-hover:scale-110 transition-transform" />
                 </a>
               </div>
             </div>
@@ -135,7 +150,6 @@ export default function Contact() {
               </button>
             </form>
           </motion.div>
-
         </div>
       </div>
     </section>

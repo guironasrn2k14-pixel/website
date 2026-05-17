@@ -1,8 +1,5 @@
-node_modules/
-build/
-dist/
-coverage/
-.DS_Store
-*.log
-.env*
-!.env.example
+{
+  "name": "Remix: Premium Portfolio",
+  "description": "A modern, dark-themed professional portfolio with smooth animations.",
+  "requestFramePermissions": []
+}

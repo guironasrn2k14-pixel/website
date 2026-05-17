@@ -19,8 +19,8 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --color-main-bg: var(--color-main-bg);
-  --color-card-bg: var(--color-card-bg);
   --color-accent: var(--color-accent);
+  --color-card-bg: var(--color-card-bg);
 }
 
 html.lenis, html.lenis body {

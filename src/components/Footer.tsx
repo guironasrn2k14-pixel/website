@@ -9,17 +9,19 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="bg-main-bg py-8 border-t border-gray-800">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="text-2xl font-bold tracking-tighter">
-            GUI<span className="text-accent">RONAS</span>
+      <footer className="bg-main-bg py-12 border-t border-gray-800">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
+          <div>
+            <a href="#home" className="text-xl font-bold tracking-tighter hover:text-accent transition-colors">
+              GUI<span className="text-accent">RONAS</span>
+            </a>
           </div>
           
-          <p className="text-gray-500 text-sm text-center md:text-left">
-            &copy; {currentYear} Guilherme Rodrigues. Todos os direitos reservados.
+          <p className="text-gray-500 text-sm">
+            &copy; {currentYear} Guironas. Todos os direitos reservados.
           </p>
           
-          <div className="flex gap-6 text-sm font-medium text-gray-400">
+          <div className="flex gap-6 text-sm text-gray-500">
             <button onClick={() => setIsTermsOpen(true)} className="hover:text-white transition-colors">Termos</button>
             <button onClick={() => setIsPrivacyOpen(true)} className="hover:text-white transition-colors">Privacidade</button>
           </div>

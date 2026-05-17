@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 
 const navLinks = [
@@ -13,12 +13,7 @@ const navLinks = [
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    if (typeof window !== 'undefined') {
-      return (localStorage.getItem('theme') as 'light' | 'dark') || 'dark';
-    }
-    return 'dark';
-  });
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,27 +23,19 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    if (theme === 'light') {
-      document.documentElement.classList.add('light');
-    } else {
-      document.documentElement.classList.remove('light');
-    }
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
   const toggleTheme = () => {
-    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+    setIsDarkMode(!isDarkMode);
+    document.documentElement.classList.toggle('light');
   };
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-main-bg/90 backdrop-blur-md py-4 shadow-lg' : 'bg-transparent py-6'
+        isScrolled ? 'bg-main-bg/80 backdrop-blur-md py-4 shadow-lg' : 'bg-transparent py-6'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <a href="#home" className="text-2xl font-bold tracking-tighter">
+        <a href="#home" className="text-2xl font-bold tracking-tighter hover:text-accent transition-colors">
           GUI<span className="text-accent">RONAS</span>
         </a>
 
@@ -58,7 +45,7 @@ export default function Header() {
             <a
               key={link.name}
               href={link.href}
-              className="text-sm font-medium text-gray-300 hover:text-white transition-colors"
+              className="text-sm font-medium text-gray-400 hover:text-white transition-colors"
             >
               {link.name}
             </a>
@@ -66,17 +53,16 @@ export default function Header() {
           
           <button
             onClick={toggleTheme}
-            className="w-10 h-10 rounded-full bg-card-bg border border-gray-800 flex items-center justify-center text-gray-300 hover:text-white transition-all"
-            aria-label="Alternar tema"
+            className="p-2 rounded-full hover:bg-gray-800 transition-colors text-gray-400 hover:text-white"
           >
-            {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+            {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
 
           <a
             href="#contact"
-            className="px-5 py-2.5 bg-accent hover:bg-red-600 text-white text-sm font-medium rounded-full transition-colors"
+            className="px-6 py-2.5 bg-accent hover:bg-red-600 text-white text-sm font-bold rounded-full transition-all"
           >
-            Vamos conversar
+            Orçamento
           </a>
         </nav>
 
@@ -84,14 +70,12 @@ export default function Header() {
         <div className="flex items-center gap-4 md:hidden">
           <button
             onClick={toggleTheme}
-            className="w-10 h-10 rounded-full bg-card-bg border border-gray-800 flex items-center justify-center text-gray-300"
-            aria-label="Alternar tema"
+            className="p-2 rounded-full hover:bg-gray-800 transition-colors text-gray-400"
           >
-            {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+            {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
-          
           <button
-            className="text-gray-300 hover:text-white"
+            className="text-gray-400 hover:text-white"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -100,25 +84,36 @@ export default function Header() {
       </div>
 
       {/* Mobile Nav */}
-      {isMobileMenuOpen && (
-        <motion.nav
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          className="md:hidden absolute top-full left-0 right-0 bg-card-bg border-t border-gray-800 py-4 px-6 flex flex-col gap-4 shadow-xl"
-        >
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-lg font-bold text-gray-300 hover:text-white transition-colors py-2"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              {link.name}
-            </a>
-          ))}
-        </motion.nav>
-      )}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.nav
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-card-bg border-b border-gray-800 overflow-hidden"
+          >
+            <div className="flex flex-col p-6 gap-4">
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="text-lg font-medium text-gray-400 hover:text-white transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.name}
+                </a>
+              ))}
+              <a
+                href="#contact"
+                className="w-fit px-8 py-3 bg-accent text-white font-bold rounded-full mt-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Solicitar Orçamento
+              </a>
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
