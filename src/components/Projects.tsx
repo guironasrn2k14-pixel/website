@@ -11,6 +11,7 @@ const projects = [
     videoUrl: 'https://drive.google.com/file/d/1I6StjJdjTnh-m96bCMeslv29ebEd2jTR/preview',
     description: 'Um passeio tranquilo pela vida diária do Japão, onde cores vibrantes, paisagens serenas e momentos simples ganham vida. Com uma trilha calma e cortes suaves, este vídeo é uma colagem de cenas reais e imagens de banco, capturando a essência pacífica e poética do país.\n\nDa agitação delicada das ruas à quietude dos templos, cada frame foi pensado para fluir como um suspiro visual. 🎵⛩️',
     tags: ['Montagem', 'Storytelling', 'Color Grading'],
+    aspect: 'video',
   },
   {
     id: 2,
@@ -20,6 +21,7 @@ const projects = [
     videoUrl: 'https://drive.google.com/file/d/1v2zAJp6gYr3EG3aeNAbzL5wOHMslWm1k/preview',
     description: 'Explore as cores, sabores e curiosidades do Ao Nang Night Market neste vlog dinâmico, que mostra desde pratos exóticos como carne de crocodilo até opções deliciosas e acessíveis da culinária tailandesa. Uma verdadeira imersão cultural gastronômica feita para inspirar e despertar o desejo de arrumar as malas agora mesmo!',
     tags: ['Vlog', 'Culinária', 'Cultura'],
+    aspect: 'video',
   },
   {
     id: 3,
@@ -29,6 +31,7 @@ const projects = [
     videoUrl: 'https://drive.google.com/file/d/1w5jPZBXSMoCaPtNyLtbEBGZ8JNIoPCs8/preview',
     description: 'Conteúdo dinâmico para marcas e influenciadores. Edição focada em alta retenção, utilizando técnicas de Motion Graphics, legendas estratégicas e ritmos acelerados para maximizar o engajamento',
     tags: ['Captação', 'Edição Rápida', 'Social Media'],
+    aspect: 'vertical',
   },
   {
     id: 4,
@@ -38,6 +41,7 @@ const projects = [
     videoUrl: 'https://drive.google.com/file/d/1pNNVOblpeaMZiIhjLXHiJHqiqkBpoAI7/preview',
     description: 'Vídeo dinâmico focado em dicas de saúde, especificamente sobre hipertensão. Desenvolvimento de conteúdo estratégico para mídias sociais com foco em alta retenção, transformando informações médicas em uma narrativa visual clara e envolvente para o público.',
     tags: ['Saúde', 'Retenção', 'Social Media'],
+    aspect: 'vertical',
   },
   {
     id: 5,
@@ -47,24 +51,27 @@ const projects = [
     videoUrl: 'https://drive.google.com/file/d/1DWseOErPgCxVj-iRrgk9UKnp5CdpLuZI/preview',
     description: 'O vídeo aborda a jornada de evolução individual, lembrando ao espectador que ele já caminhou muito mais do que imagina. A mensagem central é que o autoconhecimento não serve para "apontar defeitos", mas para **reconhecer potenciais** e aprender a usar as próprias forças e emoções a seu favor.',
     tags: ['Making Of', 'Dinâmico', 'Social Media'],
+    aspect: 'vertical',
   },
   {
     id: 6,
     title: 'Mc Tom da Vg- Cade você ( DJ IAM )',
-    category: 'Videoclipes Musicais',
+    category: 'Videoclipes de Música',
     image: 'https://img.youtube.com/vi/w2jjaAcscXE/maxresdefault.jpg',
     videoUrl: 'https://www.youtube.com/embed/w2jjaAcscXE',
     description: 'Edição de videoclipe focada em dinâmica e estética visual. Através de cortes rítmicos e tratamento de col personalizado, transformamos a performance do artista em uma narrativa visual impactante e profissional.',
     tags: ['Direção', 'Edição', 'Color Grading'],
+    aspect: 'video',
   },
   {
     id: 7,
     title: 'O FIM É TRISTE',
-    category: 'Videoclipes Musicais',
+    category: 'Videoclipes de Música',
     image: 'https://img.youtube.com/vi/khlQpta5fbk/hqdefault.jpg',
     videoUrl: 'https://www.youtube.com/embed/khlQpta5fbk',
     description: 'Direção de edição para projetos colaborativos. Especialista em coordenar produções com múltiplos artistas, garantindo que a dinâmica de grupo e o ritmo da batida estejam em perfeita harmonia visual.',
     tags: ['Captação', 'Estética', 'Montagem'],
+    aspect: 'video',
   },
 ];
 
@@ -86,7 +93,7 @@ export default function Projects() {
           </div>
           
           <div className="flex flex-wrap gap-4">
-            {['Todos', 'Música', 'Viagem', 'Same-Day'].map((cat) => (
+            {['Todos', 'Música', 'Viagem', 'SameDay'].map((cat) => (
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
@@ -169,17 +176,22 @@ export default function Projects() {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-5xl max-h-[90vh] bg-card-bg border border-gray-800 rounded-[2rem] shadow-2xl z-10 overflow-hidden flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-5xl max-h-[92vh] bg-card-bg border border-gray-800 rounded-2xl md:rounded-[2rem] shadow-2xl z-10 overflow-hidden flex flex-col"
             >
               <button
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-6 right-6 w-12 h-12 bg-main-bg/50 hover:bg-main-bg rounded-full flex items-center justify-center text-white transition-colors z-20"
+                className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 md:w-12 md:h-12 bg-black/50 hover:bg-black backdrop-blur-md rounded-full flex items-center justify-center text-white transition-colors z-30"
               >
-                <X size={24} />
+                <X size={20} className="md:w-6 md:h-6" />
               </button>
 
-              <div className="overflow-y-auto w-full">
-                <div className="aspect-video bg-black flex items-center justify-center relative">
+              <div className="overflow-y-auto w-full flex-1 scrollbar-hide">
+                <div className={`bg-black flex items-center justify-center relative z-10 w-full ${
+                  selectedProject.aspect === 'vertical' 
+                    ? 'aspect-[9/16] md:aspect-video max-h-[70vh] md:max-h-none' 
+                    : 'aspect-video'
+                }`}>
                   {selectedProject.videoUrl ? (
                     selectedProject.videoUrl.endsWith('.mp4') ? (
                       <video
@@ -187,12 +199,14 @@ export default function Projects() {
                         className="w-full h-full object-contain"
                         controls
                         autoPlay
+                        playsInline
                       />
                     ) : (
                       <iframe
                         src={selectedProject.videoUrl}
-                        className="w-full h-full lg:aspect-video"
-                        allow="autoplay; fullscreen"
+                        className="absolute inset-0 w-full h-full"
+                        allow="autoplay; fullscreen; picture-in-picture"
+                        allowFullScreen
                         title={selectedProject.title}
                       />
                     )
@@ -201,7 +215,7 @@ export default function Projects() {
                   )}
                 </div>
 
-                <div className="p-8 md:p-12">
+                <div className="p-6 md:p-12 relative z-20">
                   <div className="flex flex-col md:flex-row justify-between gap-8">
                     <div className="flex-1">
                       <p className="text-sm font-bold text-accent uppercase tracking-widest mb-2">{selectedProject.category}</p>

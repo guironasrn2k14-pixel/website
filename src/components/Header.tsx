@@ -67,18 +67,20 @@ export default function Header() {
         </nav>
 
         {/* Mobile Menu Toggle */}
-        <div className="flex items-center gap-4 md:hidden">
+        <div className="flex items-center gap-2 md:hidden">
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full hover:bg-gray-800 transition-colors text-gray-400"
+            className="p-3 rounded-full hover:bg-gray-800 transition-colors text-gray-400"
+            aria-label="Toggle Theme"
           >
-            {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+            {isDarkMode ? <Sun size={22} /> : <Moon size={22} />}
           </button>
           <button
-            className="text-gray-400 hover:text-white"
+            className="p-3 text-gray-400 hover:text-white"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Close Menu" : "Open Menu"}
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
         </div>
       </div>
