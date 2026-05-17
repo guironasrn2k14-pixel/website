@@ -189,8 +189,8 @@ export default function Projects() {
               <div className="overflow-y-auto w-full flex-1 scrollbar-hide">
                 <div className={`bg-black flex items-center justify-center relative z-10 w-full ${
                   selectedProject.aspect === 'vertical' 
-                    ? 'aspect-[9/16] max-h-[65vh] md:max-h-[75vh] mx-auto' 
-                    : 'aspect-video'
+                    ? 'aspect-[9/16] max-h-[65vh] md:max-h-[80vh] mx-auto shadow-2xl' 
+                    : 'aspect-video max-h-[50vh] md:max-h-none'
                 }`}>
                   {selectedProject.videoUrl ? (
                     selectedProject.videoUrl.endsWith('.mp4') ? (
@@ -208,9 +208,10 @@ export default function Projects() {
                       <iframe
                         src={selectedProject.videoUrl}
                         className="absolute inset-0 w-full h-full"
-                        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; mute"
                         allowFullScreen
                         title={selectedProject.title}
+                        loading="lazy"
                       />
                     )
                   ) : (
