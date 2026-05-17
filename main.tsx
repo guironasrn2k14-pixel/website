@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --color-main-bg: #0b0b0b;
+  --color-card-bg: #1a1a1a;
+  --color-text: #ffffff;
+  --color-text-muted: #9ca3af;
+  --color-accent: #ef4444;
+}
+
+.light {
+  --color-main-bg: #f8fafc;
+  --color-card-bg: #ffffff;
+  --color-text: #0f172a;
+  --color-text-muted: #475569;
+}
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-main-bg: var(--color-main-bg);
+  --color-accent: var(--color-accent);
+  --color-card-bg: var(--color-card-bg);
+}
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+body {
+  background-color: var(--color-main-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-main-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Utility overrides for light mode */
+.light .text-gray-500 {
+  color: var(--color-text-muted);
+}
+
+.light .text-gray-400 {
+  color: var(--color-text-muted);
+}
+
+.light .text-gray-300 {
+  color: var(--color-text-muted);
+}
+
+.light .text-gray-200 {
+  color: var(--color-text);
+}
+
+.light .text-gray-100 {
+  color: var(--color-text);
+}
+
+.light .text-white {
+  color: var(--color-text);
+}
+
+.light .bg-accent.text-white,
+.light .bg-accent .text-white {
+  color: #ffffff !important;
+}
+
+.light .bg-main-bg {
+  background-color: var(--color-main-bg);
+}
+
+.light .bg-card-bg {
+  background-color: var(--color-card-bg);
+}
+
+.light .bg-gray-800 {
+  background-color: #f1f5f9;
+}
+
+.light .bg-gray-700 {
+  background-color: #e2e8f0;
+}
+
+.light .border-gray-800 {
+  border-color: #e2e8f0;
+}
