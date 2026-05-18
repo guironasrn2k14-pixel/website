@@ -1,5 +1,5 @@
-import { motion } from 'motion/react';
-import { ArrowRight, PlayCircle } from 'lucide-react';
+import { motion } from "motion/react";
+import { ArrowRight, PlayCircle } from "lucide-react";
 
 export default function Hero() {
   return (
@@ -15,12 +15,14 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           className="flex flex-col items-center gap-8"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card-bg border border-gray-800 w-fit">
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-xs font-medium text-gray-300 tracking-wide">Disponível para novos projetos</span>
+            <span className="text-xs font-medium text-gray-300 tracking-wide">
+              Disponível para novos projetos
+            </span>
           </div>
 
           <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold tracking-tight leading-[1.1] px-4 md:px-0">
@@ -31,7 +33,10 @@ export default function Hero() {
           </h1>
 
           <p className="text-base md:text-2xl text-gray-400 max-w-2xl leading-relaxed px-6 md:px-0">
-            Olá, sou <span className="text-white font-medium">Guilherme Rodrigues</span> (Guironas). Produtor audiovisual apaixonado por transformar ideias em experiências imersivas que conectam marcas e pessoas.
+            Olá, sou{" "}
+            <span className="text-white font-medium">Guilherme Rodrigues</span>{" "}
+            (Guironas). Produtor audiovisual apaixonado por transformar ideias
+            em experiências imersivas que conectam marcas e pessoas.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 mt-4 w-full px-6 md:px-0">
@@ -40,7 +45,10 @@ export default function Hero() {
               className="w-full sm:w-auto px-10 py-4 md:py-5 bg-accent hover:bg-red-600 text-white font-bold rounded-full transition-all flex items-center justify-center gap-3 group text-base md:text-lg shadow-lg shadow-accent/20"
             >
               Ver trabalhos
-              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+              <ArrowRight
+                size={20}
+                className="group-hover:translate-x-1 transition-transform"
+              />
             </a>
             <a
               href="#contact"

@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 
 const navLinks = [
-  { name: 'Início', href: '#home' },
-  { name: 'Trabalhos', href: '#portfolio' },
-  { name: 'Sobre', href: '#about' },
-  { name: 'Clientes', href: '#clients' },
-  { name: 'Contato', href: '#contact' },
+  { name: "Início", href: "#home" },
+  { name: "Trabalhos", href: "#portfolio" },
+  { name: "Sobre", href: "#about" },
+  { name: "Clientes", href: "#clients" },
+  { name: "Contato", href: "#contact" },
 ];
 
 export default function Header() {
@@ -19,23 +19,28 @@ export default function Header() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle('light');
+    document.documentElement.classList.toggle("light");
   };
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-main-bg/80 backdrop-blur-md py-4 shadow-lg' : 'bg-transparent py-6'
+        isScrolled
+          ? "bg-main-bg/80 backdrop-blur-md py-4 shadow-lg"
+          : "bg-transparent py-6"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <a href="#home" className="text-2xl font-bold tracking-tighter hover:text-accent transition-colors">
+        <a
+          href="#home"
+          className="text-2xl font-bold tracking-tighter hover:text-accent transition-colors"
+        >
           GUI<span className="text-accent">RONAS</span>
         </a>
 
@@ -50,7 +55,7 @@ export default function Header() {
               {link.name}
             </a>
           ))}
-          
+
           <button
             onClick={toggleTheme}
             className="p-2 rounded-full hover:bg-gray-800 transition-colors text-gray-400 hover:text-white"
@@ -90,7 +95,7 @@ export default function Header() {
         {isMobileMenuOpen && (
           <motion.nav
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
+            animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-card-bg border-b border-gray-800 overflow-hidden"
           >
