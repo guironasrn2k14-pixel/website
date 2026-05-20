@@ -16,7 +16,7 @@ import Background from "./components/Background";
 
 export default function App() {
   return (
-    <div className="min-h-screen text-white font-sans selection:bg-accent/30 selection:text-white">
+    <div className="min-h-screen font-sans selection:bg-accent/30 selection:text-white">
       <Background />
       <SmoothScroll />
       <Header />

@@ -14,22 +14,22 @@ import {
 
 export default function Background() {
   return (
-    <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden bg-[#050505]">
+    <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden bg-main-bg transition-colors duration-300">
       {/* Cinematic Tech Grid (Editing/Tech) */}
       <div 
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 opacity-[0.03] dark:opacity-[0.03] light:opacity-[0.05]"
         style={{
           backgroundImage: `
-            linear-gradient(to right, #ffffff 1px, transparent 1px),
-            linear-gradient(to bottom, #ffffff 1px, transparent 1px)
+            linear-gradient(to right, currentColor 1px, transparent 1px),
+            linear-gradient(to bottom, currentColor 1px, transparent 1px)
           `,
           backgroundSize: '4rem 4rem',
         }}
       ></div>
 
       {/* Grid overlay mask for depth */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]"></div>
-      <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-transparent to-[#050505]"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-main-bg via-transparent to-main-bg transition-colors duration-300"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-main-bg via-transparent to-main-bg transition-colors duration-300"></div>
 
       {/* Cinematic Light Leaks (Direction/Art) */}
       <div className="absolute top-[-20%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-blue-600/10 blur-[150px] mix-blend-screen animate-pulse duration-10000"></div>

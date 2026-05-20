@@ -9,7 +9,7 @@ const projects = [
     category: "Viagem & Cultura",
     image: "/viagem.png.png",
     videoUrl:
-      "https://drive.google.com/file/d/1VklXoRyuYuEiaBK1CjC2RK2ksDJ0tyYX/preview?vq=hd1080",
+      "https://drive.google.com/file/d/1VklXoRyuYuEiaBK1CjC2RK2ksDJ0tyYX/preview",
     description:
       "Um passeio tranquilo pela vida diária do Japão, onde cores vibrantes, paisagens serenas e momentos simples ganham vida. Com uma trilha calma e cortes suaves, este vídeo é uma colagem de cenas reais e imagens de banco, capturando a essência pacífica e poética do país.\n\nDa agitação delicada das ruas à quietude dos templos, cada frame foi pensado para fluir como um suspiro visual. 🎵⛩️",
     tags: ["Montagem", "Storytelling", "Color Grading"],
@@ -21,7 +21,7 @@ const projects = [
     category: "Viagem & Cultura",
     image: "/vlogviagem-thumbnail.png.png",
     videoUrl:
-      "https://drive.google.com/file/d/1e_YVhguxc616uXwRvFBObQmXTSJ1ptak/preview?vq=hd1080",
+      "https://drive.google.com/file/d/1e_YVhguxc616uXwRvFBObQmXTSJ1ptak/preview",
     description:
       "Explore as cores, sabores e curiosidades do Ao Nang Night Market neste vlog dinâmico, que mostra desde pratos exóticos como carne de crocodilo até opções deliciosas e acessíveis da culinária tailandesa. Uma verdadeira imersão cultural gastronômica feita para inspirar e despertar o desejo de arrumar as malas agora mesmo!",
     tags: ["Vlog", "Culinária", "Cultura"],
@@ -33,7 +33,7 @@ const projects = [
     category: "SameDay - Publicação Mídia Social",
     image: "/Nutrição-thumbnail.png.png",
     videoUrl:
-      "https://drive.google.com/file/d/1RXtCXFnLIus9lPkBRqPUJAMsKrXnW0KX/preview?vq=hd1080",
+      "https://drive.google.com/file/d/1RXtCXFnLIus9lPkBRqPUJAMsKrXnW0KX/preview",
     description:
       "Conteúdo dinâmico para marcas e influenciadores. Edição focada em alta retenção, utilizando técnicas de Motion Graphics, legendas estratégicas e ritmos acelerados para maximizar o engajamento",
     tags: ["Captação", "Edição Rápida", "Social Media"],
@@ -45,7 +45,7 @@ const projects = [
     category: "SameDay - Publicação Mídia Social",
     image: "/sameday-thumbnail.png.png",
     videoUrl:
-      "https://drive.google.com/file/d/1Fn9-8A9kZwIO3IFx1gngoZFxQC7esHUq/preview?vq=hd1080",
+      "https://drive.google.com/file/d/1Fn9-8A9kZwIO3IFx1gngoZFxQC7esHUq/preview",
     description:
       "Vídeo dinâmico focado em dicas de saúde, especificamente sobre hipertensão. Desenvolvimento de conteúdo estratégico para mídias sociais com foco em alta retenção, transformando informações médicas em uma narrativa visual clara e envolvente para o público.",
     tags: ["Saúde", "Retenção", "Social Media"],
@@ -57,7 +57,7 @@ const projects = [
     category: "SameDay - Publicação Mídia Social",
     image: "/saude.png.png",
     videoUrl:
-      "https://drive.google.com/file/d/1KEm2R3LMvVYQmLdIBRlklzPydpOU2_hd/preview?vq=hd1080",
+      "https://drive.google.com/file/d/1KEm2R3LMvVYQmLdIBRlklzPydpOU2_hd/preview",
     description:
       'O vídeo aborda a jornada de evolução individual, lembrando ao espectador que ele já caminhou muito mais do que imagina. A mensagem central é que o autoconhecimento não serve para "apontar defeitos", mas para **reconhecer potenciais** e aprender a usar as próprias forças e emoções a seu favor.',
     tags: ["Making Of", "Dinâmico", "Social Media"],
@@ -68,7 +68,7 @@ const projects = [
     title: "Mc Tom da Vg- Cade você ( DJ IAM )",
     category: "Videoclipes de Música",
     image: "/vioclipe.png.png",
-    videoUrl: "https://drive.google.com/file/d/1UcYE4ysCsWvVbW7jk8H-TmuOtPqCU9Hr/preview?vq=hd1080",
+    videoUrl: "https://drive.google.com/file/d/1UcYE4ysCsWvVbW7jk8H-TmuOtPqCU9Hr/preview",
     description:
       "Edição de videoclipe focada em dinâmica e estética visual. Através de cortes rítmicos e tratamento de col personalizado, transformamos a performance do artista em uma narrativa visual impactante e profissional.",
     tags: ["Direção", "Edição", "Color Grading"],
@@ -79,7 +79,7 @@ const projects = [
     title: "O FIM É TRISTE",
     category: "Videoclipes de Música",
     image: "/videclipe.png.png",
-    videoUrl: "https://drive.google.com/file/d/1swWsk-3_GIn7F4n_HV7znvnoEwDrqjTS/preview?vq=hd1080",
+    videoUrl: "https://drive.google.com/file/d/1swWsk-3_GIn7F4n_HV7znvnoEwDrqjTS/preview",
     description:
       "Direção de edição para projetos colaborativos. Especialista em coordenar produções com múltiplos artistas, garantindo que a dinâmica de grupo e o ritmo da batida estejam em perfeita harmonia visual.",
     tags: ["Captação", "Estética", "Montagem"],
@@ -259,17 +259,15 @@ export default function Projects() {
                     selectedProject.videoUrl.endsWith(".mp4") || selectedProject.videoUrl.includes("drive.google.com") ? (
                       <video
                         src={
-                          selectedProject.videoUrl.includes("drive.google.com")
+                          selectedProject.videoUrl.includes("drive.google.com") 
                             ? `https://drive.google.com/uc?export=download&id=${selectedProject.videoUrl.match(/\/d\/([a-zA-Z0-9_-]+)/)?.[1]}`
                             : selectedProject.videoUrl
                         }
                         className="absolute top-0 left-0 w-full h-full object-contain"
                         controls
                         autoPlay
-                        muted={false}
                         playsInline
-                        loop
-                        preload="auto"
+                        preload="metadata"
                       />
                     ) : (
                       <iframe
