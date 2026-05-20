@@ -256,13 +256,9 @@ export default function Projects() {
                   }`}
                 >
                   {selectedProject.videoUrl ? (
-                    selectedProject.videoUrl.endsWith(".mp4") || selectedProject.videoUrl.includes("drive.google.com") ? (
+                    selectedProject.videoUrl.endsWith(".mp4") ? (
                       <video
-                        src={
-                          selectedProject.videoUrl.includes("drive.google.com") 
-                            ? `https://drive.google.com/uc?export=download&id=${selectedProject.videoUrl.match(/\/d\/([a-zA-Z0-9_-]+)/)?.[1]}`
-                            : selectedProject.videoUrl
-                        }
+                        src={selectedProject.videoUrl}
                         className="absolute top-0 left-0 w-full h-full object-contain"
                         controls
                         autoPlay

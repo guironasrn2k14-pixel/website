@@ -35,7 +35,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="py-24 bg-black/20 relative overflow-hidden"
+      className="py-24 bg-card-bg/5 relative overflow-hidden"
     >
       {/* Background Section SVGs */}
       <svg

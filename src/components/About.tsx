@@ -56,7 +56,7 @@ export default function About() {
   const [isBioOpen, setIsBioOpen] = useState(false);
 
   return (
-    <section id="about" className="py-24 bg-black/20 relative overflow-hidden">
+    <section id="about" className="py-24 bg-card-bg/5 relative overflow-hidden">
       {/* Background Section SVGs */}
       <svg
         className="absolute top-20 right-[-5%] w-96 h-96 opacity-[0.03] text-gray-300 pointer-events-none rotate-[20deg]"

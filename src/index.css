@@ -22,6 +22,8 @@
   --color-main-bg: var(--color-main-bg);
   --color-accent: var(--color-accent);
   --color-card-bg: var(--color-card-bg);
+  --color-text: var(--color-text);
+  --color-text-muted: var(--color-text-muted);
 }
 
 html.lenis,
