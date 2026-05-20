@@ -251,14 +251,18 @@ export default function Projects() {
                 <div
                   className={`bg-black relative z-20 mx-auto w-full ${
                     selectedProject.aspect === "vertical"
-                      ? "max-w-[calc(70vh*9/16)] md:max-w-[calc(80vh*9/16)] aspect-[9/16] shadow-2xl"
+                      ? "max-w-[100%] sm:max-w-[calc(70vh*9/16)] md:max-w-[calc(80vh*9/16)] aspect-[9/16] shadow-2xl"
                       : "aspect-video"
                   }`}
                 >
                   {selectedProject.videoUrl ? (
-                    selectedProject.videoUrl.endsWith(".mp4") ? (
+                    selectedProject.videoUrl.endsWith(".mp4") || selectedProject.videoUrl.includes("drive.google.com") ? (
                       <video
-                        src={selectedProject.videoUrl}
+                        src={
+                          selectedProject.videoUrl.includes("drive.google.com")
+                            ? `https://drive.google.com/uc?export=download&id=${selectedProject.videoUrl.match(/\/d\/([a-zA-Z0-9_-]+)/)?.[1]}`
+                            : selectedProject.videoUrl
+                        }
                         className="absolute top-0 left-0 w-full h-full object-contain"
                         controls
                         autoPlay
