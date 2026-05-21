@@ -74,26 +74,14 @@ body {
 }
 
 /* Utility overrides for light mode */
-.light .text-gray-500 {
-  color: var(--color-text-muted);
-}
-
-.light .text-gray-400 {
-  color: var(--color-text-muted);
-}
-
+.light .text-gray-500,
+.light .text-gray-400,
 .light .text-gray-300 {
   color: var(--color-text-muted);
 }
 
-.light .text-gray-200 {
-  color: var(--color-text);
-}
-
-.light .text-gray-100 {
-  color: var(--color-text);
-}
-
+.light .text-gray-200,
+.light .text-gray-100,
 .light .text-white {
   color: var(--color-text);
 }
@@ -129,4 +117,61 @@ body {
 
 .light .border-white\/10 {
   border-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Fix opacity backgrounds on custom colors */
+.light .bg-card-bg\/5 {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+.light .bg-card-bg\/50 {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.light .bg-main-bg\/50 {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.light .bg-main-bg\/80 {
+  background-color: rgba(248, 250, 252, 0.8);
+}
+.light .bg-accent\/10 {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+.light .bg-accent\/20 {
+  background-color: rgba(239, 68, 68, 0.15);
+}
+.light .mix-blend-screen {
+  mix-blend-mode: multiply;
+}
+
+/* Fix black backgrounds turning pitch black in light mode */
+.light .bg-black {
+  background-color: #f8fafc;
+}
+.light .bg-black\/95 {
+  background-color: rgba(248, 250, 252, 0.95);
+}
+.light .bg-black\/90 {
+  background-color: rgba(248, 250, 252, 0.9);
+}
+.light .bg-black\/80 {
+  background-color: rgba(248, 250, 252, 0.8);
+}
+.light .bg-black\/50 {
+  background-color: rgba(248, 250, 252, 0.5);
+}
+.light .bg-black\/40 {
+  background-color: rgba(248, 250, 252, 0.4);
+}
+
+/* Hero Button Fix in Light Mode */
+.light .bg-white.text-black {
+  background-color: #0f172a;
+  color: #ffffff;
+}
+.light .hover\:bg-gray-200:hover.text-black {
+  background-color: #1e293b;
+}
+
+/* Fix shadow of hero button in light mode */
+.light .shadow-\[0_0_40px_rgba\(\255\,\255\,\255\,0\.15\)\] {
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
 }
