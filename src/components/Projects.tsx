@@ -233,6 +233,14 @@ export default function Projects() {
               className="absolute inset-0 bg-black/95 backdrop-blur-md"
               onClick={() => setSelectedProject(null)}
             />
+            
+            <button
+              onClick={() => setSelectedProject(null)}
+              className="fixed top-4 right-4 md:top-8 md:right-8 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-colors z-[60]"
+            >
+              <X size={24} />
+            </button>
+
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -240,16 +248,9 @@ export default function Projects() {
               onClick={(e) => e.stopPropagation()}
               className={`relative w-full ${selectedProject.aspect === "vertical" ? "max-w-lg" : "max-w-5xl"} max-h-[92vh] bg-card-bg border border-gray-800 rounded-2xl md:rounded-[2rem] shadow-2xl z-10 overflow-hidden flex flex-col`}
             >
-              <button
-                onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 md:w-12 md:h-12 bg-black/50 hover:bg-black backdrop-blur-md rounded-full flex items-center justify-center text-white transition-colors z-30"
-              >
-                <X size={20} className="md:w-6 md:h-6" />
-              </button>
-
               <div className="overflow-y-auto w-full flex-1 scrollbar-hide">
                 <div
-                  className={`bg-black relative z-20 mx-auto w-full ${
+                  className={`bg-black relative z-20 mx-auto w-full overflow-hidden ${
                     selectedProject.aspect === "vertical"
                       ? "max-w-[100%] sm:max-w-[calc(70vh*9/16)] md:max-w-[calc(80vh*9/16)] aspect-[9/16] shadow-2xl"
                       : "aspect-video"
@@ -268,7 +269,8 @@ export default function Projects() {
                     ) : (
                       <iframe
                         src={selectedProject.videoUrl}
-                        className="absolute top-0 left-0 w-full h-full pointer-events-auto border-0"
+                        style={{ width: "1px", minWidth: "100%", height: "100%" }}
+                        className="absolute top-0 left-0 pointer-events-auto border-0"
                         allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; mute"
                         allowFullScreen
                         title={selectedProject.title}

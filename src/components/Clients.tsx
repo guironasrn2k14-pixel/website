@@ -4,9 +4,9 @@ import { CheckCircle2, MessageSquare, Heart, Check, Activity, Fingerprint, ScanE
 
 const panels = [
   {
-    id: "fernando",
+    id: "iza",
     type: "screenshot",
-    client: "Fernando",
+    client: "Iza",
     image: "/feed1.png.png",
     labels: ["TEXT VALIDATION", "DATA AUDIT", "PROFILE VERIFIED"],
     theme: "amber",
@@ -26,9 +26,9 @@ const panels = [
     shadow: "shadow-violet-500/20"
   },
   {
-    id: "iza",
+    id: "fernando",
     type: "screenshot",
-    client: "iza",
+    client: "Fernando",
     image: "/feed3.png.png",
     labels: ["DELIVERY CONFIRMED", "CLIENT SATISFACTION", "FAST TURNAROUND"],
     theme: "purple",
@@ -111,10 +111,26 @@ export default function Clients() {
                           <img 
                             src={panel.image} 
                             alt={`Print from ${panel.client}`} 
-                            className="w-full h-full object-contain bg-transparent"
+                            className="w-full h-full absolute top-0 left-0 object-cover object-top bg-transparent"
                             key={panel.image}
                             onError={(e) => {
                               (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${panel.client}&background=202c33&color=fff&size=512`;
+                            }}
+                          />
+                          
+                          {/* Mask to hide the bottom text without zooming the image horizontally */}
+                          <div className="absolute bottom-0 left-0 right-0 h-[140px] bg-gradient-to-t from-[#0a0a09] via-[#0a0a09]/95 to-transparent pointer-events-none z-[15]" />
+                          
+                          {/* Fake U-shape border to "finish" the lines seamlessly */}
+                          <div 
+                            className="absolute bottom-4 h-[120px] rounded-b-[2rem] border-b-[2px] border-l-[2px] border-r-[2px] pointer-events-none z-[20]"
+                            style={{
+                              left: panel.image.includes('feed1') ? '4.8%' : panel.image.includes('feed2') ? '3.6%' : '4.6%',
+                              right: panel.image.includes('feed1') ? '4.8%' : panel.image.includes('feed2') ? '3.6%' : '4.6%',
+                              borderColor: panel.image.includes('feed1') ? 'rgba(168, 85, 247, 0.5)' : 'rgba(245, 158, 11, 0.5)',
+                              boxShadow: `inset 0 -10px 20px -10px ${panel.image.includes('feed1') ? '#a855f7' : '#f59e0b'}, 0 10px 20px -10px ${panel.image.includes('feed1') ? '#a855f7' : '#f59e0b'}`,
+                              maskImage: 'linear-gradient(to bottom, transparent, black 60%)',
+                              WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 60%)',
                             }}
                           />
 
