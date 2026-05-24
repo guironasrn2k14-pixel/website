@@ -246,16 +246,10 @@ export default function Projects() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className={`relative w-full ${selectedProject.aspect === "vertical" ? "max-w-lg" : "max-w-5xl"} max-h-[92vh] bg-card-bg border border-gray-800 rounded-2xl md:rounded-[2rem] shadow-2xl z-10 overflow-hidden flex flex-col`}
+              className="relative w-full max-w-5xl max-h-[92vh] bg-card-bg border border-gray-800 rounded-2xl md:rounded-[2rem] shadow-2xl z-10 overflow-hidden flex flex-col"
             >
               <div className="overflow-y-auto w-full flex-1 scrollbar-hide">
-                <div
-                  className={`bg-black relative z-20 mx-auto w-full overflow-hidden ${
-                    selectedProject.aspect === "vertical"
-                      ? "max-w-[100%] sm:max-w-[calc(70vh*9/16)] md:max-w-[calc(80vh*9/16)] aspect-[9/16] shadow-2xl"
-                      : "aspect-video"
-                  }`}
-                >
+                <div className="bg-black relative z-20 mx-auto w-full overflow-hidden aspect-video">
                   {selectedProject.videoUrl ? (
                       <iframe
                         src={selectedProject.videoUrl}
