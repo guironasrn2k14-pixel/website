@@ -36,7 +36,7 @@ export default function Header() {
           : "bg-transparent py-6"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between gap-4 md:gap-8">
         <a
           href="#home"
           className="text-2xl font-bold tracking-tighter hover:text-accent transition-colors"
@@ -45,7 +45,7 @@ export default function Header() {
         </a>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-4 lg:gap-8 ml-auto">
           {navLinks.map((link) => (
             <a
               key={link.name}
