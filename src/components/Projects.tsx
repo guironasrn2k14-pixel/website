@@ -13,7 +13,7 @@ const projects = [
     description:
       "Um passeio tranquilo pela vida diária do Japão, onde cores vibrantes, paisagens serenas e momentos simples ganham vida. Com uma trilha calma e cortes suaves, este vídeo é uma colagem de cenas reais e imagens de banco, capturando a essência pacífica e poética do país.\n\nDa agitação delicada das ruas à quietude dos templos, cada frame foi pensado para fluir como um suspiro visual. 🎵⛩️",
     tags: ["Montagem", "Storytelling", "Color Grading"],
-    aspect: "video",
+    aspect: "vertical",
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ const projects = [
     description:
       "Explore as cores, sabores e curiosidades do Ao Nang Night Market neste vlog dinâmico, que mostra desde pratos exóticos como carne de crocodilo até opções deliciosas e acessíveis da culinária tailandesa. Uma verdadeira imersão cultural gastronômica feita para inspirar e despertar o desejo de arrumar as malas agora mesmo!",
     tags: ["Vlog", "Culinária", "Cultura"],
-    aspect: "video",
+    aspect: "vertical",
   },
   {
     id: 3,
@@ -246,15 +246,22 @@ export default function Projects() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-5xl max-h-[92vh] bg-card-bg border border-gray-800 rounded-2xl md:rounded-[2rem] shadow-2xl z-10 overflow-hidden flex flex-col"
+              className={`relative w-full ${selectedProject.aspect === "vertical" ? "max-w-lg" : "max-w-5xl"} max-h-[92vh] bg-card-bg border border-gray-800 rounded-2xl md:rounded-[2rem] shadow-2xl z-10 overflow-hidden flex flex-col`}
             >
               <div className="overflow-y-auto w-full flex-1 scrollbar-hide">
-                <div className="bg-black relative z-20 mx-auto w-full overflow-hidden aspect-video">
+                <div
+                  className={`bg-black relative z-20 mx-auto w-full overflow-hidden ${
+                    selectedProject.aspect === "vertical"
+                      ? "max-w-[100%] sm:max-w-[calc(70vh*9/16)] md:max-w-[calc(80vh*9/16)] aspect-[9/16] shadow-2xl"
+                      : "aspect-video"
+                  }`}
+                >
                   {selectedProject.videoUrl ? (
                       <iframe
                         src={selectedProject.videoUrl}
-                        className="absolute top-0 left-0 w-full h-full border-0"
-                        allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+                        style={{ width: "1px", minWidth: "100%", height: "100%" }}
+                        className="absolute top-0 left-0 pointer-events-auto border-0"
+                        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; mute"
                         allowFullScreen
                         title={selectedProject.title}
                         loading="lazy"
