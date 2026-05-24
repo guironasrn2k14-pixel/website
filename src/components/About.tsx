@@ -100,10 +100,9 @@ export default function About() {
           >
             <div className="aspect-[4/5] rounded-3xl overflow-hidden border border-gray-800 relative z-10">
               <img
-                src="https://drive.google.com/thumbnail?id=1XLwI0lCvokOOcIFfbJdkkBE1_ArTFj0M&sz=w1280"
+                src="/museu.pgn.jpg"
                 alt="Guilherme Rodrigues trabalhando"
-                className="w-full h-full object-cover transition-all duration-700"
-                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover transition-all duration-700 hover:scale-105"
               />
             </div>
             <div className="absolute -top-8 -left-8 w-64 h-64 bg-accent/20 rounded-full blur-[80px] -z-10" />

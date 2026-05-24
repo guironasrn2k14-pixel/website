@@ -33,7 +33,8 @@ const projects = [
     category: "SameDay - Publicação Mídia Social",
     image: "/Nutrição-thumbnail.png.png",
     videoUrl:
-      "https://drive.google.com/file/d/1RXtCXFnLIus9lPkBRqPUJAMsKrXnW0KX/preview",
+      "https://drive.google.com/uc?export=download&id=1RXtCXFnLIus9lPkBRqPUJAMsKrXnW0KX",
+    isVideoFile: true,
     description:
       "Conteúdo dinâmico para marcas e influenciadores. Edição focada em alta retenção, utilizando técnicas de Motion Graphics, legendas estratégicas e ritmos acelerados para maximizar o engajamento",
     tags: ["Captação", "Edição Rápida", "Social Media"],
@@ -45,7 +46,8 @@ const projects = [
     category: "SameDay - Publicação Mídia Social",
     image: "/sameday-thumbnail.png.png",
     videoUrl:
-      "https://drive.google.com/file/d/1Fn9-8A9kZwIO3IFx1gngoZFxQC7esHUq/preview",
+      "https://drive.google.com/uc?export=download&id=1Fn9-8A9kZwIO3IFx1gngoZFxQC7esHUq",
+    isVideoFile: true,
     description:
       "Vídeo dinâmico focado em dicas de saúde, especificamente sobre hipertensão. Desenvolvimento de conteúdo estratégico para mídias sociais com foco em alta retenção, transformando informações médicas em uma narrativa visual clara e envolvente para o público.",
     tags: ["Saúde", "Retenção", "Social Media"],
@@ -57,7 +59,8 @@ const projects = [
     category: "SameDay - Publicação Mídia Social",
     image: "/saude.png.png",
     videoUrl:
-      "https://drive.google.com/file/d/1KEm2R3LMvVYQmLdIBRlklzPydpOU2_hd/preview",
+      "https://drive.google.com/uc?export=download&id=1KEm2R3LMvVYQmLdIBRlklzPydpOU2_hd",
+    isVideoFile: true,
     description:
       'O vídeo aborda a jornada de evolução individual, lembrando ao espectador que ele já caminhou muito mais do que imagina. A mensagem central é que o autoconhecimento não serve para "apontar defeitos", mas para **reconhecer potenciais** e aprender a usar as próprias forças e emoções a seu favor.',
     tags: ["Making Of", "Dinâmico", "Social Media"],
@@ -257,7 +260,7 @@ export default function Projects() {
                   }`}
                 >
                   {selectedProject.videoUrl ? (
-                    selectedProject.videoUrl.endsWith(".mp4") ? (
+                    selectedProject.isVideoFile ? (
                       <video
                         src={selectedProject.videoUrl}
                         className="absolute top-0 left-0 w-full h-full object-contain"
@@ -269,9 +272,8 @@ export default function Projects() {
                     ) : (
                       <iframe
                         src={selectedProject.videoUrl}
-                        style={{ width: "1px", minWidth: "100%", height: "100%" }}
-                        className="absolute top-0 left-0 pointer-events-auto border-0"
-                        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; mute"
+                        className="absolute top-0 left-0 w-full h-full border-0"
+                        allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
                         allowFullScreen
                         title={selectedProject.title}
                         loading="lazy"

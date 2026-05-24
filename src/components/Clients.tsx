@@ -89,7 +89,7 @@ export default function Clients() {
                     duration: 0.8, 
                     ease: [0.19, 1.0, 0.22, 1.0] 
                   }}
-                  className={`absolute w-full max-w-sm sm:max-w-md h-[550px] cursor-pointer ${isActive ? 'z-20 pointer-events-auto' : 'z-10 pointer-events-none'}`}
+                  className={`absolute w-full max-w-[320px] sm:max-w-[380px] aspect-[1023/1537] cursor-pointer ${isActive ? 'z-20 pointer-events-auto' : 'z-10 pointer-events-none'}`}
                   onClick={() => !isActive && setActiveIndex(idx)}
                 >
                   {/* Holographic Glowing Border / Glass panel */}
