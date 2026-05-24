@@ -4,24 +4,11 @@ import { X, Play, ArrowRight } from "lucide-react";
 
 const projects = [
   {
-    id: 1,
-    title: "Japão no Ritmo do Cotidiano 🎌🌸",
-    category: "Viagem & Cultura",
-    image: "/viagem.png.png",
-    videoUrl:
-      "https://drive.google.com/file/d/1VklXoRyuYuEiaBK1CjC2RK2ksDJ0tyYX/preview",
-    description:
-      "Um passeio tranquilo pela vida diária do Japão, onde cores vibrantes, paisagens serenas e momentos simples ganham vida. Com uma trilha calma e cortes suaves, este vídeo é uma colagem de cenas reais e imagens de banco, capturando a essência pacífica e poética do país.\n\nDa agitação delicada das ruas à quietude dos templos, cada frame foi pensado para fluir como um suspiro visual. 🎵⛩️",
-    tags: ["Montagem", "Storytelling", "Color Grading"],
-    aspect: "video",
-  },
-  {
     id: 2,
     title: "Vlog Tailândia - Ao Nang Night Market 🍜🇹🇭",
     category: "Viagem & Cultura",
     image: "/vlogviagem-thumbnail.png.png",
-    videoUrl:
-      "https://drive.google.com/file/d/1e_YVhguxc616uXwRvFBObQmXTSJ1ptak/preview",
+    videoUrl: "https://www.youtube.com/embed/65GHLbR3PhE",
     description:
       "Explore as cores, sabores e curiosidades do Ao Nang Night Market neste vlog dinâmico, que mostra desde pratos exóticos como carne de crocodilo até opções deliciosas e acessíveis da culinária tailandesa. Uma verdadeira imersão cultural gastronômica feita para inspirar e despertar o desejo de arrumar as malas agora mesmo!",
     tags: ["Vlog", "Culinária", "Cultura"],
@@ -32,8 +19,7 @@ const projects = [
     title: "Produtos e boa alimentação",
     category: "SameDay - Publicação Mídia Social",
     image: "/Nutrição-thumbnail.png.png",
-    videoUrl:
-      "https://drive.google.com/file/d/1RXtCXFnLIus9lPkBRqPUJAMsKrXnW0KX/preview",
+    videoUrl: "https://www.youtube.com/embed/wxSwJ2exT0g",
     description:
       "Conteúdo dinâmico para marcas e influenciadores. Edição focada em alta retenção, utilizando técnicas de Motion Graphics, legendas estratégicas e ritmos acelerados para maximizar o engajamento",
     tags: ["Captação", "Edição Rápida", "Social Media"],
@@ -44,23 +30,10 @@ const projects = [
     title: "Dicas medicas com um especialista",
     category: "SameDay - Publicação Mídia Social",
     image: "/sameday-thumbnail.png.png",
-    videoUrl:
-      "https://drive.google.com/file/d/1Fn9-8A9kZwIO3IFx1gngoZFxQC7esHUq/preview",
+    videoUrl: "https://www.youtube.com/embed/_OZvXU3fwIA",
     description:
       "Vídeo dinâmico focado em dicas de saúde, especificamente sobre hipertensão. Desenvolvimento de conteúdo estratégico para mídias sociais com foco em alta retenção, transformando informações médicas em uma narrativa visual clara e envolvente para o público.",
     tags: ["Saúde", "Retenção", "Social Media"],
-    aspect: "vertical",
-  },
-  {
-    id: 5,
-    title: "Depoimento Saude mental",
-    category: "SameDay - Publicação Mídia Social",
-    image: "/saude.png.png",
-    videoUrl:
-      "https://drive.google.com/file/d/1KEm2R3LMvVYQmLdIBRlklzPydpOU2_hd/preview",
-    description:
-      'O vídeo aborda a jornada de evolução individual, lembrando ao espectador que ele já caminhou muito mais do que imagina. A mensagem central é que o autoconhecimento não serve para "apontar defeitos", mas para **reconhecer potenciais** e aprender a usar as próprias forças e emoções a seu favor.',
-    tags: ["Making Of", "Dinâmico", "Social Media"],
     aspect: "vertical",
   },
   {
@@ -68,7 +41,7 @@ const projects = [
     title: "Mc Tom da Vg- Cade você ( DJ IAM )",
     category: "Videoclipes de Música",
     image: "/vioclipe.png.png",
-    videoUrl: "https://drive.google.com/file/d/1UcYE4ysCsWvVbW7jk8H-TmuOtPqCU9Hr/preview",
+    videoUrl: "https://www.youtube.com/embed/-aamBPYCowM",
     description:
       "Edição de videoclipe focada em dinâmica e estética visual. Através de cortes rítmicos e tratamento de col personalizado, transformamos a performance do artista em uma narrativa visual impactante e profissional.",
     tags: ["Direção", "Edição", "Color Grading"],
@@ -79,7 +52,7 @@ const projects = [
     title: "O FIM É TRISTE",
     category: "Videoclipes de Música",
     image: "/videclipe.png.png",
-    videoUrl: "https://drive.google.com/file/d/1swWsk-3_GIn7F4n_HV7znvnoEwDrqjTS/preview",
+    videoUrl: "https://www.youtube.com/embed/OFXjBnuLVjE",
     description:
       "Direção de edição para projetos colaborativos. Especialista em coordenar produções com múltiplos artistas, garantindo que a dinâmica de grupo e o ritmo da batida estejam em perfeita harmonia visual.",
     tags: ["Captação", "Estética", "Montagem"],
@@ -250,26 +223,39 @@ export default function Projects() {
             >
               <div className="overflow-y-auto w-full flex-1 scrollbar-hide">
                 <div
-                  className={`bg-black relative z-20 mx-auto w-full overflow-hidden ${
+                  className={`bg-black relative z-20 mx-auto w-full overflow-hidden flex justify-center ${
                     selectedProject.aspect === "vertical"
-                      ? "max-w-[100%] sm:max-w-[calc(70vh*9/16)] md:max-w-[calc(80vh*9/16)] aspect-[9/16] shadow-2xl"
+                      ? "h-[60vh] md:h-[75vh] shadow-2xl"
                       : "aspect-video"
                   }`}
                 >
                   {selectedProject.videoUrl ? (
+                    selectedProject.videoUrl.includes("drive.google.com") ||
+                    selectedProject.videoUrl.includes("youtube.com") ||
+                    selectedProject.videoUrl.includes("vimeo.com") ? (
                       <iframe
                         src={selectedProject.videoUrl}
-                        className="absolute top-0 left-0 w-full h-full border-0 pointer-events-auto"
+                        className="absolute inset-0 w-full h-full border-0"
                         allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; mute"
                         allowFullScreen
                         title={selectedProject.title}
                         loading="lazy"
                       />
+                    ) : (
+                      <video
+                        src={selectedProject.videoUrl}
+                        className="absolute inset-0 w-full h-full object-contain bg-black"
+                        controls
+                        playsInline
+                        autoPlay
+                        loop
+                      />
+                    )
                   ) : (
                     <img
                       src={selectedProject.image}
                       alt={selectedProject.title}
-                      className="absolute top-0 left-0 w-full h-full object-cover"
+                      className={`absolute inset-0 w-full h-full ${selectedProject.aspect === "vertical" ? "object-contain" : "object-cover"}`}
                     />
                   )}
                 </div>
