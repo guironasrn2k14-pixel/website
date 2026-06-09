@@ -5,7 +5,6 @@ import {
   MapPin,
   Phone,
   Send,
-  Instagram,
   Linkedin,
   Mail as MailIcon,
 } from "lucide-react";
@@ -153,17 +152,6 @@ export default function Contact() {
             <div>
               <h4 className="text-white font-bold mb-4">Redes Sociais</h4>
               <div className="flex gap-4">
-                <a
-                  href="https://www.instagram.com/guiroonas/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full bg-main-bg border border-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:border-accent transition-all group"
-                >
-                  <Instagram
-                    size={20}
-                    className="group-hover:scale-110 transition-transform"
-                  />
-                </a>
                 <a
                   href="https://www.linkedin.com/in/guilherme-rodrigues-do-nascimento-029724a5/"
                   target="_blank"
