@@ -234,7 +234,7 @@ export default function Projects() {
                     selectedProject.videoUrl.includes("youtube.com") ||
                     selectedProject.videoUrl.includes("vimeo.com") ? (
                       <iframe
-                        src={selectedProject.videoUrl}
+                        src={`${selectedProject.videoUrl}?vq=hd1080&rel=0`}
                         className="absolute inset-0 w-full h-full border-0"
                         allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; mute"
                         allowFullScreen
@@ -261,7 +261,7 @@ export default function Projects() {
                 </div>
 
                 <div className="p-6 md:p-12 relative z-10">
-                  <div className="flex flex-col md:flex-row justify-between gap-8">
+                  <div className="flex flex-col gap-8">
                     <div className="flex-1">
                       <p className="text-sm font-bold text-accent uppercase tracking-widest mb-2">
                         {selectedProject.category}
@@ -274,7 +274,7 @@ export default function Projects() {
                       </p>
                     </div>
 
-                    <div className="w-full md:w-64 shrink-0">
+                    <div className="w-full shrink-0">
                       <div className="bg-main-bg rounded-2xl p-6 border border-gray-800">
                         <h5 className="text-sm font-bold text-white uppercase tracking-widest mb-4">
                           Serviços
