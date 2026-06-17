@@ -58,6 +58,17 @@ const projects = [
     tags: ["Captação", "Estética", "Montagem"],
     aspect: "video",
   },
+  {
+    id: 8,
+    title: "Caneta Emagrecedora",
+    category: "SameDay - Publicação Mídia Social",
+    image: "/caneta-emagrecedora.png",
+    videoUrl: "https://www.youtube.com/embed/-rWrYbs2lD4",
+    description:
+      "Vídeo abordando o tema da caneta emagrecedora. Desenvolvimento de conteúdo estratégico para mídias sociais com foco em alta retenção.",
+    tags: ["Saúde", "Retenção", "Social Media"],
+    aspect: "vertical",
+  },
 ];
 
 export default function Projects() {
@@ -223,9 +234,9 @@ export default function Projects() {
             >
               <div className="overflow-y-auto w-full flex-1 scrollbar-hide">
                 <div
-                  className={`bg-black relative z-20 mx-auto w-full overflow-hidden flex justify-center ${
+                  className={`bg-black relative z-20 mx-auto w-full overflow-hidden ${
                     selectedProject.aspect === "vertical"
-                      ? "h-[60vh] md:h-[75vh] shadow-2xl"
+                      ? "max-w-[calc(70vh*9/16)] md:max-w-[calc(80vh*9/16)] aspect-[9/16] shadow-2xl rounded-xl md:rounded-2xl"
                       : "aspect-video"
                   }`}
                 >
@@ -234,7 +245,7 @@ export default function Projects() {
                     selectedProject.videoUrl.includes("youtube.com") ||
                     selectedProject.videoUrl.includes("vimeo.com") ? (
                       <iframe
-                        src={`${selectedProject.videoUrl}?vq=hd1080&rel=0`}
+                        src={`${selectedProject.videoUrl}?vq=hd1080&hd=1&rel=0&showinfo=0&modestbranding=1&autoplay=1`}
                         className="absolute inset-0 w-full h-full border-0"
                         allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; mute"
                         allowFullScreen
