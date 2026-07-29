@@ -4,80 +4,107 @@ import { X, Play, ArrowRight } from "lucide-react";
 
 const projects = [
   {
+    id: 1,
+    title: "Vlog de Viagem Europa",
+    category: "Storytelling",
+    client: "Projeto Autoral",
+    image: "/viagem.png.png",
+    videoUrl: "https://www.youtube.com/embed/5D_1EaR2sRs",
+    objective: "Criar uma narrativa visual imersiva que transporta o espectador para a Europa.",
+    challenge: "Condensar horas de material em uma narrativa envolvente sem perder a essência da viagem.",
+    approach: "Foquei no storytelling através da montagem rítmica e sound design imersivo.",
+    result: "Uma experiência audiovisual que emociona e retém a atenção do início ao fim.",
+    learning: "A importância do sound design para construir a atmosfera de um local.",
+    tags: ["Storytelling", "Edição", "Montagem"],
+    aspect: "video",
+  },
+  {
     id: 2,
     title: "Vlog Tailândia - Ao Nang Night Market 🍜🇹🇭",
-    category: "Viagem & Cultura",
+    category: "Storytelling",
     client: "Projeto Autoral",
     image: "/vlogviagem-thumbnail.png.png",
     videoUrl: "https://www.youtube.com/embed/65GHLbR3PhE",
+    objective: "Documentar a riqueza culinária e cultural do Ao Nang Night Market.",
     challenge: "Transmitir a atmosfera vibrante e caótica de um mercado noturno tailandês sem perder a fluidez narrativa.",
-    strategy: "Foquei em cortes guiados pelo ritmo do som ambiente e inserções dinâmicas para manter o espectador engajado durante a descoberta gastronômica.",
+    approach: "Foquei em cortes guiados pelo ritmo do som ambiente e inserções dinâmicas para manter o espectador engajado durante a descoberta gastronômica.",
     result: "Um vlog imersivo que não apenas mostra, mas faz o espectador sentir a energia do local, gerando alto engajamento em retenção e comentários.",
-    tags: ["Vlog", "Culinária", "Cultura"],
+    learning: "Como equilibrar caos visual com uma narrativa guiada clara.",
+    tags: ["Storytelling", "Ritmo", "Cultura"],
     aspect: "video",
   },
   {
     id: 3,
     title: "Produtos e boa alimentação",
-    category: "SameDay - Publicação Mídia Social",
+    category: "Publicidade",
     client: "Marca de Nutrição",
     image: "/Nutrição-thumbnail.png.png",
     videoUrl: "https://www.youtube.com/embed/wxSwJ2exT0g",
+    objective: "Aumentar a retenção em conteúdos educativos sobre nutrição.",
     challenge: "Criar um conteúdo sobre nutrição que fosse rápido, educativo e prendesse a atenção desde o primeiro segundo no TikTok/Reels.",
-    strategy: "Utilizei Motion Graphics precisos, legendas dinâmicas e um ritmo de cortes acelerado, removendo qualquer respiro desnecessário.",
+    approach: "Utilizei Motion Graphics precisos, legendas dinâmicas e um ritmo de cortes acelerado, removendo qualquer respiro desnecessário.",
     result: "Aumento na retenção do público alvo e um formato replicável que fortaleceu a identidade digital da marca.",
-    tags: ["Captação", "Edição Rápida", "Social Media"],
+    learning: "Micro-retenção é chave em vídeos verticais educativos.",
+    tags: ["Retenção", "Motion Graphics", "Social Media"],
     aspect: "vertical",
   },
   {
     id: 4,
-    title: "Dicas medicas com um especialista",
-    category: "SameDay - Publicação Mídia Social",
+    title: "Dicas médicas com um especialista",
+    category: "Social Media",
     client: "Especialista em Saúde",
     image: "/sameday-thumbnail.png.png",
     videoUrl: "https://www.youtube.com/embed/_OZvXU3fwIA",
+    objective: "Traduzir conhecimento técnico em conteúdo digerível para redes sociais.",
     challenge: "Traduzir informações médicas complexas sobre hipertensão para uma linguagem visual simples e atrativa nas redes sociais.",
-    strategy: "Transformei a fala técnica em uma narrativa visual guiada por elementos gráficos e cortes que mantêm o dinamismo sem perder a seriedade do tema.",
+    approach: "Transformei a fala técnica em uma narrativa visual guiada por elementos gráficos e cortes que mantêm o dinamismo sem perder a seriedade do tema.",
     result: "Conteúdo altamente compartilhável, posicionando o especialista com autoridade e acessibilidade.",
+    learning: "Elementos gráficos são essenciais para apoiar a narrativa médica.",
     tags: ["Saúde", "Retenção", "Social Media"],
     aspect: "vertical",
   },
   {
     id: 6,
-    title: "Mc Tom da Vg- Cade você ( DJ IAM )",
-    category: "Videoclipes de Música",
+    title: "Mc Tom da Vg - Cadê você ( DJ IAM )",
+    category: "Produção",
     client: "Mc Tom da Vg & DJ IAM",
     image: "/vioclipe.png.png",
     videoUrl: "https://www.youtube.com/embed/-aamBPYCowM",
+    objective: "Criar um videoclipe de alto impacto que reflita a energia da faixa.",
     challenge: "Garantir que a energia da música fosse traduzida em um videoclipe de alto impacto, combinando a performance do artista com a batida.",
-    strategy: "Edição pautada pela sinestesia musical. Cortes rítmicos agressivos e color grading personalizado para criar a atmosfera noturna e urbana da faixa.",
+    approach: "Edição pautada pela sinestesia musical. Cortes rítmicos agressivos e color grading personalizado para criar a atmosfera noturna e urbana da faixa.",
     result: "Entrega de um videoclipe profissional que elevou o posicionamento visual do artista no YouTube.",
-    tags: ["Direção", "Edição", "Color Grading"],
+    learning: "A sincronia entre corte e batida é o que define o dinamismo do clipe.",
+    tags: ["Pós-Produção", "Color Grading", "Edição"],
     aspect: "video",
   },
   {
     id: 7,
     title: "Depois dos 40",
-    category: "SameDay - Publicação Mídia Social",
+    category: "Social Media",
     client: "Projeto Fitness",
     image: "/depois dos 40.png",
     videoUrl: "https://www.youtube.com/embed/i9Lkx84oSxs",
+    objective: "Gerar impacto e retenção imediata em público fitness acima de 40 anos.",
     challenge: "Produzir um vídeo de alta intensidade para mídias sociais no nicho de fitness, capturando a essência instantaneamente.",
-    strategy: "Foco total na retenção: cortes ultra-rápidos, transições de impacto e edição dinâmica para consumo rápido em mobile.",
+    approach: "Foco total na retenção: cortes ultra-rápidos, transições de impacto e edição dinâmica para consumo rápido em mobile.",
     result: "Material de alto impacto, gerando grande retenção e impulsionando a campanha de imediato.",
+    learning: "Cortes rápidos precisam de contexto visual forte para não confundir a audiência.",
     tags: ["Dinâmico", "Retenção", "Social Media"],
     aspect: "vertical",
   },
   {
     id: 8,
     title: "Caneta Emagrecedora",
-    category: "SameDay - Publicação Mídia Social",
+    category: "Pós-Produção",
     client: "Profissional da Saúde",
     image: "/caneta-emagrecedora.png",
     videoUrl: "https://www.youtube.com/embed/-rWrYbs2lD4",
+    objective: "Informar de maneira ética e ao mesmo tempo viral sobre um tema em alta.",
     challenge: "Abordar um tema em alta (caneta emagrecedora) de forma ética, clara e com alta retenção para gerar conversão e dúvidas nos comentários.",
-    strategy: "Criação de um gancho forte (hook) nos primeiros 3 segundos, seguido por um desenvolvimento dinâmico apoiado por ilustrações.",
+    approach: "Criação de um gancho forte (hook) nos primeiros 3 segundos, seguido por um desenvolvimento dinâmico apoiado por ilustrações.",
     result: "Pico de engajamento no perfil, transformando um assunto técnico em conteúdo viral educativo.",
+    learning: "Um bom gancho (hook) é responsável por 80% do sucesso de um vídeo curto.",
     tags: ["Saúde", "Retenção", "Social Media"],
     aspect: "vertical",
   },
@@ -132,28 +159,28 @@ export default function Projects() {
         <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
           <div>
             <h2 className="text-sm font-bold tracking-widest text-accent uppercase mb-3">
-              Portfólio
+              Projetos Selecionados
             </h2>
-            <h3 className="text-4xl md:text-5xl font-bold">
-              Trabalhos Selecionados
+            <h3 className="text-3xl md:text-5xl font-bold max-w-2xl text-gray-400">
+              Cada projeto representa uma solução construída para <span className="text-white">comunicar ideias, fortalecer marcas</span> e transformar objetivos em narrativas audiovisuais.
             </h3>
           </div>
+        </div>
 
-          <div className="flex flex-wrap gap-4">
-            {["Todos", "Música", "Viagem", "SameDay"].map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setFilter(cat)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  filter === cat
-                    ? "bg-accent text-white"
-                    : "bg-card-bg text-gray-400 hover:text-white border border-gray-800"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+        <div className="flex flex-wrap gap-4 mb-12">
+          {["Todos", "Publicidade", "Social Media", "Storytelling", "Produção", "Pós-Produção"].map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setFilter(cat)}
+              className={`px-6 py-2 rounded-full font-bold transition-all text-sm uppercase tracking-widest ${
+                filter === cat
+                  ? "bg-accent text-white"
+                  : "bg-card-bg text-gray-400 hover:text-white border border-gray-800 hover:border-accent/50"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
         </div>
 
         <motion.div
@@ -193,9 +220,9 @@ export default function Projects() {
                   <h4 className="text-xl font-bold text-white mb-4 line-clamp-1">
                     {project.title}
                   </h4>
-                  <div className="flex justify-between items-center">
-                    <div className="flex gap-2">
-                      {project.tags.slice(0, 2).map((tag) => (
+                  <div className="flex flex-col gap-4">
+                    <div className="flex flex-wrap gap-2">
+                      {project.tags.slice(0, 3).map((tag) => (
                         <span
                           key={tag}
                           className="text-[10px] text-gray-400 border border-gray-800 px-2 py-0.5 rounded-full"
@@ -204,10 +231,15 @@ export default function Projects() {
                         </span>
                       ))}
                     </div>
-                    <ArrowRight
-                      size={18}
-                      className="text-gray-500 group-hover:text-accent group-hover:translate-x-1 transition-all"
-                    />
+                    {project.client && (
+                      <p className="text-xs text-gray-400">
+                        <span className="font-bold text-gray-500">CLIENTE:</span> {project.client}
+                      </p>
+                    )}
+                    <button className="flex items-center justify-center gap-2 w-full py-2.5 mt-2 bg-white text-black font-bold text-sm rounded-xl hover:bg-gray-200 transition-colors">
+                      Ver Projeto
+                      <ArrowRight size={14} />
+                    </button>
                   </div>
                 </div>
               </motion.div>
@@ -246,9 +278,9 @@ export default function Projects() {
             >
               <div className="overflow-y-auto w-full flex-1 scrollbar-hide">
                 <div
-                  className={`bg-black relative z-20 mx-auto w-full overflow-hidden ${
+                  className={`bg-black relative z-20 mx-auto w-full shrink-0 overflow-hidden ${
                     selectedProject.aspect === "vertical"
-                      ? "max-w-[calc(70vh*9/16)] md:max-w-[calc(80vh*9/16)] aspect-[9/16] shadow-2xl rounded-xl md:rounded-2xl"
+                      ? "max-w-[280px] sm:max-w-[320px] md:max-w-[360px] aspect-[9/16] shadow-2xl rounded-xl md:rounded-2xl mt-6 md:mt-12"
                       : "aspect-video"
                   }`}
                 >
@@ -301,28 +333,35 @@ export default function Projects() {
                       )}
                       
                       <div className="space-y-6">
+                        {selectedProject.objective && (
+                          <div>
+                            <h6 className="text-xs font-bold text-accent uppercase tracking-widest mb-2">Objetivo</h6>
+                            <p className="text-gray-300 leading-relaxed text-sm md:text-base">{selectedProject.objective}</p>
+                          </div>
+                        )}
                         {selectedProject.challenge && (
                           <div>
-                            <h6 className="text-xs font-bold text-accent uppercase tracking-widest mb-2">O Desafio</h6>
+                            <h6 className="text-xs font-bold text-accent uppercase tracking-widest mb-2">Desafio</h6>
                             <p className="text-gray-300 leading-relaxed text-sm md:text-base">{selectedProject.challenge}</p>
                           </div>
                         )}
-                        {selectedProject.strategy && (
+                        {selectedProject.approach && (
                           <div>
-                            <h6 className="text-xs font-bold text-accent uppercase tracking-widest mb-2">A Estratégia</h6>
-                            <p className="text-gray-300 leading-relaxed text-sm md:text-base">{selectedProject.strategy}</p>
+                            <h6 className="text-xs font-bold text-accent uppercase tracking-widest mb-2">Minha abordagem</h6>
+                            <p className="text-gray-300 leading-relaxed text-sm md:text-base">{selectedProject.approach}</p>
                           </div>
                         )}
                         {selectedProject.result && (
                           <div>
-                            <h6 className="text-xs font-bold text-accent uppercase tracking-widest mb-2">O Resultado</h6>
+                            <h6 className="text-xs font-bold text-accent uppercase tracking-widest mb-2">Resultado</h6>
                             <p className="text-gray-300 leading-relaxed text-sm md:text-base">{selectedProject.result}</p>
                           </div>
                         )}
-                        {(selectedProject as any).description && (
-                          <p className="text-gray-300 leading-relaxed text-sm md:text-base whitespace-pre-line">
-                            {(selectedProject as any).description}
-                          </p>
+                        {selectedProject.learning && (
+                          <div>
+                            <h6 className="text-xs font-bold text-accent uppercase tracking-widest mb-2">Aprendizados</h6>
+                            <p className="text-gray-300 leading-relaxed text-sm md:text-base">{selectedProject.learning}</p>
+                          </div>
                         )}
                       </div>
                     </div>

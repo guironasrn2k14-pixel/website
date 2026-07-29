@@ -13,15 +13,15 @@ import {
 const beliefs = [
   {
     title: "Propósito antes do play",
-    desc: "Acredito que cada vídeo deve ter um propósito. Antes de pensar em cortes ou efeitos, procuro entender a mensagem e a emoção que ela deve provocar.",
+    desc: "Acredito que cada projeto deve ter um propósito. Antes de pensar em técnica, procuro entender a mensagem e a emoção que ela deve provocar.",
   },
   {
     title: "Estratégia invisível",
-    desc: "Um bom vídeo não parece propaganda. Ele informa, entretém ou emociona enquanto atinge os objetivos do projeto de forma natural.",
+    desc: "Um bom audiovisual não parece propaganda. Ele informa, entretém ou emociona enquanto atinge os objetivos do projeto de forma natural.",
   },
   {
     title: "Atenção cirúrgica",
-    desc: "O som, a cor, o ritmo da montagem. Cada elemento técnico existe exclusivamente para servir à narrativa e prender a atenção.",
+    desc: "O som, a cor, o ritmo da narrativa. Cada elemento técnico existe exclusivamente para prender a atenção e fortalecer a comunicação.",
   },
 ];
 
@@ -98,8 +98,8 @@ export default function About() {
 
             <div className="space-y-6 mb-10 text-gray-300 leading-relaxed text-lg">
               <p>
-                Acredito que cada projeto nasce de uma estratégia antes de chegar à timeline.
-                Minha prioridade não é apenas entregar vídeos bonitos, mas construir narrativas que 
+                Acredito que cada projeto nasce de uma estratégia antes de chegar à tela.
+                Minha prioridade não é apenas entregar projetos esteticamente atraentes, mas construir soluções audiovisuais que 
                 representem marcas e pessoas, resolvendo problemas reais de comunicação.
               </p>
               <p>

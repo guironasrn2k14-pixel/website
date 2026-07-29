@@ -9,7 +9,7 @@ const differentials = [
   },
   {
     title: "Pensamento Estratégico",
-    desc: "O design visual e a edição são guiados pelo objetivo de negócio: vender, reter ou emocionar.",
+    desc: "O design visual e a narrativa são guiados pelo objetivo de negócio: vender, reter ou emocionar.",
     icon: Target
   },
   {
@@ -29,7 +29,7 @@ const differentials = [
   },
   {
     title: "Foco no Resultado",
-    desc: "A estética serve à conversão. Crio vídeos que as pessoas assistem até o fim e compartilham.",
+    desc: "A estética serve à conversão. Desenvolvo projetos que retêm a atenção e comunicam de maneira eficaz.",
     icon: BarChart
   }
 ];

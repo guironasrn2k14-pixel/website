@@ -8,6 +8,7 @@ import Hero from "./components/Hero";
 import Projects from "./components/Projects";
 import About from "./components/About";
 import Workflow from "./components/Workflow";
+import Services from "./components/Services";
 import Differential from "./components/Differential";
 import Clients from "./components/Clients";
 import Contact from "./components/Contact";
@@ -27,6 +28,7 @@ export default function App() {
         <Hero />
         <About />
         <Workflow />
+        <Services />
         <Projects />
         <Differential />
         <Clients />

@@ -29,7 +29,7 @@ export default function Hero() {
             </span>
           </div>
 
-          <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[7rem] font-display font-bold tracking-tighter leading-[1] px-4 md:px-0">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[7rem] font-display font-bold tracking-tighter leading-[1.1] md:leading-[1] px-2 md:px-0">
             Transformando ideias em <br className="hidden md:block" /> histórias que geram{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-br from-accent via-red-500 to-orange-500">
               impacto

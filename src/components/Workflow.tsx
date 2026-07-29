@@ -43,7 +43,7 @@ export default function Workflow() {
             Processo Criativo
           </h2>
           <h3 className="text-4xl md:text-5xl font-bold">
-            Da ideia à <span className="text-accent">timeline</span>
+            Da ideia ao <span className="text-accent">resultado</span>
           </h3>
         </div>
 
