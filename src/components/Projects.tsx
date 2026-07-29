@@ -40,12 +40,12 @@ const projects = [
     id: 6,
     title: "Mc Tom da Vg- Cade você ( DJ IAM )",
     category: "Videoclipes de Música",
-    image: "/vioclipe.png.png",
-    videoUrl: "https://www.youtube.com/embed/-aamBPYCowM",
+    image: "/depois dos 40.png",
+    videoUrl: "https://www.youtube.com/embed/i9Lkx84oSxs",
     description:
       "Edição de videoclipe focada em dinâmica e estética visual. Através de cortes rítmicos e tratamento de col personalizado, transformamos a performance do artista em uma narrativa visual impactante e profissional.",
     tags: ["Direção", "Edição", "Color Grading"],
-    aspect: "video",
+    aspect: "vertical",
   },
   {
     id: 7,
@@ -67,6 +67,17 @@ const projects = [
     description:
       "Vídeo abordando o tema da caneta emagrecedora. Desenvolvimento de conteúdo estratégico para mídias sociais com foco em alta retenção.",
     tags: ["Saúde", "Retenção", "Social Media"],
+    aspect: "vertical",
+  },
+  {
+    id: 9,
+    title: "Vídeo Promocional SameDay",
+    category: "SameDay - Publicação Mídia Social",
+    image: "/sameday-thumbnail.png.png",
+    videoUrl: "https://www.youtube.com/embed/i9Lkx84oSxs",
+    description:
+      "Novo vídeo dinâmico para mídias sociais. Foco em alta retenção, engajamento e formato vertical para todas as plataformas.",
+    tags: ["Dinâmico", "Retenção", "Social Media"],
     aspect: "vertical",
   },
 ];
@@ -245,7 +256,7 @@ export default function Projects() {
                     selectedProject.videoUrl.includes("youtube.com") ||
                     selectedProject.videoUrl.includes("vimeo.com") ? (
                       <iframe
-                        src={`${selectedProject.videoUrl}?vq=hd1080&hd=1&rel=0&showinfo=0&modestbranding=1&autoplay=1`}
+                        src={`${selectedProject.videoUrl}?vq=hd720&hd=1&rel=0&showinfo=0&modestbranding=1&autoplay=1`}
                         className="absolute inset-0 w-full h-full border-0"
                         allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; mute"
                         allowFullScreen
