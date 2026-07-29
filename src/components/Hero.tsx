@@ -30,17 +30,14 @@ export default function Hero() {
           </div>
 
           <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[7rem] font-display font-bold tracking-tighter leading-[1] px-4 md:px-0">
-            Contando histórias <br className="hidden md:block" /> de impacto{" "}
+            Transformando ideias em <br className="hidden md:block" /> histórias que geram{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-br from-accent via-red-500 to-orange-500">
-              visual
+              impacto
             </span>
           </h1>
 
           <p className="text-lg md:text-2xl text-gray-400 max-w-3xl leading-relaxed px-6 md:px-0 font-light">
-            Olá, sou{" "}
-            <span className="text-white font-medium">Guilherme Rodrigues</span>{" "}
-            (Guironas). Produtor Audiovisual e Diretor focado em transformar projetos
-            através da união de roteiro, edição dinâmica e storytelling de alta retenção.
+            Produção audiovisual completa para marcas, criadores e empresas que desejam comunicar com qualidade, estratégia e identidade.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 mt-8 w-full px-6 md:px-0">

@@ -10,45 +10,18 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
-const skills = [
+const beliefs = [
   {
-    name: "Gravação",
-    icon: Camera,
-    desc: "Captação de imagens com qualidade cinematográfica.",
+    title: "Propósito antes do play",
+    desc: "Acredito que cada vídeo deve ter um propósito. Antes de pensar em cortes ou efeitos, procuro entender a mensagem e a emoção que ela deve provocar.",
   },
   {
-    name: "Edição de Vídeo",
-    icon: Scissors,
-    desc: "Cortes precisos e ritmo envolvente.",
+    title: "Estratégia invisível",
+    desc: "Um bom vídeo não parece propaganda. Ele informa, entretém ou emociona enquanto atinge os objetivos do projeto de forma natural.",
   },
   {
-    name: "Videoclipes",
-    icon: Film,
-    desc: "Produção completa para artistas e bandas.",
-  },
-  {
-    name: "Eventos & Social",
-    icon: Video,
-    desc: "Cobertura ágil e conteúdo para redes sociais.",
-  },
-];
-
-const briefPoints = [
-  {
-    title: "Edição High-End",
-    desc: "Domínio completo do pacote Adobe (Premiere, After Effects, Photoshop).",
-  },
-  {
-    title: "Narrativa Estratégica",
-    desc: "Especialista em Storytelling e Roteiro personalizado para marcas.",
-  },
-  {
-    title: "Same-Day Edit / Eventos",
-    desc: "Agilidade comprovada em coberturas em tempo real e plantões de edição.",
-  },
-  {
-    title: "Produção Mobile",
-    desc: "Expertise em produções ágeis utilizando dispositivos móveis.",
+    title: "Atenção cirúrgica",
+    desc: "O som, a cor, o ritmo da montagem. Cada elemento técnico existe exclusivamente para servir à narrativa e prender a atenção.",
   },
 ];
 
@@ -116,56 +89,55 @@ export default function About() {
             transition={{ duration: 0.8 }}
           >
             <h2 className="text-sm font-bold tracking-widest text-accent uppercase mb-3">
-              Sobre ( brevemente )
+              Minha História
             </h2>
-            <h3 className="text-4xl md:text-5xl font-bold mb-8">
-              As vezes me chamam de{" "}
-              <span className="text-accent">Guironas</span>
+            <h3 className="text-4xl md:text-5xl font-bold mb-8 leading-tight">
+              O audiovisual vai além da estética; ele comunica,{" "}
+              <span className="text-accent">convence e permanece.</span>
             </h3>
 
-            <div className="space-y-6 mb-10">
-              {briefPoints.map((point, i) => (
-                <div key={i} className="flex gap-4">
-                  <CheckCircle2
-                    className="text-accent shrink-0 mt-1"
-                    size={20}
-                  />
-                  <p className="text-gray-300 leading-relaxed">
-                    <span className="text-white font-bold">{point.title}:</span>{" "}
-                    {point.desc}
-                  </p>
-                </div>
-              ))}
+            <div className="space-y-6 mb-10 text-gray-300 leading-relaxed text-lg">
+              <p>
+                Acredito que cada projeto nasce de uma estratégia antes de chegar à timeline.
+                Minha prioridade não é apenas entregar vídeos bonitos, mas construir narrativas que 
+                representem marcas e pessoas, resolvendo problemas reais de comunicação.
+              </p>
+              <p>
+                Trabalho unindo roteiro, ritmo e design visual para garantir que a sua mensagem
+                não apenas seja vista, mas compreendida e lembrada pelo seu público.
+              </p>
             </div>
 
             <button
               onClick={() => setIsBioOpen(true)}
               className="group flex items-center gap-3 text-white font-bold hover:text-accent transition-colors mb-12"
             >
-              LER BIOGRAFIA COMPLETA
+              LER HISTÓRIA COMPLETA
               <ArrowRight
                 size={20}
                 className="group-hover:translate-x-2 transition-transform"
               />
             </button>
 
-            <div className="grid sm:grid-cols-2 gap-6">
-              {skills.map((skill, index) => (
+            <h4 className="text-xl font-bold text-white mb-6 uppercase tracking-widest text-sm">Minha filosofia criativa</h4>
+            <div className="space-y-4">
+              {beliefs.map((belief, index) => (
                 <motion.div
-                  key={skill.name}
-                  initial={{ opacity: 0, y: 20 }}
+                  key={belief.title}
+                  initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="p-6 rounded-2xl bg-main-bg border border-gray-800 hover:border-gray-700 transition-colors group"
+                  className="flex gap-4"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-card-bg flex items-center justify-center text-accent mb-4 group-hover:scale-110 transition-transform">
-                    <skill.icon size={24} />
-                  </div>
-                  <h4 className="text-xl font-bold text-white mb-2">
-                    {skill.name}
-                  </h4>
-                  <p className="text-sm text-gray-400">{skill.desc}</p>
+                  <CheckCircle2
+                    className="text-accent shrink-0 mt-1"
+                    size={20}
+                  />
+                  <p className="text-gray-300 leading-relaxed text-sm md:text-base">
+                    <span className="text-white font-bold block mb-1">{belief.title}</span>
+                    {belief.desc}
+                  </p>
                 </motion.div>
               ))}
             </div>
@@ -203,58 +175,48 @@ export default function About() {
               <div className="flex flex-col gap-8">
                 <div>
                   <h2 className="text-sm font-bold tracking-widest text-accent uppercase mb-3">
-                    Biografia Completa
+                    Como começou
                   </h2>
                   <h3 className="text-3xl md:text-4xl font-bold">
-                    Guilherme Rodrigues
+                    Transformando a visão em resultado
                   </h3>
                 </div>
 
                 <div className="space-y-6 text-gray-300 leading-relaxed text-lg">
                   <p>
-                    Com anos de experiência no mercado audiovisual, minha
-                    jornada começou com a curiosidade de como as imagens
-                    poderiam evocar emoções profundas. Hoje, essa curiosidade se
-                    transformou em uma expertise técnica e criativa que aplico
-                    em cada projeto.
+                    Minha jornada começou entendendo que a estética, por si só, é vazia sem uma boa história.
+                    Aprendi rapidamente que o papel do audiovisual não é apenas "enfeitar", mas traduzir a
+                    essência de uma marca em imagens que movem as pessoas à ação.
                   </p>
                   <p>
-                    Especializado em produções de alto impacto, domino
-                    ferramentas como Premiere Pro, After Effects e Photoshop
-                    para entregar uma estética refinada e moderna. Minha
-                    abordagem não é apenas sobre "fazer vídeos bonitos", mas sim
-                    sobre construir narrativas estratégicas que conectam marcas
-                    ao seu público-alvo de forma autêntica.
+                    Ao longo dos anos, entendi que a chave para um projeto de sucesso está na 
+                    <span className="text-white font-bold"> imersão</span>. Eu não trabalho como um simples executor.
+                    Eu me aprofundo no universo do cliente para entender o problema que estamos tentando resolver,
+                    seja vender um produto, aumentar a retenção ou posicionar um artista no mercado.
                   </p>
                   <p>
-                    No mundo dinâmico das redes sociais, desenvolvi a habilidade
-                    de entrega ultra-rápida através do{" "}
-                    <span className="text-white font-bold">Same-Day Edit</span>.
-                    Seja em grandes eventos corporativos, festivais de música ou
-                    lançamentos de produtos, garanto que o conteúdo chegue ao
-                    público enquanto a energia do momento ainda está vibrante.
+                    Minha forma de trabalhar se baseia na parceria e na comunicação clara. Acredito que as
+                    melhores soluções nascem quando a técnica cinematográfica se encontra com um profundo
+                    entendimento de branding e comportamento humano.
                   </p>
                   <p>
-                    Além das câmeras tradicionais, sou um entusiasta da produção
-                    mobile, utilizando a tecnologia de ponta dos smartphones
-                    para criar conteúdos ágeis, criativos e com qualidade
-                    profissional para o dia a dia digital.
+                    É por isso que as empresas confiam no meu trabalho: porque sabem que cada frame renderizado
+                    foi estrategicamente pensado para gerar impacto qualitativo e quantitativo.
                   </p>
-                  <p className="text-accent font-medium italic">
-                    "Minha missão é transformar sua visão em uma realidade
-                    visual inesquecível."
+                  <p className="text-accent font-medium italic mt-4 text-xl border-l-4 border-accent pl-4">
+                    "Utilizo o audiovisual como ferramenta para comunicar ideias de forma clara, memorável e estratégica."
                   </p>
                 </div>
 
                 <div className="pt-8 border-t border-gray-800 flex flex-wrap gap-4">
                   <div className="px-4 py-2 bg-main-bg rounded-xl border border-gray-800 text-sm font-medium">
-                    +2 Anos de Experiência
+                    Solução de Problemas
                   </div>
                   <div className="px-4 py-2 bg-main-bg rounded-xl border border-gray-800 text-sm font-medium">
-                    +50 Projetos Entregues
+                    Visão Estratégica
                   </div>
                   <div className="px-4 py-2 bg-main-bg rounded-xl border border-gray-800 text-sm font-medium">
-                    Foco em Alta Retenção
+                    Narrativas Impactantes
                   </div>
                 </div>
               </div>

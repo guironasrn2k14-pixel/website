@@ -96,11 +96,10 @@ export default function Contact() {
               Contato
             </h2>
             <h3 className="text-4xl md:text-5xl font-bold mb-6">
-              Vamos criar algo incrível juntos.
+              Pronto para elevar sua <span className="text-accent">comunicação?</span>
             </h3>
             <p className="text-gray-400 text-lg mb-12 max-w-md">
-              Tem um projeto em mente ou apenas quer dizer olá? Fique à vontade
-              para me enviar uma mensagem.
+              Seja para um projeto pontual, consultoria criativa ou uma parceria de longo prazo, estou à disposição para entender seus desafios e propor soluções de alto impacto.
             </p>
 
             <div className="space-y-8 mb-12">

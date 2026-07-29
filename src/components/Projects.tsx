@@ -7,10 +7,12 @@ const projects = [
     id: 2,
     title: "Vlog Tailândia - Ao Nang Night Market 🍜🇹🇭",
     category: "Viagem & Cultura",
+    client: "Projeto Autoral",
     image: "/vlogviagem-thumbnail.png.png",
     videoUrl: "https://www.youtube.com/embed/65GHLbR3PhE",
-    description:
-      "Explore as cores, sabores e curiosidades do Ao Nang Night Market neste vlog dinâmico, que mostra desde pratos exóticos como carne de crocodilo até opções deliciosas e acessíveis da culinária tailandesa. Uma verdadeira imersão cultural gastronômica feita para inspirar e despertar o desejo de arrumar as malas agora mesmo!",
+    challenge: "Transmitir a atmosfera vibrante e caótica de um mercado noturno tailandês sem perder a fluidez narrativa.",
+    strategy: "Foquei em cortes guiados pelo ritmo do som ambiente e inserções dinâmicas para manter o espectador engajado durante a descoberta gastronômica.",
+    result: "Um vlog imersivo que não apenas mostra, mas faz o espectador sentir a energia do local, gerando alto engajamento em retenção e comentários.",
     tags: ["Vlog", "Culinária", "Cultura"],
     aspect: "video",
   },
@@ -18,10 +20,12 @@ const projects = [
     id: 3,
     title: "Produtos e boa alimentação",
     category: "SameDay - Publicação Mídia Social",
+    client: "Marca de Nutrição",
     image: "/Nutrição-thumbnail.png.png",
     videoUrl: "https://www.youtube.com/embed/wxSwJ2exT0g",
-    description:
-      "Conteúdo dinâmico para marcas e influenciadores. Edição focada em alta retenção, utilizando técnicas de Motion Graphics, legendas estratégicas e ritmos acelerados para maximizar o engajamento",
+    challenge: "Criar um conteúdo sobre nutrição que fosse rápido, educativo e prendesse a atenção desde o primeiro segundo no TikTok/Reels.",
+    strategy: "Utilizei Motion Graphics precisos, legendas dinâmicas e um ritmo de cortes acelerado, removendo qualquer respiro desnecessário.",
+    result: "Aumento na retenção do público alvo e um formato replicável que fortaleceu a identidade digital da marca.",
     tags: ["Captação", "Edição Rápida", "Social Media"],
     aspect: "vertical",
   },
@@ -29,10 +33,12 @@ const projects = [
     id: 4,
     title: "Dicas medicas com um especialista",
     category: "SameDay - Publicação Mídia Social",
+    client: "Especialista em Saúde",
     image: "/sameday-thumbnail.png.png",
     videoUrl: "https://www.youtube.com/embed/_OZvXU3fwIA",
-    description:
-      "Vídeo dinâmico focado em dicas de saúde, especificamente sobre hipertensão. Desenvolvimento de conteúdo estratégico para mídias sociais com foco em alta retenção, transformando informações médicas em uma narrativa visual clara e envolvente para o público.",
+    challenge: "Traduzir informações médicas complexas sobre hipertensão para uma linguagem visual simples e atrativa nas redes sociais.",
+    strategy: "Transformei a fala técnica em uma narrativa visual guiada por elementos gráficos e cortes que mantêm o dinamismo sem perder a seriedade do tema.",
+    result: "Conteúdo altamente compartilhável, posicionando o especialista com autoridade e acessibilidade.",
     tags: ["Saúde", "Retenção", "Social Media"],
     aspect: "vertical",
   },
@@ -40,44 +46,39 @@ const projects = [
     id: 6,
     title: "Mc Tom da Vg- Cade você ( DJ IAM )",
     category: "Videoclipes de Música",
-    image: "/depois dos 40.png",
-    videoUrl: "https://www.youtube.com/embed/i9Lkx84oSxs",
-    description:
-      "Edição de videoclipe focada em dinâmica e estética visual. Através de cortes rítmicos e tratamento de col personalizado, transformamos a performance do artista em uma narrativa visual impactante e profissional.",
+    client: "Mc Tom da Vg & DJ IAM",
+    image: "/vioclipe.png.png",
+    videoUrl: "https://www.youtube.com/embed/-aamBPYCowM",
+    challenge: "Garantir que a energia da música fosse traduzida em um videoclipe de alto impacto, combinando a performance do artista com a batida.",
+    strategy: "Edição pautada pela sinestesia musical. Cortes rítmicos agressivos e color grading personalizado para criar a atmosfera noturna e urbana da faixa.",
+    result: "Entrega de um videoclipe profissional que elevou o posicionamento visual do artista no YouTube.",
     tags: ["Direção", "Edição", "Color Grading"],
-    aspect: "vertical",
+    aspect: "video",
   },
   {
     id: 7,
-    title: "O FIM É TRISTE",
-    category: "Videoclipes de Música",
-    image: "/videclipe.png.png",
-    videoUrl: "https://www.youtube.com/embed/OFXjBnuLVjE",
-    description:
-      "Direção de edição para projetos colaborativos. Especialista em coordenar produções com múltiplos artistas, garantindo que a dinâmica de grupo e o ritmo da batida estejam em perfeita harmonia visual.",
-    tags: ["Captação", "Estética", "Montagem"],
-    aspect: "video",
+    title: "Depois dos 40",
+    category: "SameDay - Publicação Mídia Social",
+    client: "Projeto Fitness",
+    image: "/depois dos 40.png",
+    videoUrl: "https://www.youtube.com/embed/i9Lkx84oSxs",
+    challenge: "Produzir um vídeo de alta intensidade para mídias sociais no nicho de fitness, capturando a essência instantaneamente.",
+    strategy: "Foco total na retenção: cortes ultra-rápidos, transições de impacto e edição dinâmica para consumo rápido em mobile.",
+    result: "Material de alto impacto, gerando grande retenção e impulsionando a campanha de imediato.",
+    tags: ["Dinâmico", "Retenção", "Social Media"],
+    aspect: "vertical",
   },
   {
     id: 8,
     title: "Caneta Emagrecedora",
     category: "SameDay - Publicação Mídia Social",
+    client: "Profissional da Saúde",
     image: "/caneta-emagrecedora.png",
     videoUrl: "https://www.youtube.com/embed/-rWrYbs2lD4",
-    description:
-      "Vídeo abordando o tema da caneta emagrecedora. Desenvolvimento de conteúdo estratégico para mídias sociais com foco em alta retenção.",
+    challenge: "Abordar um tema em alta (caneta emagrecedora) de forma ética, clara e com alta retenção para gerar conversão e dúvidas nos comentários.",
+    strategy: "Criação de um gancho forte (hook) nos primeiros 3 segundos, seguido por um desenvolvimento dinâmico apoiado por ilustrações.",
+    result: "Pico de engajamento no perfil, transformando um assunto técnico em conteúdo viral educativo.",
     tags: ["Saúde", "Retenção", "Social Media"],
-    aspect: "vertical",
-  },
-  {
-    id: 9,
-    title: "Vídeo Promocional SameDay",
-    category: "SameDay - Publicação Mídia Social",
-    image: "/sameday-thumbnail.png.png",
-    videoUrl: "https://www.youtube.com/embed/i9Lkx84oSxs",
-    description:
-      "Novo vídeo dinâmico para mídias sociais. Foco em alta retenção, engajamento e formato vertical para todas as plataformas.",
-    tags: ["Dinâmico", "Retenção", "Social Media"],
     aspect: "vertical",
   },
 ];
@@ -291,9 +292,39 @@ export default function Projects() {
                       <h3 className="text-3xl md:text-4xl font-bold mb-6">
                         {selectedProject.title}
                       </h3>
-                      <p className="text-gray-300 text-lg leading-relaxed whitespace-pre-line">
-                        {selectedProject.description}
-                      </p>
+                      
+                      {selectedProject.client && (
+                        <div className="mb-6">
+                          <h6 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Cliente</h6>
+                          <p className="text-white font-medium">{selectedProject.client}</p>
+                        </div>
+                      )}
+                      
+                      <div className="space-y-6">
+                        {selectedProject.challenge && (
+                          <div>
+                            <h6 className="text-xs font-bold text-accent uppercase tracking-widest mb-2">O Desafio</h6>
+                            <p className="text-gray-300 leading-relaxed text-sm md:text-base">{selectedProject.challenge}</p>
+                          </div>
+                        )}
+                        {selectedProject.strategy && (
+                          <div>
+                            <h6 className="text-xs font-bold text-accent uppercase tracking-widest mb-2">A Estratégia</h6>
+                            <p className="text-gray-300 leading-relaxed text-sm md:text-base">{selectedProject.strategy}</p>
+                          </div>
+                        )}
+                        {selectedProject.result && (
+                          <div>
+                            <h6 className="text-xs font-bold text-accent uppercase tracking-widest mb-2">O Resultado</h6>
+                            <p className="text-gray-300 leading-relaxed text-sm md:text-base">{selectedProject.result}</p>
+                          </div>
+                        )}
+                        {(selectedProject as any).description && (
+                          <p className="text-gray-300 leading-relaxed text-sm md:text-base whitespace-pre-line">
+                            {(selectedProject as any).description}
+                          </p>
+                        )}
+                      </div>
                     </div>
 
                     <div className="w-full shrink-0">
