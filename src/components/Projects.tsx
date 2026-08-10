@@ -34,21 +34,6 @@ const projects = [
     aspect: "video",
   },
   {
-    id: 3,
-    title: "Produtos e boa alimentação",
-    category: "Publicidade",
-    client: "Marca de Nutrição",
-    image: "/Nutrição-thumbnail.png.png",
-    videoUrl: "https://www.youtube.com/embed/wxSwJ2exT0g",
-    objective: "Aumentar a retenção em conteúdos educativos sobre nutrição.",
-    challenge: "Criar um conteúdo sobre nutrição que fosse rápido, educativo e prendesse a atenção desde o primeiro segundo no TikTok/Reels.",
-    approach: "Utilizei Motion Graphics precisos, legendas dinâmicas e um ritmo de cortes acelerado, removendo qualquer respiro desnecessário.",
-    result: "Aumento na retenção do público alvo e um formato replicável que fortaleceu a identidade digital da marca.",
-    learning: "Micro-retenção é chave em vídeos verticais educativos.",
-    tags: ["Retenção", "Motion Graphics", "Social Media"],
-    aspect: "vertical",
-  },
-  {
     id: 4,
     title: "Dicas médicas com um especialista",
     category: "Social Media",
@@ -95,17 +80,17 @@ const projects = [
   },
   {
     id: 8,
-    title: "Caneta Emagrecedora",
-    category: "Pós-Produção",
-    client: "Profissional da Saúde",
-    image: "/caneta-emagrecedora.png",
-    videoUrl: "https://www.youtube.com/embed/-rWrYbs2lD4",
-    objective: "Informar de maneira ética e ao mesmo tempo viral sobre um tema em alta.",
-    challenge: "Abordar um tema em alta (caneta emagrecedora) de forma ética, clara e com alta retenção para gerar conversão e dúvidas nos comentários.",
-    approach: "Criação de um gancho forte (hook) nos primeiros 3 segundos, seguido por um desenvolvimento dinâmico apoiado por ilustrações.",
-    result: "Pico de engajamento no perfil, transformando um assunto técnico em conteúdo viral educativo.",
-    learning: "Um bom gancho (hook) é responsável por 80% do sucesso de um vídeo curto.",
-    tags: ["Saúde", "Retenção", "Social Media"],
+    title: "Alerta: Maca Peruana",
+    category: "Social Media",
+    client: "Especialista em Nutrição",
+    image: "/Maca peruana.png",
+    videoUrl: "https://www.youtube.com/embed/kNUZty3KDak",
+    objective: "Educar o público sobre os benefícios e a forma correta de consumir a maca peruana.",
+    challenge: "Transmitir informações nutricionais com um alerta claro e de forma rápida, mantendo a retenção em plataformas curtas.",
+    approach: "Utilizei um gancho visual forte no início, seguido de textos na tela e cortes dinâmicos para manter o espectador engajado enquanto aprende.",
+    result: "Alto engajamento e compartilhamento, informando o público de forma direta e visualmente atrativa.",
+    learning: "O equilíbrio entre informação educativa e dinamismo visual é essencial para a retenção em temas de saúde.",
+    tags: ["Saúde", "Informativo", "Retenção"],
     aspect: "vertical",
   },
 ];
@@ -289,7 +274,7 @@ export default function Projects() {
                     selectedProject.videoUrl.includes("youtube.com") ||
                     selectedProject.videoUrl.includes("vimeo.com") ? (
                       <iframe
-                        src={`${selectedProject.videoUrl}?vq=hd720&hd=1&rel=0&showinfo=0&modestbranding=1&autoplay=1`}
+                        src={`${selectedProject.videoUrl}?vq=hd1080&hd=1&rel=0&showinfo=0&modestbranding=1&autoplay=1`}
                         className="absolute inset-0 w-full h-full border-0"
                         allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; mute"
                         allowFullScreen
