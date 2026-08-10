@@ -7,9 +7,6 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Projects from "./components/Projects";
 import About from "./components/About";
-import Workflow from "./components/Workflow";
-import Services from "./components/Services";
-import Differential from "./components/Differential";
 import Clients from "./components/Clients";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
@@ -19,22 +16,17 @@ import Background from "./components/Background";
 
 export default function App() {
   return (
-    <div className="min-h-screen font-sans selection:bg-accent/30 selection:text-white">
+    <div className="min-h-screen font-sans selection:bg-accent/30 selection:text-white bg-main-bg text-white">
       <Background />
       <SmoothScroll />
       <Header />
-
       <main>
         <Hero />
-        <About />
-        <Workflow />
-        <Services />
         <Projects />
-        <Differential />
+        <About />
         <Clients />
         <Contact />
       </main>
-
       <Footer />
       <FloatingWhatsApp />
     </div>

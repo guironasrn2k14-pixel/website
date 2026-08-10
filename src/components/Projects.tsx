@@ -2,235 +2,125 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, Play, ArrowRight } from "lucide-react";
 
-const projects = [
+// The user has specific videos but wants to showcase them by category (VSL, REELS, COMERCIAL, YOUTUBE).
+// Since we only have a specific list of videos, I'll map the closest ones to these categories,
+// or use placeholders if a specific category doesn't have an exact match from the current list.
+// The structure itself is more important.
+
+const featuredProjects = [
   {
-    id: 1,
-    title: "Vlog de Viagem Europa",
-    category: "Storytelling",
-    client: "Projeto Autoral",
-    image: "/viagem.png.png",
-    videoUrl: "https://www.youtube.com/embed/5D_1EaR2sRs",
-    objective: "Criar uma narrativa visual imersiva que transporta o espectador para a Europa.",
-    challenge: "Condensar horas de material em uma narrativa envolvente sem perder a essência da viagem.",
-    approach: "Foquei no storytelling através da montagem rítmica e sound design imersivo.",
-    result: "Uma experiência audiovisual que emociona e retém a atenção do início ao fim.",
-    learning: "A importância do sound design para construir a atmosfera de um local.",
-    tags: ["Storytelling", "Edição", "Montagem"],
+    category: "VSL",
+    title: "Video Sales Letter",
+    description: "Edição focada em retenção, clareza e conversão.",
+    visualText: "RITMO · CORTES · MOTION · SOUND DESIGN · RETENÇÃO",
+    client: "Projeto VSL",
+    image: "/sameday-thumbnail.png.png", // fallback image
+    videoUrl: "https://www.youtube.com/embed/_OZvXU3fwIA", // fallback video
     aspect: "video",
   },
   {
-    id: 2,
-    title: "Vlog Tailândia - Ao Nang Night Market 🍜🇹🇭",
-    category: "Storytelling",
-    client: "Projeto Autoral",
-    image: "/vlogviagem-thumbnail.png.png",
-    videoUrl: "https://www.youtube.com/embed/65GHLbR3PhE",
-    objective: "Documentar a riqueza culinária e cultural do Ao Nang Night Market.",
-    challenge: "Transmitir a atmosfera vibrante e caótica de um mercado noturno tailandês sem perder a fluidez narrativa.",
-    approach: "Foquei em cortes guiados pelo ritmo do som ambiente e inserções dinâmicas para manter o espectador engajado durante a descoberta gastronômica.",
-    result: "Um vlog imersivo que não apenas mostra, mas faz o espectador sentir a energia do local, gerando alto engajamento em retenção e comentários.",
-    learning: "Como equilibrar caos visual com uma narrativa guiada clara.",
-    tags: ["Storytelling", "Ritmo", "Cultura"],
-    aspect: "video",
-  },
-  {
-    id: 4,
-    title: "Dicas médicas com um especialista",
-    category: "Social Media",
-    client: "Especialista em Saúde",
-    image: "/sameday-thumbnail.png.png",
-    videoUrl: "https://www.youtube.com/embed/_OZvXU3fwIA",
-    objective: "Traduzir conhecimento técnico em conteúdo digerível para redes sociais.",
-    challenge: "Traduzir informações médicas complexas sobre hipertensão para uma linguagem visual simples e atrativa nas redes sociais.",
-    approach: "Transformei a fala técnica em uma narrativa visual guiada por elementos gráficos e cortes que mantêm o dinamismo sem perder a seriedade do tema.",
-    result: "Conteúdo altamente compartilhável, posicionando o especialista com autoridade e acessibilidade.",
-    learning: "Elementos gráficos são essenciais para apoiar a narrativa médica.",
-    tags: ["Saúde", "Retenção", "Social Media"],
+    category: "REELS",
+    title: "Alerta: Maca Peruana",
+    description: "Conteúdo rápido precisa ganhar atenção rápido. Cortes, ritmo, legendas, sound design e motion para manter o vídeo dinâmico sem perder clareza.",
+    client: "Especialista em Nutrição",
+    image: "/maca reels.png",
+    videoUrl: "https://www.youtube.com/embed/kNUZty3KDak",
     aspect: "vertical",
   },
   {
-    id: 6,
-    title: "Mc Tom da Vg - Cadê você ( DJ IAM )",
-    category: "Produção",
+    category: "COMERCIAL",
+    title: "Mc Tom da Vg - Cadê você",
+    description: "Edição visual para comunicar produto, marca e mensagem com impacto.",
     client: "Mc Tom da Vg & DJ IAM",
     image: "/vioclipe.png.png",
     videoUrl: "https://www.youtube.com/embed/-aamBPYCowM",
-    objective: "Criar um videoclipe de alto impacto que reflita a energia da faixa.",
-    challenge: "Garantir que a energia da música fosse traduzida em um videoclipe de alto impacto, combinando a performance do artista com a batida.",
-    approach: "Edição pautada pela sinestesia musical. Cortes rítmicos agressivos e color grading personalizado para criar a atmosfera noturna e urbana da faixa.",
-    result: "Entrega de um videoclipe profissional que elevou o posicionamento visual do artista no YouTube.",
-    learning: "A sincronia entre corte e batida é o que define o dinamismo do clipe.",
-    tags: ["Pós-Produção", "Color Grading", "Edição"],
     aspect: "video",
   },
   {
-    id: 7,
-    title: "Depois dos 40",
-    category: "Social Media",
-    client: "Projeto Fitness",
-    image: "/depois dos 40.png",
-    videoUrl: "https://www.youtube.com/embed/i9Lkx84oSxs",
-    objective: "Gerar impacto e retenção imediata em público fitness acima de 40 anos.",
-    challenge: "Produzir um vídeo de alta intensidade para mídias sociais no nicho de fitness, capturando a essência instantaneamente.",
-    approach: "Foco total na retenção: cortes ultra-rápidos, transições de impacto e edição dinâmica para consumo rápido em mobile.",
-    result: "Material de alto impacto, gerando grande retenção e impulsionando a campanha de imediato.",
-    learning: "Cortes rápidos precisam de contexto visual forte para não confundir a audiência.",
-    tags: ["Dinâmico", "Retenção", "Social Media"],
-    aspect: "vertical",
-  },
-  {
-    id: 8,
-    title: "Alerta: Maca Peruana",
-    category: "Social Media",
-    client: "Especialista em Nutrição",
-    image: "/Maca peruana.png",
-    videoUrl: "https://www.youtube.com/embed/kNUZty3KDak",
-    objective: "Educar o público sobre os benefícios e a forma correta de consumir a maca peruana.",
-    challenge: "Transmitir informações nutricionais com um alerta claro e de forma rápida, mantendo a retenção em plataformas curtas.",
-    approach: "Utilizei um gancho visual forte no início, seguido de textos na tela e cortes dinâmicos para manter o espectador engajado enquanto aprende.",
-    result: "Alto engajamento e compartilhamento, informando o público de forma direta e visualmente atrativa.",
-    learning: "O equilíbrio entre informação educativa e dinamismo visual é essencial para a retenção em temas de saúde.",
-    tags: ["Saúde", "Informativo", "Retenção"],
+    category: "YOUTUBE",
+    title: "Vlog de Viagem Europa",
+    description: "Narrativa, ritmo e retenção para conteúdos longos.",
+    client: "Projeto Autoral",
+    image: "/thai reels.png",
+    videoUrl: "https://www.youtube.com/embed/65GHLbR3PhE",
     aspect: "vertical",
   },
 ];
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<
-    (typeof projects)[0] | null
+    (typeof featuredProjects)[0] | null
   >(null);
-  const [filter, setFilter] = useState("Todos");
-
-  const filteredProjects =
-    filter === "Todos"
-      ? projects
-      : projects.filter((p) => p.category.includes(filter));
 
   return (
-    <section id="portfolio" className="py-24 bg-transparent relative">
-      {/* Background Section SVGs */}
-      <svg
-        className="absolute top-10 left-10 w-48 h-48 opacity-[0.03] text-white rotate-[-15deg] pointer-events-none"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1"
-      >
-        <path
-          d="M22 6l-3-3l-3 3M16 3l-3 3l-3-3M10 3l-3 3l-3-3M4 3L1 6v14a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6z"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <line
-          x1="1"
-          y1="10"
-          x2="23"
-          y2="10"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-      <svg
-        className="absolute bottom-20 right-10 w-64 h-64 opacity-[0.02] text-accent rotate-[10deg] pointer-events-none"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1"
-      >
-        <circle cx="12" cy="12" r="10" />
-        <polygon points="10 8 16 12 10 16 10 8" />
-      </svg>
+    <section id="portfolio" className="py-24 bg-main-bg relative">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
-          <div>
-            <h2 className="text-sm font-bold tracking-widest text-accent uppercase mb-3">
-              Projetos Selecionados
-            </h2>
-            <h3 className="text-3xl md:text-5xl font-bold max-w-2xl text-gray-400">
-              Cada projeto representa uma solução construída para <span className="text-white">comunicar ideias, fortalecer marcas</span> e transformar objetivos em narrativas audiovisuais.
-            </h3>
-          </div>
+        <div className="flex flex-col mb-20">
+          <h2 className="text-sm font-bold tracking-widest text-accent uppercase mb-4">
+            Trabalhos Selecionados
+          </h2>
+          <h3 className="text-3xl md:text-5xl font-bold max-w-3xl text-gray-400">
+            Uma seleção de projetos em que <span className="text-white">edição, ritmo e narrativa</span> fazem a diferença.
+          </h3>
         </div>
 
-        <div className="flex flex-wrap gap-4 mb-12">
-          {["Todos", "Publicidade", "Social Media", "Storytelling", "Produção", "Pós-Produção"].map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setFilter(cat)}
-              className={`px-6 py-2 rounded-full font-bold transition-all text-sm uppercase tracking-widest ${
-                filter === cat
-                  ? "bg-accent text-white"
-                  : "bg-card-bg text-gray-400 hover:text-white border border-gray-800 hover:border-accent/50"
-              }`}
+        <div className="flex flex-col gap-32">
+          {featuredProjects.map((project, index) => (
+            <motion.div
+              key={project.category}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className={`flex flex-col ${
+                index % 2 === 1 ? "lg:flex-row-reverse" : "lg:flex-row"
+              } gap-12 lg:gap-20 items-center`}
             >
-              {cat}
-            </button>
-          ))}
-        </div>
+              {/* Info Side */}
+              <div className="w-full lg:w-1/3 flex flex-col items-start">
+                <h4 className="text-4xl md:text-5xl font-display font-bold mb-6">
+                  {project.category}
+                </h4>
+                <p className="text-lg md:text-xl text-gray-400 leading-relaxed font-light mb-8">
+                  {project.description}
+                </p>
+                {project.visualText && (
+                  <div className="mb-8">
+                    <p className="text-xs font-mono text-accent tracking-widest leading-loose">
+                      {project.visualText}
+                    </p>
+                  </div>
+                )}
+                <button
+                  onClick={() => setSelectedProject(project)}
+                  className="group flex items-center gap-3 text-white font-bold tracking-widest uppercase text-sm hover:text-accent transition-colors"
+                >
+                  Assistir
+                  <span className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover:border-accent transition-colors">
+                    <Play size={14} className="ml-1" />
+                  </span>
+                </button>
+              </div>
 
-        <motion.div
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project) => (
-              <motion.div
-                key={project.id}
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.5 }}
-                className="group relative rounded-3xl overflow-hidden bg-card-bg border border-gray-800 hover:border-accent/40 transition-all cursor-pointer shadow-xl"
-                onClick={() => setSelectedProject(project)}
-              >
-                <div className="aspect-video overflow-hidden relative">
+              {/* Visual Side */}
+              <div className={`w-full ${project.aspect === 'vertical' ? 'lg:w-1/3' : 'lg:w-2/3'} relative group cursor-pointer`} onClick={() => setSelectedProject(project)}>
+                <div className={`relative overflow-hidden rounded-2xl ${project.aspect === 'vertical' ? 'aspect-[9/16] mx-auto max-w-sm' : 'aspect-video w-full'}`}>
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
-                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <div className="w-16 h-16 rounded-full bg-accent text-white flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-300">
-                      <Play size={24} fill="white" />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="w-20 h-20 bg-accent/90 rounded-full flex items-center justify-center text-white backdrop-blur-sm scale-75 group-hover:scale-100 transition-transform duration-500">
+                      <Play size={32} className="ml-2" />
                     </div>
                   </div>
                 </div>
-
-                <div className="p-6">
-                  <p className="text-xs font-bold text-accent uppercase tracking-widest mb-2">
-                    {project.category}
-                  </p>
-                  <h4 className="text-xl font-bold text-white mb-4 line-clamp-1">
-                    {project.title}
-                  </h4>
-                  <div className="flex flex-col gap-4">
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags.slice(0, 3).map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-[10px] text-gray-400 border border-gray-800 px-2 py-0.5 rounded-full"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    {project.client && (
-                      <p className="text-xs text-gray-400">
-                        <span className="font-bold text-gray-500">CLIENTE:</span> {project.client}
-                      </p>
-                    )}
-                    <button className="flex items-center justify-center gap-2 w-full py-2.5 mt-2 bg-white text-black font-bold text-sm rounded-xl hover:bg-gray-200 transition-colors">
-                      Ver Projeto
-                      <ArrowRight size={14} />
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
 
       {/* Project Modal */}
@@ -255,129 +145,35 @@ export default function Projects() {
             </button>
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
-              className={`relative w-full ${selectedProject.aspect === "vertical" ? "max-w-lg" : "max-w-5xl"} max-h-[92vh] bg-card-bg border border-gray-800 rounded-2xl md:rounded-[2rem] shadow-2xl z-10 overflow-hidden flex flex-col`}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className={`relative w-full ${selectedProject.aspect === "vertical" ? "max-w-md" : "max-w-6xl"} max-h-[92vh] flex items-center justify-center z-10`}
             >
-              <div className="overflow-y-auto w-full flex-1 scrollbar-hide">
-                <div
-                  className={`bg-black relative z-20 mx-auto w-full shrink-0 overflow-hidden ${
-                    selectedProject.aspect === "vertical"
-                      ? "max-w-[280px] sm:max-w-[320px] md:max-w-[360px] aspect-[9/16] shadow-2xl rounded-xl md:rounded-2xl mt-6 md:mt-12"
-                      : "aspect-video"
-                  }`}
-                >
-                  {selectedProject.videoUrl ? (
-                    selectedProject.videoUrl.includes("drive.google.com") ||
-                    selectedProject.videoUrl.includes("youtube.com") ||
-                    selectedProject.videoUrl.includes("vimeo.com") ? (
-                      <iframe
-                        src={`${selectedProject.videoUrl}?vq=hd1080&hd=1&rel=0&showinfo=0&modestbranding=1&autoplay=1`}
-                        className="absolute inset-0 w-full h-full border-0"
-                        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; mute"
-                        allowFullScreen
-                        title={selectedProject.title}
-                        loading="lazy"
-                      />
-                    ) : (
-                      <video
-                        src={selectedProject.videoUrl}
-                        className="absolute inset-0 w-full h-full object-contain bg-black"
-                        controls
-                        playsInline
-                        autoPlay
-                        loop
-                      />
-                    )
-                  ) : (
-                    <img
-                      src={selectedProject.image}
-                      alt={selectedProject.title}
-                      className={`absolute inset-0 w-full h-full ${selectedProject.aspect === "vertical" ? "object-contain" : "object-cover"}`}
-                    />
-                  )}
-                </div>
-
-                <div className="p-6 md:p-12 relative z-10">
-                  <div className="flex flex-col gap-8">
-                    <div className="flex-1">
-                      <p className="text-sm font-bold text-accent uppercase tracking-widest mb-2">
-                        {selectedProject.category}
-                      </p>
-                      <h3 className="text-3xl md:text-4xl font-bold mb-6">
-                        {selectedProject.title}
-                      </h3>
-                      
-                      {selectedProject.client && (
-                        <div className="mb-6">
-                          <h6 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Cliente</h6>
-                          <p className="text-white font-medium">{selectedProject.client}</p>
-                        </div>
-                      )}
-                      
-                      <div className="space-y-6">
-                        {selectedProject.objective && (
-                          <div>
-                            <h6 className="text-xs font-bold text-accent uppercase tracking-widest mb-2">Objetivo</h6>
-                            <p className="text-gray-300 leading-relaxed text-sm md:text-base">{selectedProject.objective}</p>
-                          </div>
-                        )}
-                        {selectedProject.challenge && (
-                          <div>
-                            <h6 className="text-xs font-bold text-accent uppercase tracking-widest mb-2">Desafio</h6>
-                            <p className="text-gray-300 leading-relaxed text-sm md:text-base">{selectedProject.challenge}</p>
-                          </div>
-                        )}
-                        {selectedProject.approach && (
-                          <div>
-                            <h6 className="text-xs font-bold text-accent uppercase tracking-widest mb-2">Minha abordagem</h6>
-                            <p className="text-gray-300 leading-relaxed text-sm md:text-base">{selectedProject.approach}</p>
-                          </div>
-                        )}
-                        {selectedProject.result && (
-                          <div>
-                            <h6 className="text-xs font-bold text-accent uppercase tracking-widest mb-2">Resultado</h6>
-                            <p className="text-gray-300 leading-relaxed text-sm md:text-base">{selectedProject.result}</p>
-                          </div>
-                        )}
-                        {selectedProject.learning && (
-                          <div>
-                            <h6 className="text-xs font-bold text-accent uppercase tracking-widest mb-2">Aprendizados</h6>
-                            <p className="text-gray-300 leading-relaxed text-sm md:text-base">{selectedProject.learning}</p>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="w-full shrink-0">
-                      <div className="bg-main-bg rounded-2xl p-6 border border-gray-800">
-                        <h5 className="text-sm font-bold text-white uppercase tracking-widest mb-4">
-                          Serviços
-                        </h5>
-                        <div className="flex flex-wrap gap-2">
-                          {selectedProject.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="text-xs bg-card-bg text-gray-300 border border-gray-800 px-3 py-1 rounded-full"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-
-                        <a
-                          href="#contact"
-                          onClick={() => setSelectedProject(null)}
-                          className="mt-8 w-full py-3 bg-accent hover:bg-red-600 text-white font-bold rounded-xl transition-colors flex items-center justify-center gap-2 text-sm"
-                        >
-                          SOLICITAR ORÇAMENTO
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div
+                className={`relative w-full max-h-[92vh] overflow-hidden shadow-2xl flex justify-center ${
+                  selectedProject.aspect === "vertical"
+                    ? "aspect-[9/16] rounded-2xl mx-auto"
+                    : "aspect-video rounded-xl md:rounded-2xl mx-auto"
+                }`}
+                style={{ maxHeight: "92vh", maxWidth: selectedProject.aspect === "vertical" ? "calc(92vh * 9 / 16)" : "calc(92vh * 16 / 9)" }}
+              >
+                {selectedProject.videoUrl ? (
+                  <iframe
+                    src={`${selectedProject.videoUrl}?vq=hd1080&hd=1&rel=0&showinfo=0&modestbranding=1&autoplay=1`}
+                    className="absolute inset-0 w-full h-full border-0"
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; mute"
+                    allowFullScreen
+                    title={selectedProject.title}
+                    loading="lazy"
+                  />
+                ) : (
+                  <img
+                    src={selectedProject.image}
+                    alt={selectedProject.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                )}
               </div>
             </motion.div>
           </motion.div>

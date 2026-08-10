@@ -6,7 +6,6 @@ const navLinks = [
   { name: "Início", href: "#home" },
   { name: "Trabalhos", href: "#portfolio" },
   { name: "Sobre", href: "#about" },
-  { name: "Clientes", href: "#clients" },
   { name: "Contato", href: "#contact" },
 ];
 
@@ -65,9 +64,9 @@ export default function Header() {
 
           <a
             href="#contact"
-            className="px-6 py-2.5 bg-accent hover:bg-red-600 text-white text-sm font-bold rounded-full transition-all"
+            className="px-6 py-2.5 bg-accent hover:bg-red-600 text-white text-sm font-bold rounded-full transition-all uppercase tracking-wider"
           >
-            Orçamento
+            Orçar Projeto
           </a>
         </nav>
 
@@ -112,10 +111,10 @@ export default function Header() {
               ))}
               <a
                 href="#contact"
-                className="w-fit px-8 py-3 bg-accent text-white font-bold rounded-full mt-2"
+                className="w-fit px-8 py-3 bg-accent text-white font-bold rounded-full mt-2 uppercase tracking-wider text-sm"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Solicitar Orçamento
+                Orçar Projeto
               </a>
             </div>
           </motion.nav>
