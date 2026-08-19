@@ -71,9 +71,9 @@ export default function About() {
           >
             <div className="aspect-[4/5] md:aspect-square rounded-3xl overflow-hidden relative">
               <img
-                src="/guilherme_staircase.png"
+                src="/museu.pgn.jpg"
                 alt="Guilherme - Editor Audiovisual"
-                className="w-full h-full object-cover grayscale opacity-90 hover:grayscale-0 transition-all duration-700"
+                className="w-full h-full object-cover transition-all duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-main-bg via-transparent to-transparent" />
             </div>
