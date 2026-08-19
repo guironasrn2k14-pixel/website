@@ -13,22 +13,25 @@ import Footer from "./components/Footer";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
 import SmoothScroll from "./components/SmoothScroll";
 import Background from "./components/Background";
+import { LanguageProvider } from "./contexts/LanguageContext";
 
 export default function App() {
   return (
-    <div className="min-h-screen font-sans selection:bg-accent/30 selection:text-white bg-main-bg text-white">
-      <Background />
-      <SmoothScroll />
-      <Header />
-      <main>
-        <Hero />
-        <Projects />
-        <About />
-        <Clients />
-        <Contact />
-      </main>
-      <Footer />
-      <FloatingWhatsApp />
-    </div>
+    <LanguageProvider>
+      <div className="min-h-screen font-sans selection:bg-accent/30 selection:text-white bg-main-bg text-white">
+        <Background />
+        <SmoothScroll />
+        <Header />
+        <main>
+          <Hero />
+          <Projects />
+          <About />
+          <Clients />
+          <Contact />
+        </main>
+        <Footer />
+        <FloatingWhatsApp />
+      </div>
+    </LanguageProvider>
   );
 }

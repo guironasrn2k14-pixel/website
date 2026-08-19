@@ -1,46 +1,42 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { X, Play, ArrowRight } from "lucide-react";
+import { X, Play } from "lucide-react";
+import { useLanguage } from "../contexts/LanguageContext";
 
-// The user has specific videos but wants to showcase them by category (VSL, REELS, COMERCIAL, YOUTUBE).
-// Since we only have a specific list of videos, I'll map the closest ones to these categories,
-// or use placeholders if a specific category doesn't have an exact match from the current list.
-// The structure itself is more important.
-
-const featuredProjects = [
+const getFeaturedProjects = (t: (key: string) => string) => [
   {
     category: "VSL",
-    title: "Video Sales Letter",
-    description: "Edição focada em retenção, clareza e conversão.",
-    visualText: "RITMO · CORTES · MOTION · SOUND DESIGN · RETENÇÃO",
+    title: t('projects.vsl.title'),
+    description: t('projects.vsl.desc'),
+    visualText: t('projects.vsl.tags'),
     client: "Projeto VSL",
-    image: "/sameday-thumbnail.png.png", // fallback image
-    videoUrl: "https://www.youtube.com/embed/_OZvXU3fwIA", // fallback video
+    image: "/sameday-thumbnail.png.png",
+    videoUrl: "https://www.youtube.com/embed/_OZvXU3fwIA",
     aspect: "video",
   },
   {
     category: "REELS",
-    title: "Alerta: Maca Peruana",
-    description: "Conteúdo rápido precisa ganhar atenção rápido. Cortes, ritmo, legendas, sound design e motion para manter o vídeo dinâmico sem perder clareza.",
-    client: "Especialista em Nutrição",
+    title: t('projects.reels.title'),
+    description: t('projects.reels.desc'),
+    client: t('projects.reels.client'),
     image: "/maca reels.png",
     videoUrl: "https://www.youtube.com/embed/kNUZty3KDak",
     aspect: "vertical",
   },
   {
     category: "COMERCIAL",
-    title: "Mc Tom da Vg - Cadê você",
-    description: "Edição visual para comunicar produto, marca e mensagem com impacto.",
-    client: "Mc Tom da Vg & DJ IAM",
+    title: t('projects.comercial.title'),
+    description: t('projects.comercial.desc'),
+    client: t('projects.comercial.client'),
     image: "/vioclipe.png.png",
     videoUrl: "https://www.youtube.com/embed/-aamBPYCowM",
     aspect: "video",
   },
   {
     category: "YOUTUBE",
-    title: "Vlog de Viagem Europa",
-    description: "Narrativa, ritmo e retenção para conteúdos longos.",
-    client: "Projeto Autoral",
+    title: t('projects.youtube.title'),
+    description: t('projects.youtube.desc'),
+    client: t('projects.youtube.client'),
     image: "/thai reels.png",
     videoUrl: "https://www.youtube.com/embed/65GHLbR3PhE",
     aspect: "vertical",
@@ -48,6 +44,8 @@ const featuredProjects = [
 ];
 
 export default function Projects() {
+  const { t } = useLanguage();
+  const featuredProjects = getFeaturedProjects(t);
   const [selectedProject, setSelectedProject] = useState<
     (typeof featuredProjects)[0] | null
   >(null);
@@ -57,10 +55,10 @@ export default function Projects() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col mb-20">
           <h2 className="text-sm font-bold tracking-widest text-accent uppercase mb-4">
-            Trabalhos Selecionados
+            {t('projects.subtitle')}
           </h2>
           <h3 className="text-3xl md:text-5xl font-bold max-w-3xl text-gray-400">
-            Uma seleção de projetos em que <span className="text-white">edição, ritmo e narrativa</span> fazem a diferença.
+            {t('projects.title.1')} <span className="text-white">{t('projects.title.highlight')}</span> {t('projects.title.2')}
           </h3>
         </div>
 
@@ -95,7 +93,7 @@ export default function Projects() {
                   onClick={() => setSelectedProject(project)}
                   className="group flex items-center gap-3 text-white font-bold tracking-widest uppercase text-sm hover:text-accent transition-colors"
                 >
-                  Assistir
+                  {t('projects.watch')}
                   <span className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover:border-accent transition-colors">
                     <Play size={14} className="ml-1" />
                   </span>
@@ -156,7 +154,7 @@ export default function Projects() {
                     ? "aspect-[9/16] rounded-2xl mx-auto"
                     : "aspect-video rounded-xl md:rounded-2xl mx-auto"
                 }`}
-                style={{ maxHeight: "92vh", maxWidth: selectedProject.aspect === "vertical" ? "calc(92vh * 9 / 16)" : "calc(92vh * 16 / 9)" }}
+                style={{ maxHeight: "92vh", maxWidth: selectedProject.aspect === "vertical" ? "min(100%, calc(92vh * 9 / 16))" : "min(100%, calc(92vh * 16 / 9))" }}
               >
                 {selectedProject.videoUrl ? (
                   <iframe

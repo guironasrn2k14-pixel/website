@@ -1,47 +1,50 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Quote } from "lucide-react";
+import { useLanguage } from "../contexts/LanguageContext";
 
-const testimonials = [
+const getTestimonials = (t: (key: string) => string) => [
   {
     id: "iza",
     client: "Iza",
-    role: "Criadora de Conteúdo",
+    role: t('clients.role.1'),
     image: "/feed1.png.png",
-    quote: "O Guironas não apenas edita, ele entende exatamente o ritmo que o meu público gosta. Meus vídeos nunca tiveram tanta interação e retenção como agora. Trabalho impecável e entrega sempre no prazo.",
+    quote: t('clients.quote.1'),
   },
   {
     id: "lioness",
     client: "lionessheart_cosplay",
-    role: "Cosplayer & Influenciadora",
+    role: t('clients.role.2'),
     image: "/feed2.png.png",
-    quote: "Incrível como ele consegue captar a essência do personagem e transformar em uma edição cinematográfica para o Reels. A agilidade no Same-Day Edit fez toda a diferença no engajamento do evento.",
+    quote: t('clients.quote.2'),
   },
   {
     id: "fernando",
     client: "Fernando",
-    role: "Diretor de Marketing",
+    role: t('clients.role.3'),
     image: "/feed3.png.png",
-    quote: "A comunicação é excelente. O processo flui de forma muito profissional desde o roteiro até a entrega final. A capacidade de alinhar a estética com os objetivos de negócio da nossa marca foi fundamental.",
-  }
+    quote: t('clients.quote.3'),
+  },
 ];
 
 export default function Clients() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const { t } = useLanguage();
+  const testimonials = getTestimonials(t);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % testimonials.length);
     }, 8000);
     return () => clearInterval(interval);
-  }, []);
+  }, [testimonials.length]);
 
   return (
     <section id="clients" className="py-24 bg-main-bg relative">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col mb-16 text-center">
           <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tighter">
-            QUEM JÁ TRABALHOU COMIGO
+            {t('clients.title')}
           </h2>
         </div>
 

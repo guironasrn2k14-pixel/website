@@ -1,98 +1,91 @@
 import { motion } from "motion/react";
-import { ArrowRight } from "lucide-react";
+import { MoveRight } from "lucide-react";
+import { useLanguage } from "../contexts/LanguageContext";
 
 export default function About() {
+  const { t } = useLanguage();
+
+  const getTags = () => [
+    t('about.tags.1'),
+    t('about.tags.2'),
+    t('about.tags.3'),
+    t('about.tags.4'),
+    t('about.tags.5'),
+  ];
+
   return (
-    <section id="about" className="py-32 bg-main-bg relative flex flex-col gap-32">
-      {/* NÃO É SÓ EDITAR */}
-      <div className="max-w-7xl mx-auto px-6 w-full text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="flex flex-col items-center gap-6"
-        >
-          <h2 className="text-5xl md:text-7xl font-display font-bold tracking-tighter">
-            NÃO É SÓ EDITAR.
-          </h2>
-          <p className="text-xl md:text-3xl text-gray-400 font-light max-w-2xl leading-relaxed">
-            É entender o que o vídeo precisa fazer.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
-            {["RITMO", "RETENÇÃO", "STORYTELLING", "MOTION", "SOUND DESIGN"].map((item, i) => (
-              <span key={i} className="text-xs md:text-sm font-bold tracking-widest text-accent uppercase px-4 py-2 border border-accent/20 rounded-full">
-                {item}
-              </span>
-            ))}
-          </div>
-        </motion.div>
-      </div>
+    <section id="about" className="py-24 bg-card-bg relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-main-bg/30 skew-x-12 -z-10" />
 
-      {/* DO BRUTO AO FINAL */}
-      <div className="max-w-7xl mx-auto px-6 w-full text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="flex flex-col items-center gap-12"
-        >
-          <h2 className="text-4xl md:text-5xl font-display font-bold tracking-tighter uppercase">
-            Do bruto ao final
-          </h2>
-          
-          <div className="flex flex-col md:flex-row items-center justify-center gap-8 w-full max-w-4xl mx-auto">
-            <div className="flex flex-col w-full md:w-1/2 gap-4">
-              <div className="aspect-video bg-card-bg border border-gray-800 rounded-xl overflow-hidden relative flex items-center justify-center">
-                <span className="text-gray-500 font-bold tracking-widest uppercase">Material Bruto</span>
-              </div>
-            </div>
-            
-            <div className="hidden md:flex">
-              <ArrowRight className="text-accent w-8 h-8" />
-            </div>
-
-            <div className="flex flex-col w-full md:w-1/2 gap-4">
-              <div className="aspect-video bg-card-bg border border-accent/30 rounded-xl overflow-hidden relative flex items-center justify-center">
-                <span className="text-white font-bold tracking-widest uppercase">Edição Final</span>
-              </div>
-            </div>
-          </div>
-          
-          <p className="text-sm md:text-base text-gray-400 max-w-2xl mt-4">
-            Cortes · Ritmo · Motion · Sound Design · Legendas · Tratamento Visual
-          </p>
-        </motion.div>
-      </div>
-
-      {/* PRAZER, SOU O GUI */}
-      <div className="max-w-7xl mx-auto px-6 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="flex flex-col md:flex-row items-center gap-16"
-        >
-          <div className="w-full md:w-1/2 flex justify-center">
-            <div className="aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl relative">
-              <img
-                src="/museu.pgn.jpg"
-                alt="Guilherme Rodrigues"
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-              />
-            </div>
-          </div>
-          <div className="w-full md:w-1/2 flex flex-col items-start text-left gap-6">
-            <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tighter">
-              PRAZER, SOU O GUI.
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          {/* Left Column */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <h2 className="text-5xl md:text-7xl font-display font-bold tracking-tighter mb-6 leading-none">
+              {t('about.title.1')}
             </h2>
-            <p className="text-lg md:text-2xl text-gray-400 font-light leading-relaxed max-w-xl">
-              Sou editor audiovisual e trabalho transformando materiais brutos em vídeos com ritmo, narrativa e impacto visual.
+            <p className="text-2xl md:text-3xl text-gray-400 font-light mb-12">
+              {t('about.subtitle.1')}
             </p>
-          </div>
-        </motion.div>
+
+            <div className="flex flex-wrap gap-3 mb-12">
+              {getTags().map((tag) => (
+                <span
+                  key={tag}
+                  className="px-4 py-2 rounded-full border border-white/10 text-sm font-mono tracking-widest text-gray-300"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <div className="p-8 border border-white/10 rounded-3xl bg-main-bg/50 backdrop-blur-sm relative overflow-hidden group">
+              <div className="absolute inset-0 bg-accent/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-3">
+                <span className="w-2 h-2 rounded-full bg-accent" />
+                {t('about.title.2')}
+              </h3>
+              <div className="flex items-center gap-6 text-gray-400 font-mono text-sm">
+                <span>{t('about.raw')}</span>
+                <MoveRight className="text-accent" />
+                <span className="text-white font-bold">{t('about.final')}</span>
+              </div>
+              <p className="mt-6 text-sm text-gray-500 leading-relaxed">
+                {t('about.steps')}
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Right Column */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+            className="relative"
+          >
+            <div className="aspect-[4/5] md:aspect-square rounded-3xl overflow-hidden relative">
+              <img
+                src="/guilherme_staircase.png"
+                alt="Guilherme - Editor Audiovisual"
+                className="w-full h-full object-cover grayscale opacity-90 hover:grayscale-0 transition-all duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-main-bg via-transparent to-transparent" />
+            </div>
+
+            <div className="absolute -bottom-8 -left-8 md:bottom-12 md:-left-12 p-8 bg-main-bg border border-white/10 rounded-3xl shadow-2xl max-w-sm">
+              <h3 className="text-2xl font-bold mb-3">{t('about.title.3')}</h3>
+              <p className="text-gray-400 leading-relaxed text-sm">
+                {t('about.desc')}
+              </p>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, X, Sun, Moon, Globe } from "lucide-react";
+import { useLanguage } from "../contexts/LanguageContext";
 
 const navLinks = [
-  { name: "Início", href: "#home" },
-  { name: "Trabalhos", href: "#portfolio" },
-  { name: "Sobre", href: "#about" },
-  { name: "Contato", href: "#contact" },
+  { key: "nav.home", href: "#home" },
+  { key: "nav.portfolio", href: "#portfolio" },
+  { key: "nav.about", href: "#about" },
+  { key: "nav.contact", href: "#contact" },
 ];
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +27,10 @@ export default function Header() {
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
     document.documentElement.classList.toggle("light");
+  };
+
+  const toggleLanguage = () => {
+    setLanguage(language === 'pt' ? 'en' : 'pt');
   };
 
   return (
@@ -47,11 +53,11 @@ export default function Header() {
         <nav className="hidden md:flex items-center gap-4 lg:gap-8 ml-auto">
           {navLinks.map((link) => (
             <a
-              key={link.name}
+              key={link.key}
               href={link.href}
-              className="text-sm font-medium text-gray-400 hover:text-white transition-colors"
+              className="text-sm font-medium text-gray-400 hover:text-white transition-colors uppercase tracking-widest"
             >
-              {link.name}
+              {t(link.key)}
             </a>
           ))}
 
@@ -61,17 +67,33 @@ export default function Header() {
           >
             {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
+          
+          <button
+            onClick={toggleLanguage}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-800 hover:bg-gray-800 transition-colors text-gray-400 hover:text-white text-xs font-bold tracking-widest uppercase"
+          >
+            <Globe size={14} />
+            {language === 'pt' ? 'EN' : 'PT'}
+          </button>
 
           <a
             href="#contact"
             className="px-6 py-2.5 bg-accent hover:bg-red-600 text-white text-sm font-bold rounded-full transition-all uppercase tracking-wider"
           >
-            Orçar Projeto
+            {t('nav.cta')}
           </a>
         </nav>
 
         {/* Mobile Menu Toggle */}
         <div className="flex items-center gap-2 md:hidden">
+          <button
+            onClick={toggleLanguage}
+            className="p-2 rounded-full hover:bg-gray-800 transition-colors text-gray-400 font-bold text-xs flex items-center gap-1"
+          >
+            <Globe size={14} />
+            {language === 'pt' ? 'EN' : 'PT'}
+          </button>
+          
           <button
             onClick={toggleTheme}
             className="p-3 rounded-full hover:bg-gray-800 transition-colors text-gray-400"
@@ -101,12 +123,12 @@ export default function Header() {
             <div className="flex flex-col p-6 gap-4">
               {navLinks.map((link) => (
                 <a
-                  key={link.name}
+                  key={link.key}
                   href={link.href}
-                  className="text-lg font-medium text-gray-400 hover:text-white transition-colors"
+                  className="text-lg font-medium text-gray-400 hover:text-white transition-colors uppercase tracking-widest"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  {link.name}
+                  {t(link.key)}
                 </a>
               ))}
               <a
@@ -114,7 +136,7 @@ export default function Header() {
                 className="w-fit px-8 py-3 bg-accent text-white font-bold rounded-full mt-2 uppercase tracking-wider text-sm"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Orçar Projeto
+                {t('nav.cta')}
               </a>
             </div>
           </motion.nav>

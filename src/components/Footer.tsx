@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X } from "lucide-react";
+import { useLanguage } from "../contexts/LanguageContext";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const [isTermsOpen, setIsTermsOpen] = useState(false);
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <>
@@ -21,7 +23,7 @@ export default function Footer() {
           </div>
 
           <p className="text-gray-500 text-sm">
-            &copy; {currentYear} Guironas. Todos os direitos reservados.
+            &copy; {currentYear} Guironas. {t('footer.rights')}
           </p>
 
           <div className="flex gap-6 text-sm text-gray-500">
@@ -29,13 +31,13 @@ export default function Footer() {
               onClick={() => setIsTermsOpen(true)}
               className="hover:text-white transition-colors"
             >
-              Termos
+              {t('footer.terms')}
             </button>
             <button
               onClick={() => setIsPrivacyOpen(true)}
               className="hover:text-white transition-colors"
             >
-              Privacidade
+              {t('footer.privacy')}
             </button>
           </div>
         </div>
@@ -66,28 +68,12 @@ export default function Footer() {
               >
                 <X size={20} />
               </button>
-              <h3 className="text-2xl font-bold mb-6">Termos de Uso</h3>
+              <h3 className="text-2xl font-bold mb-6">{t('footer.terms.title')}</h3>
               <div className="text-gray-400 space-y-4 leading-relaxed">
-                <p>
-                  Estes termos de uso regulam o acesso e utilização deste site
-                  de portfólio profissional.
-                </p>
-                <p>
-                  Todo o conteúdo audiovisual, imagens, textos e design
-                  apresentados neste site são de propriedade exclusiva de
-                  Guilherme Rodrigues (Guironas) ou de seus respectivos
-                  clientes, sendo protegidos por leis de direitos autorais.
-                </p>
-                <p>
-                  É expressamente proibida a reprodução, distribuição,
-                  modificação ou uso comercial de qualquer material aqui contido
-                  sem autorização prévia por escrito.
-                </p>
-                <p>
-                  Ao utilizar este site para entrar em contato, você concorda em
-                  fornecer informações verdadeiras e utilizar os canais de
-                  comunicação de forma ética e profissional.
-                </p>
+                <p>{t('footer.terms.p1')}</p>
+                <p>{t('footer.terms.p2')}</p>
+                <p>{t('footer.terms.p3')}</p>
+                <p>{t('footer.terms.p4')}</p>
               </div>
             </motion.div>
           </motion.div>
@@ -120,28 +106,13 @@ export default function Footer() {
                 <X size={20} />
               </button>
               <h3 className="text-2xl font-bold mb-6">
-                Política de Privacidade
+                {t('footer.privacy.title')}
               </h3>
               <div className="text-gray-400 space-y-4 leading-relaxed">
-                <p>
-                  A sua privacidade é importante para nós. Esta política explica
-                  como lidamos com suas informações.
-                </p>
-                <p>
-                  As informações coletadas através do formulário de contato
-                  (Nome, Email, Mensagem) são utilizadas exclusivamente para
-                  fins de comunicação profissional e resposta a orçamentos ou
-                  dúvidas.
-                </p>
-                <p>
-                  Não compartilhamos, vendemos ou alugamos seus dados pessoais
-                  para terceiros sob nenhuma circunstância.
-                </p>
-                <p>
-                  O site pode utilizar cookies básicos para melhorar a
-                  experiência de navegação e performance, mas nenhuma informação
-                  pessoal sensível é rastreada sem o seu consentimento.
-                </p>
+                <p>{t('footer.privacy.p1')}</p>
+                <p>{t('footer.privacy.p2')}</p>
+                <p>{t('footer.privacy.p3')}</p>
+                <p>{t('footer.privacy.p4')}</p>
               </div>
             </motion.div>
           </motion.div>
