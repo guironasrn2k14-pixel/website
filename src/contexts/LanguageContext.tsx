@@ -94,9 +94,9 @@ const translations = {
     'nav.cta': 'Get a Quote',
     
     'hero.badge': 'Available for new projects',
-    'hero.title.1': 'VIDEO',
+    'hero.title.1': 'AUDIOVISUAL',
     'hero.title.2': 'EDITOR',
-    'hero.desc': 'Reels, VSLs, YouTube, and commercial content edited to capture and retain attention.',
+    'hero.desc': 'Reels, VSLs, YouTube, and commercial content with editing focused on audience retention.',
     'hero.cta.primary': 'View Work',
     'hero.cta.secondary': 'Let\'s Talk',
     
@@ -108,10 +108,10 @@ const translations = {
     
     'projects.vsl.title': 'Video Sales Letter',
     'projects.vsl.desc': 'Editing focused on retention, clarity, and conversion.',
-    'projects.vsl.tags': 'PACING · CUTS · MOTION · SOUND DESIGN · RETENTION',
+    'projects.vsl.tags': 'RHYTHM · CUTS · MOTION · SOUND DESIGN · RETENTION',
     
     'projects.reels.title': 'Alert: Peruvian Maca',
-    'projects.reels.desc': 'Fast-paced content needs to grab attention fast. Cuts, pacing, subtitles, sound design, and motion to keep the video dynamic without losing clarity.',
+    'projects.reels.desc': 'Fast content needs to grab attention fast. Cuts, rhythm, captions, sound design, and motion to keep the video dynamic without losing clarity.',
     'projects.reels.client': 'Nutrition Specialist',
     
     'projects.comercial.title': 'Mc Tom da Vg - Where are you',
@@ -119,12 +119,12 @@ const translations = {
     'projects.comercial.client': 'Mc Tom da Vg & DJ IAM',
     
     'projects.youtube.title': 'Europe Travel Vlog',
-    'projects.youtube.desc': 'Storytelling, pacing, and retention for long-form content.',
+    'projects.youtube.desc': 'Narrative, rhythm, and retention for long-form content.',
     'projects.youtube.client': 'Personal Project',
     
     'about.title.1': "IT'S NOT JUST EDITING.",
-    'about.subtitle.1': 'It\'s understanding what the video needs to achieve.',
-    'about.tags.1': 'PACING',
+    'about.subtitle.1': 'It’s understanding what the video needs to do.',
+    'about.tags.1': 'RHYTHM',
     'about.tags.2': 'RETENTION',
     'about.tags.3': 'STORYTELLING',
     'about.tags.4': 'MOTION',
@@ -132,9 +132,9 @@ const translations = {
     'about.title.2': 'From raw to final',
     'about.raw': 'Raw Footage',
     'about.final': 'Final Edit',
-    'about.steps': 'Cuts · Pacing · Motion · Sound Design · Subtitles · Color Grading',
+    'about.steps': 'Cuts · Rhythm · Motion · Sound Design · Subtitles · Color Grading',
     'about.title.3': "NICE TO MEET YOU, I'M GUI.",
-    'about.desc': 'I am a video editor who transforms raw footage into videos with pacing, narrative, and visual impact.',
+    'about.desc': 'I’m an audiovisual editor, transforming raw footage into videos driven by rhythm, narrative, and visual impact.',
     
     'clients.title': "WHO I'VE WORKED WITH",
     'clients.role.1': 'Content Creator',
