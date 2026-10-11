@@ -60,9 +60,9 @@ const translations = {
     'projects.vsl.client': 'Projeto VSL',
     'projects.vsl.format': '16:9 · Longa Duração',
     
-    'projects.reels.title': 'Alerta: Maca Peruana',
-    'projects.reels.desc': 'Conteúdo rápido precisa ganhar atenção rápido. Cortes, ritmo, legendas, sound design e motion para manter o vídeo dinâmico sem perder clareza.',
-    'projects.reels.client': 'Especialista em Nutrição',
+    'projects.reels.title': 'Treino Rápido de Perna Motivacional',
+    'projects.reels.desc': 'Edição de alta intensidade para treino de pernas. Cortes rápidos sincronizados com o beat, sound design imersivo e máxima retenção visual.',
+    'projects.reels.client': 'Fitness & Performance',
     'projects.reels.format': '9:16 · Reels Vertical',
     
     'projects.comercial.title': 'Mc Tom da Vg - Cadê você',
@@ -200,9 +200,9 @@ const translations = {
     'projects.vsl.client': 'VSL Project',
     'projects.vsl.format': '16:9 · Long-Form Video',
     
-    'projects.reels.title': 'Alert: Peruvian Maca',
-    'projects.reels.desc': 'Fast content needs to grab attention fast. Cuts, rhythm, captions, sound design, and motion to keep the video dynamic without losing clarity.',
-    'projects.reels.client': 'Nutrition Specialist',
+    'projects.reels.title': 'Fast Motivational Leg Workout',
+    'projects.reels.desc': 'High-intensity fitness editing for leg day. Fast cuts synced to the beat, immersive sound design, and peak retention for reels and shorts.',
+    'projects.reels.client': 'Fitness & Performance',
     'projects.reels.format': '9:16 · Vertical Reels',
     
     'projects.comercial.title': 'Mc Tom da Vg - Where are you',

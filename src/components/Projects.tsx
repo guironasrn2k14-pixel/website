@@ -42,15 +42,49 @@ const CATEGORIES: CategoryFolder[] = [
   { id: "longos", labelKey: "projects.filter.longos" },
 ];
 
+function getYouTubeId(url: string): string {
+  if (!url) return "";
+  const match = url.match(/(?:embed\/|v=|vi\/|youtu\.be\/|\/shorts\/)([a-zA-Z0-9_-]{11})/);
+  return match ? match[1] : "";
+}
+
+function isVimeo(url: string): boolean {
+  return /vimeo\.com/i.test(url);
+}
+
+function getEmbedPreviewUrl(url: string): string {
+  if (!url) return "";
+  if (isVimeo(url)) {
+    const match = url.match(/video\/(\d+)|vimeo\.com\/(\d+)/);
+    const videoId = match ? (match[1] || match[2]) : "1234718190";
+    return `https://player.vimeo.com/video/${videoId}?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1&dnt=1&playsinline=1`;
+  }
+  const ytid = getYouTubeId(url);
+  const base = url.split("?")[0];
+  return `${base}?autoplay=1&mute=1&loop=1&playlist=${ytid}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1&enablejsapi=1`;
+}
+
+function getEmbedModalUrl(url: string): string {
+  if (!url) return "";
+  if (isVimeo(url)) {
+    const match = url.match(/video\/(\d+)|vimeo\.com\/(\d+)/);
+    const videoId = match ? (match[1] || match[2]) : "1234718190";
+    return `https://player.vimeo.com/video/${videoId}?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&dnt=1&playsinline=1`;
+  }
+  const ytid = getYouTubeId(url);
+  const base = url.split("?")[0];
+  return `${base}?autoplay=1&playsinline=1&enablejsapi=1&rel=0&modestbranding=1&iv_load_policy=3&vq=hd1080&playlist=${ytid}&loop=1`;
+}
+
 const getFeaturedProjects = (t: (key: string) => string): ProjectItem[] => [
   {
     category: "REELS",
     title: t("projects.reels.title"),
     description: t("projects.reels.desc"),
-    visualText: "GANCHOS VISUAIS · RETENÇÃO · LEGENDAS DINÂMICAS · SOUND DESIGN",
+    visualText: "RITMO DINÂMICO · CORTE NO BEAT · HIGH RETENTION · SOUND DESIGN",
     client: t("projects.reels.client"),
     image: "/maca reels.png",
-    videoUrl: "https://www.youtube.com/embed/kNUZty3KDak",
+    videoUrl: "https://player.vimeo.com/video/1234718190?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1",
     aspect: "vertical",
     categories: ["reels", "fitness"],
   },
@@ -61,7 +95,7 @@ const getFeaturedProjects = (t: (key: string) => string): ProjectItem[] => [
     visualText: "STORYTELLING · TRANSIÇÕES ORGÂNICAS · SOUND DESIGN · RITMO",
     client: t("projects.youtube.client"),
     image: "/thai reels.png",
-    videoUrl: "https://www.youtube.com/embed/Pj1eXvYk3jY",
+    videoUrl: "https://www.youtube.com/embed/wxSwJ2exT0g",
     aspect: "vertical",
     categories: ["reels", "viagem"],
   },
@@ -72,7 +106,7 @@ const getFeaturedProjects = (t: (key: string) => string): ProjectItem[] => [
     visualText: "SINCRONIA RÍTMICA · SPEED RAMPS · COLOR GRADING · CORTE DINÂMICO",
     client: t("projects.comercial.client"),
     image: "/mctom.png.png",
-    videoUrl: "https://www.youtube.com/embed/8-W7z52yv0c",
+    videoUrl: "https://www.youtube-nocookie.com/embed/-aamBPYCowM",
     aspect: "video",
     categories: ["videoclipes", "performance"],
   },
@@ -94,7 +128,7 @@ const getFeaturedProjects = (t: (key: string) => string): ProjectItem[] => [
     visualText: "CLAREZA DIDÁTICA · MOTION INFOGRÁFICO · RETENÇÃO EM CONTEÚDO DENSO",
     client: t("projects.caneta.client"),
     image: "/caneta-emagrecedora.png",
-    videoUrl: "https://www.youtube.com/embed/_OZvXU3fwIA",
+    videoUrl: "https://www.youtube.com/embed/-rWrYbs2lD4",
     aspect: "video",
     categories: ["longos"],
   },
@@ -118,6 +152,7 @@ export default function Projects() {
   // Hide & Seek: Gaveta oculta por padrão
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
+  const isModalOpen = selectedProject !== null;
 
   // Microinteração de hover no cabeçalho: "Projetos" <-> "Vídeos"
   const [isWordHovered, setIsWordHovered] = useState(false);
@@ -324,14 +359,14 @@ export default function Projects() {
                   <div className="w-full lg:w-1/2 flex justify-center max-w-xl">
                     <div
                       onClick={() => setSelectedProject(curatedHighlights.flagship)}
-                      className="group relative overflow-hidden rounded-2xl bg-[#0c0c0e] border border-white/10 hover:border-accent/50 transition-all duration-500 cursor-pointer shadow-2xl w-full aspect-video"
+                      className="group relative overflow-hidden rounded-2xl bg-[#0c0c0e] border border-white/10 hover:border-accent/50 transition-all duration-500 cursor-pointer shadow-2xl w-full aspect-video transform-gpu [backface-visibility:hidden]"
                     >
-                      <div className="absolute top-4 left-4 z-20 flex items-center gap-2">
-                        <span className="px-2.5 py-1 rounded-md bg-black/70 backdrop-blur-md border border-white/10 text-[10px] font-mono uppercase tracking-widest text-neutral-300 flex items-center gap-1.5 shadow-lg">
+                      <div className="absolute top-4 left-4 z-20 flex items-center gap-2 pointer-events-none">
+                        <span className="px-2.5 py-1 rounded-md bg-black/85 border border-white/10 text-[10px] font-mono uppercase tracking-widest text-neutral-300 flex items-center gap-1.5 shadow-lg">
                           <span className="w-1.5 h-1.5 rounded-full bg-accent animate-ping" />
                           <span>16:9 WIDE</span>
                         </span>
-                        <span className="px-2 py-1 rounded-md bg-black/70 backdrop-blur-md border border-white/10 text-[10px] font-mono text-emerald-400 shadow-lg">
+                        <span className="px-2 py-1 rounded-md bg-black/85 border border-white/10 text-[10px] font-mono text-emerald-400 shadow-lg">
                           60 FPS
                         </span>
                       </div>
@@ -342,23 +377,45 @@ export default function Projects() {
                           loop
                           muted
                           playsInline
-                          preload="metadata"
+                          preload="auto"
                           poster={curatedHighlights.flagship.image}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 transform-gpu"
                         >
                           <source src={curatedHighlights.flagship.videoMp4} type="video/mp4" />
                         </video>
+                      ) : curatedHighlights.flagship.videoUrl ? (
+                        <div className="w-full h-full relative overflow-hidden bg-black [backface-visibility:hidden]">
+                          {/* Poster base para transição imediata e suave sem tela preta */}
+                          {curatedHighlights.flagship.image && (
+                            <img
+                              src={curatedHighlights.flagship.image}
+                              alt=""
+                              aria-hidden="true"
+                              className="w-full h-full object-cover absolute inset-0 -z-10 pointer-events-none"
+                            />
+                          )}
+                          {!isModalOpen && (
+                            <iframe
+                              src={getEmbedPreviewUrl(curatedHighlights.flagship.videoUrl)}
+                              className="w-full h-full absolute inset-0 border-0 pointer-events-none"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                              referrerPolicy="strict-origin-when-cross-origin"
+                              title={curatedHighlights.flagship.title}
+                              loading="lazy"
+                            />
+                          )}
+                        </div>
                       ) : (
                         <img
                           src={curatedHighlights.flagship.image}
                           alt={curatedHighlights.flagship.title}
                           loading="lazy"
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        ></img>
+                        />
                       )}
-                      <div className="absolute inset-0 bg-black/25 group-hover:bg-transparent transition-colors duration-500 pointer-events-none" />
+                      <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 pointer-events-none" />
                       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                        <div className="w-16 h-16 md:w-20 md:h-20 bg-accent/90 rounded-full flex items-center justify-center text-white backdrop-blur-sm scale-90 group-hover:scale-100 transition-transform duration-300 shadow-2xl">
+                        <div className="w-16 h-16 md:w-20 md:h-20 bg-accent rounded-full flex items-center justify-center text-white scale-90 group-hover:scale-100 transition-transform duration-300 shadow-[0_0_35px_rgba(239,68,68,0.7)]">
                           <Play size={28} className="ml-1" />
                         </div>
                       </div>
@@ -415,6 +472,27 @@ export default function Projects() {
                           >
                             <source src={project.videoMp4} type="video/mp4" />
                           </video>
+                        ) : project.videoUrl ? (
+                          <div className="w-full h-full relative overflow-hidden bg-black [backface-visibility:hidden]">
+                            {project.image && (
+                              <img
+                                src={project.image}
+                                alt=""
+                                aria-hidden="true"
+                                className="w-full h-full object-cover absolute inset-0 -z-10 pointer-events-none"
+                              />
+                            )}
+                            {!isModalOpen && (
+                              <iframe
+                                src={getEmbedPreviewUrl(project.videoUrl)}
+                                className="w-full h-full absolute inset-0 border-0 pointer-events-none"
+                                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                                referrerPolicy="strict-origin-when-cross-origin"
+                                title={project.title}
+                                loading="lazy"
+                              />
+                            )}
+                          </div>
                         ) : (
                           <img
                             src={project.image}
@@ -600,6 +678,27 @@ export default function Projects() {
                               >
                                 <source src={project.videoMp4} type="video/mp4" />
                               </video>
+                            ) : project.videoUrl ? (
+                              <div className="w-full h-full relative overflow-hidden bg-black [backface-visibility:hidden]">
+                                {project.image && (
+                                  <img
+                                    src={project.image}
+                                    alt=""
+                                    aria-hidden="true"
+                                    className="w-full h-full object-cover absolute inset-0 -z-10 pointer-events-none"
+                                  />
+                                )}
+                                {!isModalOpen && (
+                                  <iframe
+                                    src={getEmbedPreviewUrl(project.videoUrl)}
+                                    className="w-full h-full absolute inset-0 border-0 pointer-events-none"
+                                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                                    referrerPolicy="strict-origin-when-cross-origin"
+                                    title={project.title}
+                                    loading="lazy"
+                                  />
+                                )}
+                              </div>
                             ) : (
                               <img
                                 src={project.image}
@@ -828,15 +927,16 @@ export default function Projects() {
             </button>
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
               className={`relative w-full ${
                 selectedProject.aspect === "vertical" ? "max-w-md" : "max-w-6xl"
               } max-h-[92vh] flex items-center justify-center z-10`}
             >
               <div
-                className={`relative w-full max-h-[92vh] overflow-hidden shadow-2xl flex justify-center ${
+                className={`relative w-full max-h-[92vh] overflow-hidden shadow-2xl flex justify-center bg-black ${
                   selectedProject.aspect === "vertical"
                     ? "aspect-[9/16] rounded-2xl mx-auto"
                     : "aspect-video rounded-xl md:rounded-2xl mx-auto"
@@ -867,12 +967,13 @@ export default function Projects() {
                   </video>
                 ) : selectedProject.videoUrl ? (
                   <iframe
-                    src={`${selectedProject.videoUrl}?vq=hd1080&hd=1&rel=0&showinfo=0&modestbranding=1&autoplay=1`}
+                    src={getEmbedModalUrl(selectedProject.videoUrl)}
                     className="absolute inset-0 w-full h-full border-0"
-                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer"
+                    style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
                     allowFullScreen
                     title={selectedProject.title}
-                    loading="lazy"
                   />
                 ) : (
                   <img
