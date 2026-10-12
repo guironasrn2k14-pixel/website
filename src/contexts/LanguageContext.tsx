@@ -70,10 +70,10 @@ const translations = {
     'projects.comercial.client': 'Mc Tom da Vg & DJ IAM',
     'projects.comercial.format': '16:9 · Videoclipe Oficial',
     
-    'projects.youtube.title': 'Vlog de Viagem Europa & Muay Thai',
-    'projects.youtube.desc': 'Narrativa, ritmo e retenção para conteúdos longos e dinâmicos.',
-    'projects.youtube.client': 'Projeto Autoral',
-    'projects.youtube.format': '9:16 · Reels / Viagem',
+    'projects.youtube.title': 'Produtos - Comercial & E-commerce',
+    'projects.youtube.desc': 'Apresentação comercial e dinâmica de produtos com iluminação destacada, cortes ritmados, sound design imersivo e alta conversão visual.',
+    'projects.youtube.client': 'Comercial & E-commerce',
+    'projects.youtube.format': '9:16 · Reels Comercial',
 
     'projects.caneta.title': 'Caneta Emagrecedora - Análise Médica',
     'projects.caneta.desc': 'Edição e ritmo para conteúdo educacional médico, tornando dados complexos acessíveis e mantendo a retenção.',
@@ -210,10 +210,10 @@ const translations = {
     'projects.comercial.client': 'Mc Tom da Vg & DJ IAM',
     'projects.comercial.format': '16:9 · Official Music Video',
     
-    'projects.youtube.title': 'Europe Travel Vlog & Muay Thai',
-    'projects.youtube.desc': 'Narrative, rhythm, and retention for dynamic visual content.',
-    'projects.youtube.client': 'Personal Project',
-    'projects.youtube.format': '9:16 · Reels / Travel',
+    'projects.youtube.title': 'Products - Commercial & E-commerce',
+    'projects.youtube.desc': 'Dynamic commercial product showcase with spotlight lighting, rhythmic cuts, immersive sound design, and peak visual conversion.',
+    'projects.youtube.client': 'Commercial & E-commerce',
+    'projects.youtube.format': '9:16 · Commercial Reels',
 
     'projects.caneta.title': 'Weight-Loss Injections - Medical Breakdown',
     'projects.caneta.desc': 'Clear narrative pacing for medical and health education, breaking down complex topics while keeping engagement high.',
