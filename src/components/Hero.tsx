@@ -24,20 +24,20 @@ export default function Hero() {
             </span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-[8rem] font-display font-bold tracking-tighter leading-[1] mt-4 break-words hyphens-auto w-full px-2">
+          <h1 className="text-3xl min-[400px]:text-4xl sm:text-6xl md:text-7xl lg:text-[7.5rem] font-display font-bold tracking-tighter leading-[0.95] mt-4 w-full px-2 text-[#F8FAFC]">
             {t('hero.title.1')}
             <br />
             {t('hero.title.2')}
           </h1>
 
-          <p className="text-lg md:text-2xl text-gray-400 max-w-2xl leading-relaxed px-6 md:px-0 font-light mt-4">
+          <p className="text-lg md:text-2xl text-[#8A919E] max-w-2xl leading-relaxed px-6 md:px-0 font-light mt-4 font-sans">
             {t('hero.desc')}
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 mt-8 w-full px-6 md:px-0">
             <a
               href="#portfolio"
-              className="w-full sm:w-auto px-10 py-4 md:py-5 bg-white text-black hover:bg-gray-200 font-display font-bold rounded-full transition-all flex items-center justify-center gap-3 group text-sm md:text-base uppercase tracking-wider"
+              className="w-full sm:w-auto px-10 py-4 md:py-5 bg-[#F8FAFC] text-[#121316] hover:bg-neutral-200 font-display font-bold rounded-full transition-all flex items-center justify-center gap-3 group text-sm md:text-base uppercase tracking-wider"
             >
               {t('hero.cta.primary')}
               <ArrowRight
@@ -47,7 +47,7 @@ export default function Hero() {
             </a>
             <a
               href="#contact"
-              className="w-full sm:w-auto px-10 py-4 md:py-5 bg-transparent hover:bg-white/5 border border-white/20 text-white font-display font-medium rounded-full transition-all flex items-center justify-center gap-3 text-sm md:text-base uppercase tracking-wider"
+              className="w-full sm:w-auto px-10 py-4 md:py-5 bg-[#1A1C23] hover:bg-[#222530] border border-white/10 text-[#F8FAFC] font-display font-medium rounded-full transition-all flex items-center justify-center gap-3 text-sm md:text-base uppercase tracking-wider"
             >
               {t('hero.cta.secondary')}
             </a>

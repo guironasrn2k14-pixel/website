@@ -22,7 +22,7 @@ export default function App() {
         <Background />
         <SmoothScroll />
         <Header />
-        <main>
+        <main className="relative z-10">
           <Hero />
           <Projects />
           <About />

@@ -17,6 +17,17 @@ export default function Header() {
   const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "light") {
+      setIsDarkMode(false);
+      document.documentElement.classList.add("light");
+    } else {
+      setIsDarkMode(true);
+      document.documentElement.classList.remove("light");
+    }
+  }, []);
+
+  useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
@@ -25,8 +36,17 @@ export default function Header() {
   }, []);
 
   const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle("light");
+    setIsDarkMode((prev) => {
+      const next = !prev;
+      if (!next) {
+        document.documentElement.classList.add("light");
+        localStorage.setItem("theme", "light");
+      } else {
+        document.documentElement.classList.remove("light");
+        localStorage.setItem("theme", "dark");
+      }
+      return next;
+    });
   };
 
   return (

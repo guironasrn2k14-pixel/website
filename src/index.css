@@ -1,24 +1,26 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
 :root {
-  --color-main-bg: #0b0b0b;
-  --color-card-bg: #1a1a1a;
-  --color-text: #ffffff;
-  --color-text-muted: #9ca3af;
-  --color-accent: #ef4444;
+  --color-main-bg: #121316;
+  --color-card-bg: #1A1C23;
+  --color-text: #F8FAFC;
+  --color-text-muted: #8A919E;
+  --color-accent: #E11D48;
 }
 
 .light {
-  --color-main-bg: #f8fafc;
-  --color-card-bg: #ffffff;
-  --color-text: #0f172a;
-  --color-text-muted: #475569;
+  --color-main-bg: #F8FAFC;
+  --color-card-bg: #FFFFFF;
+  --color-text: #0F172A;
+  --color-text-muted: #64748B;
+  --color-accent: #E11D48;
 }
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   --color-main-bg: var(--color-main-bg);
   --color-accent: var(--color-accent);
   --color-card-bg: var(--color-card-bg);
@@ -81,107 +83,149 @@ body {
   background: #555;
 }
 
-/* Utility overrides for light mode */
-.light .text-gray-500,
-.light .text-gray-400,
-.light .text-gray-300 {
-  color: var(--color-text-muted);
+.light ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
 }
 
-.light .text-gray-200,
-.light .text-gray-100,
+.light ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* =========================================================================
+   LIGHT MODE STYLING OVERRIDES (Clean, Premium, Off-White & Charcoal)
+   ========================================================================= */
+
+/* Transição global suave de tema */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* Cards e containers em modo claro: Branco puro com sombra difusa e borda sutil #E2E8F0 */
+.light [class*="bg-\[\#1A1C23\]"],
+.light .bg-card-bg {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Fundo principal em containers */
+.light [class*="bg-\[\#121316\]"] {
+  background-color: #F8FAFC !important;
+}
+
+/* Textos principais e títulos em modo claro */
+.light [class*="text-\[\#F8FAFC\]"],
 .light .text-white {
-  color: var(--color-text);
+  color: #0F172A !important;
 }
 
-.light .bg-accent.text-white,
-.light .bg-accent .text-white {
-  color: #ffffff !important;
+/* Descrições em modo claro: Cinza suave legível #475569 */
+.light [class*="text-\[\#94A3B8\]"],
+.light .text-slate-400 {
+  color: #475569 !important;
 }
 
-.light .bg-gray-800 {
-  background-color: #f1f5f9;
+/* Textos secundários e tags técnicas em modo claro */
+.light [class*="text-\[\#8A919E\]"],
+.light .text-gray-400,
+.light .text-gray-300,
+.light .text-neutral-400,
+.light .text-neutral-300 {
+  color: #64748B !important;
 }
 
-.light .bg-gray-700 {
-  background-color: #e2e8f0;
+/* Destaques com bg-accent e textos em botão accent */
+.light .bg-accent {
+  background-color: #E11D48 !important;
 }
 
-.light .border-gray-800 {
-  border-color: #e2e8f0;
+.light .text-accent {
+  color: #E11D48 !important;
 }
 
-.light .bg-white\/5 {
-  background-color: rgba(0, 0, 0, 0.05);
+.light .bg-accent text,
+.light .bg-accent [class*="text-"],
+.light .bg-accent * {
+  color: #FFFFFF !important;
 }
 
-.light .hover\:bg-white\/10:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+/* Bordas sutis em modo claro */
+.light [class*="border-white\/5"],
+.light [class*="border-white\/10"],
+.light [class*="border-white\/15"],
+.light [class*="border-white\/20"] {
+  border-color: #E2E8F0 !important;
 }
 
-.light .border-white\/5 {
-  border-color: rgba(0, 0, 0, 0.05);
+/* Tags e badges de projeto em modo claro */
+.light [class*="bg-white\/\[0.04\]"],
+.light [class*="bg-white\/\[0.05\]"],
+.light [class*="bg-white\/5"] {
+  background-color: #F1F5F9 !important;
+  border-color: #E2E8F0 !important;
+  color: #475569 !important;
 }
 
-.light .border-white\/10 {
-  border-color: rgba(0, 0, 0, 0.1);
+/* Botões do Carrossel (< e >) em modo claro */
+.light button[class*="bg-\[\#1A1C23\]"] {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
 }
 
-/* Fix opacity backgrounds on custom colors */
-.light .bg-card-bg\/5 {
-  background-color: rgba(0, 0, 0, 0.02);
-}
-.light .bg-card-bg\/50 {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-.light .bg-main-bg\/50 {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-.light .bg-main-bg\/80 {
-  background-color: rgba(248, 250, 252, 0.8);
-}
-.light .bg-accent\/10 {
-  background-color: rgba(239, 68, 68, 0.1);
-}
-.light .bg-accent\/20 {
-  background-color: rgba(239, 68, 68, 0.15);
-}
-.light .mix-blend-screen {
-  mix-blend-mode: multiply;
+.light button[class*="bg-\[\#1A1C23\]"]:hover:not(:disabled) {
+  border-color: #E11D48 !important;
+  color: #E11D48 !important;
+  background-color: #FFF1F2 !important;
 }
 
-/* Fix black backgrounds turning pitch black in light mode */
-.light .bg-black {
-  background-color: #f8fafc;
-}
-.light .bg-black\/95 {
-  background-color: rgba(248, 250, 252, 0.95);
-}
-.light .bg-black\/90 {
-  background-color: rgba(248, 250, 252, 0.9);
-}
-.light .bg-black\/80 {
-  background-color: rgba(248, 250, 252, 0.8);
-}
-.light .bg-black\/50 {
-  background-color: rgba(248, 250, 252, 0.5);
-}
-.light .bg-black\/40 {
-  background-color: rgba(248, 250, 252, 0.4);
+/* Botão flutuante "ABRIR PASTAS" em modo claro */
+.light button[class*="bg-\[\#1A1C23\]\/95"] {
+  background-color: rgba(255, 255, 255, 0.98) !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08) !important;
 }
 
-/* Hero Button Fix in Light Mode */
-.light .bg-white.text-black {
-  background-color: #0f172a;
-  color: #ffffff;
-}
-.light .hover\:bg-gray-200:hover.text-black {
-  background-color: #1e293b;
+/* Gaveta lateral (Drawer) em modo claro */
+.light aside[class*="bg-\[\#1A1C23\]"] {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.08) !important;
 }
 
-/* Fix shadow of hero button in light mode */
-.light .shadow-\[0_0_40px_rgba\(\255\,\255\,\255\,0\.15\)\] {
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
+.light aside[class*="bg-\[\#1A1C23\]"] [class*="bg-\[\#121316\]"] {
+  background-color: #F1F5F9 !important;
+  border-color: #E2E8F0 !important;
+}
+
+/* Selo de formato e fps no vídeo (ex: 9:16 60FPS) mantido com contraste nítido */
+.light .portfolio-video-badge,
+.light [class*="bg-black\/80"] {
+  background-color: rgba(15, 23, 42, 0.75) !important;
+  color: #FFFFFF !important;
+}
+
+/* Botão Hero Primário em modo claro */
+.light a[class*="bg-\[\#F8FAFC\]"] {
+  background-color: #0F172A !important;
+  color: #FFFFFF !important;
+}
+.light a[class*="bg-\[\#F8FAFC\]"]:hover {
+  background-color: #1E293B !important;
+}
+.light a[class*="bg-\[\#F8FAFC\]"] svg {
+  color: #FFFFFF !important;
+}
+
+/* Header fixo em modo claro ao rolar */
+.light header[class*="bg-main-bg\/95"] {
+  background-color: rgba(248, 250, 252, 0.95) !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03) !important;
 }
 
 /* Portfolio video player styles */
