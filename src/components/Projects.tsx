@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   X,
@@ -10,6 +10,8 @@ import {
   Eye,
   ArrowRight,
   FolderOpen,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { ShounenCategoryIcon } from "./ShounenIcons";
 import { useLanguage } from "../contexts/LanguageContext";
@@ -30,16 +32,14 @@ export interface ProjectItem {
 export interface CategoryFolder {
   id: string;
   labelKey: string;
+  description?: string;
 }
 
 const CATEGORIES: CategoryFolder[] = [
-  { id: "all", labelKey: "projects.filter.all" },
-  { id: "reels", labelKey: "projects.filter.reels" },
-  { id: "viagem", labelKey: "projects.filter.viagem" },
-  { id: "performance", labelKey: "projects.filter.performance" },
-  { id: "fitness", labelKey: "projects.filter.fitness" },
-  { id: "videoclipes", labelKey: "projects.filter.videoclipes" },
-  { id: "longos", labelKey: "projects.filter.longos" },
+  { id: "all", labelKey: "projects.filter.all", description: "Destaques & Acervo Geral" },
+  { id: "vlog", labelKey: "projects.filter.vlog", description: "Dia a dia e Estilo de Vida" },
+  { id: "reels", labelKey: "projects.filter.reels", description: "Cortes Rápidos & Retenção 9:16" },
+  { id: "videoclipes", labelKey: "projects.filter.videoclipes", description: "Produção Musical & 60fps" },
 ];
 
 function getYouTubeId(url: string): string {
@@ -78,15 +78,37 @@ function getEmbedModalUrl(url: string): string {
 
 const getFeaturedProjects = (t: (key: string) => string): ProjectItem[] => [
   {
+    category: "VLOG · Dia a dia",
+    title: t("projects.vlog.title"),
+    description: t("projects.vlog.desc"),
+    visualText: "RITMO DINÂMICO · VLOG DIÁRIO · SOUND DESIGN",
+    client: t("projects.vlog.client"),
+    image: "/thai reels.png",
+    videoUrl: "https://player.vimeo.com/video/1234976192?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1",
+    aspect: "vertical",
+    categories: ["vlog"],
+  },
+  {
+    category: "VLOG · Estilo de Vida",
+    title: t("projects.vlog2.title"),
+    description: t("projects.vlog2.desc"),
+    visualText: "VLOG · VIAGEM · NARRATIVA · STORYTELLING",
+    client: t("projects.vlog2.client"),
+    image: "https://i.vimeocdn.com/video/2211108141-4538a20a397410e4c9cd4754ddcc30bd70d2ad53172a50ef07b2b4497d481623-d_640.jpg",
+    videoUrl: "https://player.vimeo.com/video/1234975992?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1",
+    aspect: "vertical",
+    categories: ["vlog"],
+  },
+  {
     category: "REELS",
     title: t("projects.reels.title"),
     description: t("projects.reels.desc"),
     visualText: "RITMO DINÂMICO · CORTE NO BEAT · HIGH RETENTION · SOUND DESIGN",
     client: t("projects.reels.client"),
-    image: "/maca reels.png",
-    videoUrl: "https://player.vimeo.com/video/1234718190?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1",
+    image: "https://i.vimeocdn.com/video/2211108366-84d0802f5686fa4ad5144cdf5e8dfadbec9311807fad72e85bcd2d0d4dac8b6d-d_640.jpg",
+    videoUrl: "https://player.vimeo.com/video/1234976193?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1",
     aspect: "vertical",
-    categories: ["reels", "fitness"],
+    categories: ["reels"],
   },
   {
     category: "COMERCIAL",
@@ -97,7 +119,7 @@ const getFeaturedProjects = (t: (key: string) => string): ProjectItem[] => [
     image: "/produtos-vimeo.jpg",
     videoUrl: "https://player.vimeo.com/video/1234959083?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1",
     aspect: "vertical",
-    categories: ["reels", "performance"],
+    categories: ["reels"],
   },
   {
     category: "CLIPE MUSICAL",
@@ -108,40 +130,7 @@ const getFeaturedProjects = (t: (key: string) => string): ProjectItem[] => [
     image: "/mctom.png.png",
     videoUrl: "https://player.vimeo.com/video/1234976971?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1",
     aspect: "video",
-    categories: ["videoclipes", "performance"],
-  },
-  {
-    category: "VSL",
-    title: t("projects.vsl.title"),
-    description: t("projects.vsl.desc"),
-    visualText: t("projects.vsl.tags"),
-    client: t("projects.vsl.client"),
-    image: "/sameday-thumbnail.png.png",
-    videoUrl: "https://www.youtube.com/embed/_OZvXU3fwIA",
-    aspect: "video",
-    categories: ["longos"],
-  },
-  {
-    category: "EDUCACIONAL",
-    title: t("projects.caneta.title"),
-    description: t("projects.caneta.desc"),
-    visualText: "CLAREZA DIDÁTICA · MOTION INFOGRÁFICO · RETENÇÃO EM CONTEÚDO DENSO",
-    client: t("projects.caneta.client"),
-    image: "/caneta-emagrecedora.png",
-    videoUrl: "https://www.youtube.com/embed/-rWrYbs2lD4",
-    aspect: "video",
-    categories: ["longos"],
-  },
-  {
-    category: "CURSO ONLINE",
-    title: t("projects.nutricao.title"),
-    description: t("projects.nutricao.desc"),
-    visualText: "ESTRUTURA DE AULA · MOTION GRAPHICS · EQUALIZAÇÃO DE ÁUDIO",
-    client: t("projects.nutricao.client"),
-    image: "/Nutrição-thumbnail.png.png",
-    videoUrl: "https://www.youtube.com/embed/_OZvXU3fwIA",
-    aspect: "video",
-    categories: ["longos"],
+    categories: ["videoclipes"],
   },
 ];
 
@@ -156,6 +145,46 @@ export default function Projects() {
 
   // Microinteração de hover no cabeçalho: "Projetos" <-> "Vídeos"
   const [isWordHovered, setIsWordHovered] = useState(false);
+
+  // Carrossel Horizontal para os cards verticais
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = useCallback(() => {
+    const el = carouselRef.current;
+    if (!el) return;
+    const { scrollLeft, scrollWidth, clientWidth } = el;
+    setCanScrollLeft(scrollLeft > 10);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 10);
+  }, []);
+
+  useEffect(() => {
+    const el = carouselRef.current;
+    if (!el) return;
+    checkScroll();
+    el.addEventListener("scroll", checkScroll, { passive: true });
+    window.addEventListener("resize", checkScroll);
+    return () => {
+      el.removeEventListener("scroll", checkScroll);
+      window.removeEventListener("resize", checkScroll);
+    };
+  }, [checkScroll]);
+
+  const handleScroll = (direction: "left" | "right") => {
+    const el = carouselRef.current;
+    if (!el) return;
+    const firstCard = el.firstElementChild as HTMLElement | null;
+    const cardWidth = firstCard ? firstCard.offsetWidth + 24 : 480;
+    const target = direction === "right" ? el.scrollLeft + cardWidth : el.scrollLeft - cardWidth;
+    
+    el.scrollTo({
+      left: target,
+      behavior: "smooth",
+    });
+
+    setTimeout(checkScroll, 400);
+  };
 
   // Close modal or drawer on Escape key
   useEffect(() => {
@@ -180,15 +209,14 @@ export default function Projects() {
     return featuredProjects.filter((p) => p.categories.includes(activeCategory));
   }, [featuredProjects, activeCategory]);
 
-  // Destaques selecionados da visão inicial para evitar despejar 6 vídeos longos de uma vez
+  // Destaques selecionados da visão inicial
   const curatedHighlights = useMemo(() => {
-    // 1 Clipe Musical de alto impacto (16:9) + 2 Reels verticais de alta retenção (9:16)
-    const flagship = featuredProjects[2]; // MC Tom
-    const verticalReels1 = featuredProjects[0]; // Maca Reels
-    const verticalReels2 = featuredProjects[1]; // Thai Reels
+    // 1 Clipe Musical de alto impacto (16:9) + cards verticais (9:16)
+    const flagship = featuredProjects.find((p) => p.aspect === "video") || featuredProjects[3];
+    const verticalCards = featuredProjects.filter((p) => p.aspect === "vertical");
     return {
       flagship,
-      verticalDuo: [verticalReels1, verticalReels2].filter(Boolean),
+      verticalCards,
     };
   }, [featuredProjects]);
 
@@ -424,130 +452,177 @@ export default function Projects() {
                 </motion.div>
               )}
 
-              {/* Grid Duplo de Destaques Verticais 9:16 (Reels & Storytelling) */}
-              <div>
+              {/* Carrossel Horizontal de Destaques Verticais 9:16 (Vlogs & Reels) */}
+              <div className="relative">
+                {/* Cabeçalho da seção com controles de navegação por seta */}
                 <div className="flex items-center justify-between mb-8">
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-mono uppercase tracking-widest text-neutral-400 font-bold">
-                      {language === "pt" ? "Destaques Verticais · 9:16 Reels" : "Vertical Highlights · 9:16 Reels"}
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-mono uppercase tracking-widest text-neutral-400 font-bold">
+                        VLOGS · 9:16 REELS / VERTICAIS
+                      </span>
+                      <span className="px-2 py-0.5 rounded-full bg-accent/10 border border-accent/20 text-[10px] font-mono text-accent">
+                        {curatedHighlights.verticalCards.length} vídeos
+                      </span>
+                    </div>
+                    <span className="text-[11px] font-mono text-neutral-500 hidden sm:inline">
+                      • {language === "pt" ? "Otimizado para mobile & retenção" : "Optimized for mobile & retention"}
                     </span>
                   </div>
-                  <span className="text-[11px] font-mono text-neutral-500">
-                    {language === "pt" ? "Otimizado para mobile & retenção" : "Optimized for mobile & retention"}
-                  </span>
+
+                  {/* Controles de Navegação por Carousel (Setas < e >) */}
+                  <div className="flex items-center gap-2">
+                    {/* Seta para a Esquerda (<): Ativa quando há conteúdo anterior */}
+                    <button
+                      onClick={() => handleScroll("left")}
+                      disabled={!canScrollLeft}
+                      aria-label="Vídeos anteriores"
+                      title="Vídeos anteriores"
+                      className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center border transition-all duration-300 ${
+                        canScrollLeft
+                          ? "bg-[#0f0f13]/95 backdrop-blur-md border-white/20 text-white hover:border-accent hover:text-accent hover:bg-black/90 cursor-pointer shadow-lg active:scale-95 group"
+                          : "bg-white/[0.02] border-white/5 text-neutral-600 cursor-not-allowed opacity-40"
+                      }`}
+                    >
+                      <ChevronLeft size={20} className={canScrollLeft ? "group-hover:-translate-x-0.5 transition-transform" : ""} />
+                    </button>
+
+                    {/* Seta para a Direita (>): Ativa quando há próximos vídeos */}
+                    <button
+                      onClick={() => handleScroll("right")}
+                      disabled={!canScrollRight}
+                      aria-label="Próximos vídeos"
+                      title="Próximos vídeos"
+                      className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center border transition-all duration-300 ${
+                        canScrollRight
+                          ? "bg-[#0f0f13]/95 backdrop-blur-md border-white/20 text-white hover:border-accent hover:text-accent hover:bg-black/90 cursor-pointer shadow-lg active:scale-95 group"
+                          : "bg-white/[0.02] border-white/5 text-neutral-600 cursor-not-allowed opacity-40"
+                      }`}
+                    >
+                      <ChevronRight size={20} className={canScrollRight ? "group-hover:translate-x-0.5 transition-transform" : ""} />
+                    </button>
+                  </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14">
-                  {curatedHighlights.verticalDuo.map((project, idx) => (
-                    <motion.div
-                      key={`highlight-${project.title}-${idx}`}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: idx * 0.1 }}
-                      className="flex flex-col sm:flex-row gap-6 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/15 transition-all duration-300"
-                    >
-                      {/* Vertical Video Thumbnail Frame */}
-                      <div
-                        onClick={() => setSelectedProject(project)}
-                        className="w-full sm:w-48 shrink-0 aspect-[9/16] rounded-xl overflow-hidden bg-[#0c0c0e] border border-white/10 group relative cursor-pointer shadow-xl mx-auto"
+                {/* Container de visualização com scroll suave e touch swipe */}
+                <div className="relative">
+
+                  {/* Trilho de Scroll Horizontal com suporte a Swipe touch no mobile */}
+                  <div
+                    ref={carouselRef}
+                    className="flex gap-6 lg:gap-8 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 pt-1 px-1 -mx-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden touch-pan-x"
+                  >
+                    {curatedHighlights.verticalCards.map((project, idx) => (
+                      <motion.div
+                        key={`highlight-${project.title}-${idx}`}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: idx * 0.1 }}
+                        className="relative w-[88vw] sm:w-[480px] lg:w-[calc(50%-1rem)] max-w-[540px] shrink-0 snap-start flex flex-col sm:flex-row gap-6 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/15 transition-all duration-300 group/card"
                       >
-                        <div className="absolute top-2.5 left-2.5 z-20 flex items-center gap-1.5">
-                          <span className="px-2 py-0.5 rounded bg-black/70 backdrop-blur-md border border-white/10 text-[9px] font-mono uppercase tracking-widest text-neutral-300">
-                            9:16
-                          </span>
-                          <span className="px-1.5 py-0.5 rounded bg-black/70 backdrop-blur-md border border-white/10 text-[9px] font-mono text-emerald-400">
-                            60 FPS
-                          </span>
-                        </div>
-
-                        {project.videoMp4 ? (
-                          <video
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            preload="metadata"
-                            poster={project.image}
-                            className="portfolio-video-vertical w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                          >
-                            <source src={project.videoMp4} type="video/mp4" />
-                          </video>
-                        ) : project.videoUrl ? (
-                          <div className="w-full h-full relative overflow-hidden bg-black [backface-visibility:hidden]">
-                            {project.image && (
-                              <img
-                                src={project.image}
-                                alt=""
-                                aria-hidden="true"
-                                className="w-full h-full object-cover absolute inset-0 -z-10 pointer-events-none"
-                              />
-                            )}
-                            {!isModalOpen && (
-                              <iframe
-                                src={getEmbedPreviewUrl(project.videoUrl)}
-                                className="w-full h-full absolute inset-0 border-0 pointer-events-none"
-                                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                                referrerPolicy="strict-origin-when-cross-origin"
-                                title={project.title}
-                                loading="lazy"
-                              />
-                            )}
-                          </div>
-                        ) : (
-                          <img
-                            src={project.image}
-                            alt={project.title}
-                            loading="lazy"
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                          />
-                        )}
-
-                        <div className="absolute inset-0 bg-black/25 group-hover:bg-transparent transition-colors pointer-events-none" />
-                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                          <div className="w-12 h-12 bg-accent/90 rounded-full flex items-center justify-center text-white backdrop-blur-sm shadow-xl">
-                            <Play size={18} className="ml-0.5" />
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Info Side */}
-                      <div className="flex flex-col justify-between flex-1">
-                        <div>
-                          <div className="flex items-center gap-2 mb-2">
-                            <span className="text-[10px] font-mono uppercase tracking-wider text-accent font-semibold">
-                              {project.category}
-                            </span>
-                            <span className="text-neutral-600 font-mono text-[10px]">•</span>
-                            <span className="text-[10px] font-mono text-neutral-400">
-                              {project.client}
-                            </span>
-                          </div>
-
-                          <h5 className="text-xl font-bold text-white mb-2 leading-snug">
-                            {project.title}
-                          </h5>
-
-                          <p className="text-xs text-neutral-300 font-light leading-relaxed mb-4 line-clamp-3">
-                            {project.description}
-                          </p>
-
-                          {project.visualText && (
-                            <p className="text-[10px] font-mono text-neutral-500 tracking-wider mb-4 leading-normal">
-                              {project.visualText}
-                            </p>
-                          )}
-                        </div>
-
-                        <button
+                        {/* Vertical Video Thumbnail Frame */}
+                        <div
                           onClick={() => setSelectedProject(project)}
-                          className="inline-flex items-center gap-2 text-xs font-semibold text-white hover:text-accent transition-colors cursor-pointer group mt-2"
+                          className="w-full sm:w-48 shrink-0 aspect-[9/16] rounded-xl overflow-hidden bg-[#0c0c0e] border border-white/10 group relative cursor-pointer shadow-xl mx-auto"
                         >
-                          <Play size={12} className="fill-current group-hover:scale-110 transition-transform" />
-                          <span>{t("projects.watch")}</span>
-                        </button>
-                      </div>
-                    </motion.div>
-                  ))}
+                          <div className="absolute top-2.5 left-2.5 z-20 flex items-center gap-1.5">
+                            <span className="px-2 py-0.5 rounded bg-black/70 backdrop-blur-md border border-white/10 text-[9px] font-mono uppercase tracking-widest text-neutral-300">
+                              9:16
+                            </span>
+                            <span className="px-1.5 py-0.5 rounded bg-black/70 backdrop-blur-md border border-white/10 text-[9px] font-mono text-emerald-400">
+                              60 FPS
+                            </span>
+                          </div>
+
+                          {project.videoMp4 ? (
+                            <video
+                              autoPlay
+                              loop
+                              muted
+                              playsInline
+                              preload="metadata"
+                              poster={project.image}
+                              className="portfolio-video-vertical w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            >
+                              <source src={project.videoMp4} type="video/mp4" />
+                            </video>
+                          ) : project.videoUrl ? (
+                            <div className="w-full h-full relative overflow-hidden bg-black [backface-visibility:hidden]">
+                              {project.image && (
+                                <img
+                                  src={project.image}
+                                  alt=""
+                                  aria-hidden="true"
+                                  className="w-full h-full object-cover absolute inset-0 -z-10 pointer-events-none"
+                                />
+                              )}
+                              {!isModalOpen && (
+                                <iframe
+                                  src={getEmbedPreviewUrl(project.videoUrl)}
+                                  className="w-full h-full absolute inset-0 border-0 pointer-events-none"
+                                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                                  referrerPolicy="strict-origin-when-cross-origin"
+                                  title={project.title}
+                                  loading="lazy"
+                                />
+                              )}
+                            </div>
+                          ) : (
+                            <img
+                              src={project.image}
+                              alt={project.title}
+                              loading="lazy"
+                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                          )}
+
+                          <div className="absolute inset-0 bg-black/25 group-hover:bg-transparent transition-colors pointer-events-none" />
+                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                            <div className="w-12 h-12 bg-accent/90 rounded-full flex items-center justify-center text-white backdrop-blur-sm shadow-xl">
+                              <Play size={18} className="ml-0.5" />
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Info Side */}
+                        <div className="flex flex-col justify-between flex-1">
+                          <div>
+                            <div className="flex items-center gap-2 mb-2">
+                              <span className="text-[10px] font-mono uppercase tracking-wider text-accent font-semibold">
+                                {project.category}
+                              </span>
+                              <span className="text-neutral-600 font-mono text-[10px]">•</span>
+                              <span className="text-[10px] font-mono text-neutral-400">
+                                {project.client}
+                              </span>
+                            </div>
+
+                            <h5 className="text-xl font-bold text-white mb-2 leading-snug">
+                              {project.title}
+                            </h5>
+
+                            <p className="text-xs text-neutral-300 font-light leading-relaxed mb-4 line-clamp-3">
+                              {project.description}
+                            </p>
+
+                            {project.visualText && (
+                              <p className="text-[10px] font-mono text-neutral-500 tracking-wider mb-4 leading-normal">
+                                {project.visualText}
+                              </p>
+                            )}
+                          </div>
+
+                          <button
+                            onClick={() => setSelectedProject(project)}
+                            className="inline-flex items-center gap-2 text-xs font-semibold text-white hover:text-accent transition-colors cursor-pointer group mt-2"
+                          >
+                            <Play size={12} className="fill-current group-hover:scale-110 transition-transform" />
+                            <span>{t("projects.watch")}</span>
+                          </button>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
               </div>
 
@@ -656,7 +731,13 @@ export default function Projects() {
                             <div className="absolute top-4 left-4 z-20 flex items-center gap-2">
                               <span className="px-2.5 py-1 rounded-md bg-black/70 backdrop-blur-md border border-white/10 text-[10px] font-mono uppercase tracking-widest text-neutral-300 flex items-center gap-1.5 shadow-lg">
                                 <span className="w-1.5 h-1.5 rounded-full bg-accent animate-ping" />
-                                <span>{project.aspect === "vertical" ? "9:16 REELS" : "16:9 WIDE"}</span>
+                                <span>
+                                  {project.aspect === "vertical"
+                                    ? project.category === "VLOG"
+                                      ? "9:16 VLOG"
+                                      : "9:16 REELS"
+                                    : "16:9 WIDE"}
+                                </span>
                               </span>
                               <span className="px-2 py-1 rounded-md bg-black/70 backdrop-blur-md border border-white/10 text-[10px] font-mono text-emerald-400 shadow-lg">
                                 60 FPS
@@ -744,15 +825,16 @@ export default function Projects() {
             <LayoutGrid size={15} />
           </div>
 
-          {/* Micro-legenda padrão "ABRIR PASTAS" */}
+          {/* Micro-legenda padrão "ABRIR PASTAS / Todos os Vídeos (4)" */}
           <div className="flex flex-col text-left">
             <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-accent font-bold leading-none">
-              {t("projects.library.fab_label")}
+              ABRIR PASTAS / {t("projects.library.title")} ({featuredProjects.length})
             </span>
-            {/* Revelação suave do nome da pasta ativa */}
-            <span className="text-xs font-medium text-neutral-300 mt-1 max-w-[130px] sm:max-w-[160px] truncate group-hover:text-white transition-colors flex items-center gap-1.5">
-              <span>{t(activeCategoryObj.labelKey)}</span>
-              <span className="text-[10px] font-mono text-neutral-500">
+            {/* Revelação suave do nome da pasta ativa e contagem */}
+            <span className="text-xs font-medium text-neutral-300 mt-1 max-w-[170px] sm:max-w-[210px] truncate group-hover:text-white transition-colors flex items-center gap-1.5">
+              <span className="text-neutral-400">Pasta:</span>
+              <span className="text-white font-semibold">{t(activeCategoryObj.labelKey)}</span>
+              <span className="text-[10px] font-mono text-accent">
                 ({getCategoryCount(activeCategory)})
               </span>
             </span>
@@ -856,9 +938,10 @@ export default function Projects() {
                           <div className="flex flex-col truncate">
                             <span className="truncate">{t(cat.labelKey)}</span>
                             <span className="text-[10px] font-mono text-neutral-500 group-hover:text-neutral-400">
-                              {cat.id === "all"
-                                ? "Destaques & Acervo Geral"
-                                : `${count} ${count === 1 ? "projeto" : "projetos"}`}
+                              {cat.description ||
+                                (cat.id === "all"
+                                  ? "Destaques & Acervo Geral"
+                                  : `${count} ${count === 1 ? "projeto" : "projetos"}`)}
                             </span>
                           </div>
                         </div>

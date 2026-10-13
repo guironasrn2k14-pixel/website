@@ -97,6 +97,50 @@ export const ShounenCategoryIcon: React.FC<ShounenIconProps> = ({
       );
 
     /**
+     * 📹 Vlog & Conteúdo Dinâmico
+     * Moldura de câmera estilo documentário/vlog com visor e play de alta retenção
+     */
+    case "vlog":
+      return (
+        <svg
+          width={size}
+          height={size}
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className={className}
+          style={{ filter: glowFilter }}
+        >
+          {/* Corpo angular de câmera de gravação */}
+          <rect
+            x="3"
+            y="5"
+            width="13"
+            height="14"
+            rx="2.5"
+            stroke={strokeColor}
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill={isActive ? "rgba(239, 68, 68, 0.15)" : "none"}
+          />
+          {/* Lente angular de gravação / projeção */}
+          <path
+            d="M16 10L21 7V17L16 14"
+            stroke={strokeColor}
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          {/* Micro play afiado no centro do visor */}
+          <polygon
+            points="8.5,9.5 8.5,14.5 12.5,12"
+            fill={strokeColor}
+          />
+        </svg>
+      );
+
+    /**
      * 🌊 Viagem & Lifestyle
      * Onda geométrica Seigaiha / corte fluído com botão play cinemático integrado
      */

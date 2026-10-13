@@ -34,6 +34,7 @@ const translations = {
     
     'projects.filter.all': 'Todos os Vídeos',
     'projects.filter.reels': 'Reels & Retenção',
+    'projects.filter.vlog': 'Vlogs',
     'projects.filter.viagem': 'Viagem & Lifestyle',
     'projects.filter.performance': 'Dança & Performance',
     'projects.filter.fitness': 'Fitness, Receitas & Treinos',
@@ -74,6 +75,18 @@ const translations = {
     'projects.youtube.desc': 'Apresentação comercial e dinâmica de produtos com iluminação destacada, cortes ritmados, sound design imersivo e alta conversão visual.',
     'projects.youtube.client': 'Comercial & E-commerce',
     'projects.youtube.format': '9:16 · Reels Comercial',
+
+    'projects.vlog.title': 'Treino e Rotina Insana',
+    'projects.vlog.desc': 'Edição de vlog dinâmico acompanhando a rotina diária de treinos, com cortes rápidos e alta energia.',
+    'projects.vlog.client': 'Dia a dia',
+    'projects.vlog.tags': 'RITMO DINÂMICO · VLOG DIÁRIO · SOUND DESIGN',
+    'projects.vlog.format': '9:16 · Reels Vlog',
+
+    'projects.vlog2.title': 'Minha Jornada & Viagem',
+    'projects.vlog2.desc': 'Acompanhe um dia de exploração e bastidores de uma viagem incrível, focado em narrativa pessoal e conexões.',
+    'projects.vlog2.client': 'Estilo de Vida',
+    'projects.vlog2.tags': 'VLOG · VIAGEM · NARRATIVA · STORYTELLING',
+    'projects.vlog2.format': '9:16 · Reels Vlog',
 
     'projects.caneta.title': 'Caneta Emagrecedora - Análise Médica',
     'projects.caneta.desc': 'Edição e ritmo para conteúdo educacional médico, tornando dados complexos acessíveis e mantendo a retenção.',
@@ -174,6 +187,7 @@ const translations = {
     
     'projects.filter.all': 'All Videos',
     'projects.filter.reels': 'Reels & Retention',
+    'projects.filter.vlog': 'Vlogs',
     'projects.filter.viagem': 'Travel & Lifestyle',
     'projects.filter.performance': 'Dance & Performance',
     'projects.filter.fitness': 'Fitness, Recipes & Workouts',
@@ -214,6 +228,18 @@ const translations = {
     'projects.youtube.desc': 'Dynamic commercial product showcase with spotlight lighting, rhythmic cuts, immersive sound design, and peak visual conversion.',
     'projects.youtube.client': 'Commercial & E-commerce',
     'projects.youtube.format': '9:16 · Commercial Reels',
+
+    'projects.vlog.title': 'Intense Routine & Workout',
+    'projects.vlog.desc': 'Dynamic vlog editing capturing daily training routines, featuring fast cuts and high energy.',
+    'projects.vlog.client': 'Daily Life',
+    'projects.vlog.tags': 'DYNAMIC RHYTHM · DAILY VLOG · SOUND DESIGN',
+    'projects.vlog.format': '9:16 · Vertical Vlog',
+
+    'projects.vlog2.title': 'My Journey & Travel',
+    'projects.vlog2.desc': 'Follow a day of exploration and behind-the-scenes of an incredible trip, focusing on personal storytelling.',
+    'projects.vlog2.client': 'Lifestyle',
+    'projects.vlog2.tags': 'VLOG · TRAVEL · NARRATIVE · STORYTELLING',
+    'projects.vlog2.format': '9:16 · Vertical Vlog',
 
     'projects.caneta.title': 'Weight-Loss Injections - Medical Breakdown',
     'projects.caneta.desc': 'Clear narrative pacing for medical and health education, breaking down complex topics while keeping engagement high.',
