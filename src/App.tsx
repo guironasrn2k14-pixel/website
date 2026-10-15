@@ -6,6 +6,7 @@
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Projects from "./components/Projects";
+import Workflow from "./components/Workflow";
 import About from "./components/About";
 import Clients from "./components/Clients";
 import Contact from "./components/Contact";
@@ -25,6 +26,7 @@ export default function App() {
         <main className="relative z-10">
           <Hero />
           <Projects />
+          <Workflow />
           <About />
           <Clients />
           <Contact />

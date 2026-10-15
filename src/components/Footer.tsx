@@ -11,34 +11,86 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="bg-transparent py-12 border-t border-gray-800">
+      <footer className="bg-transparent py-14 border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
-          <div>
+          <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
             <a
               href="#home"
-              className="text-xl font-bold tracking-tighter hover:text-accent transition-colors"
+              className="text-xl font-bold tracking-tighter hover:text-accent transition-colors font-display"
             >
               GUI<span className="text-accent">RONAS</span>
             </a>
+            <span className="text-neutral-700 hidden sm:inline">|</span>
+            <span className="text-xs text-[#8A919E] font-mono">
+              Edição de Vídeo de Alto Impacto
+            </span>
           </div>
 
-          <p className="text-gray-500 text-sm">
-            &copy; {currentYear} Guironas. {t('footer.rights')}
-          </p>
+          {/* Redes Sociais e Contato Rápido */}
+          <div className="flex items-center gap-6 text-xs font-mono text-[#8A919E]">
+            <a
+              href="https://www.instagram.com/guironas/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              Instagram
+            </a>
+            <a
+              href="https://www.youtube.com/@guironas"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              YouTube
+            </a>
+            <a
+              href="https://wa.me/5511954629657?text=Olá%20Guironas!"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-emerald-400 transition-colors"
+            >
+              WhatsApp
+            </a>
+            <a
+              href="mailto:contato@guironas.shop"
+              className="hover:text-white transition-colors"
+            >
+              contato@guironas.shop
+            </a>
+          </div>
 
-          <div className="flex gap-6 text-sm text-gray-500">
+          <div className="flex items-center gap-6 text-xs text-[#8A919E]">
+            <p>&copy; {currentYear} Guironas.</p>
             <button
               onClick={() => setIsTermsOpen(true)}
-              className="hover:text-white transition-colors"
+              className="hover:text-white transition-colors cursor-pointer"
             >
               {t('footer.terms')}
             </button>
             <button
               onClick={() => setIsPrivacyOpen(true)}
-              className="hover:text-white transition-colors"
+              className="hover:text-white transition-colors cursor-pointer"
             >
               {t('footer.privacy')}
             </button>
+          </div>
+        </div>
+
+        {/* Linha de Softwares & Pagamentos Globais */}
+        <div className="max-w-7xl mx-auto px-6 mt-8 pt-6 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 text-[11px] font-mono text-[#8A919E]">
+            <span className="text-white font-medium uppercase tracking-wider mr-1">Pipeline:</span>
+            {['Premiere Pro', 'After Effects', 'DaVinci Resolve', 'CapCut Pro', 'Color Grading', 'Sound Design'].map((tech) => (
+              <span key={tech} className="px-2 py-0.5 rounded bg-white/[0.03] border border-white/5 text-[10px] text-[#CBD5E1]">
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/5 border border-emerald-500/20 text-[11px] font-mono text-emerald-400">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span>{t('footer.payments')}</span>
           </div>
         </div>
       </footer>

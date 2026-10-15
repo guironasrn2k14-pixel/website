@@ -3,44 +3,38 @@ import { motion, AnimatePresence } from "motion/react";
 import {
   X,
   Play,
-  Film,
-  Clapperboard,
-  LayoutGrid,
-  Check,
-  Eye,
-  ArrowRight,
-  FolderOpen,
+  Smartphone,
+  Youtube,
   ChevronLeft,
   ChevronRight,
+  MessageCircle,
 } from "lucide-react";
-import { ShounenCategoryIcon } from "./ShounenIcons";
 import { useLanguage } from "../contexts/LanguageContext";
 
+export type CategoryKey = "vlogs" | "youtube";
+
 export interface ProjectItem {
+  id: string;
   category: string;
+  formatType: CategoryKey;
   title: string;
   description: string;
-  visualText?: string;
+  socialProof?: string; // ex: "+2.5M VIEWS", "ORGANIC VIRAL", "HIGH RETENTION"
+  tags?: string[];
   client: string;
   image: string;
   videoUrl: string;
-  videoMp4?: string; // Vídeo direto local/remoto (.mp4 / .webm) com suporte a tags <video> de alta performance
+  videoMp4?: string;
   aspect: "video" | "vertical";
-  categories: string[]; // IDs para classificação manual: "reels" | "viagem" | "performance" | "fitness" | "videoclipes" | "longos"
 }
 
-export interface CategoryFolder {
-  id: string;
-  labelKey: string;
-  description?: string;
+interface CategoryTab {
+  id: CategoryKey;
+  label: string;
+  subtitle: string;
+  badge: string;
+  icon: React.ElementType;
 }
-
-const CATEGORIES: CategoryFolder[] = [
-  { id: "all", labelKey: "projects.filter.all", description: "Destaques & Acervo Geral" },
-  { id: "vlog", labelKey: "projects.filter.vlog", description: "Dia a dia e Estilo de Vida" },
-  { id: "reels", labelKey: "projects.filter.reels", description: "Cortes Rápidos & Retenção 9:16" },
-  { id: "videoclipes", labelKey: "projects.filter.videoclipes", description: "Produção Musical & 60fps" },
-];
 
 function getYouTubeId(url: string): string {
   if (!url) return "";
@@ -52,105 +46,185 @@ function isVimeo(url: string): boolean {
   return /vimeo\.com/i.test(url);
 }
 
-function getEmbedPreviewUrl(url: string): string {
+/**
+ * Retorna URL de Motion Preview em Loop Silencioso (Background Muted).
+ * Funciona nativamente em iOS, Android e Desktop sem bloqueios de autoplay.
+ */
+function getMotionPreviewUrl(url: string): string {
   if (!url) return "";
   if (isVimeo(url)) {
     const match = url.match(/video\/(\d+)|vimeo\.com\/(\d+)/);
-    const videoId = match ? (match[1] || match[2]) : "1234718190";
-    return `https://player.vimeo.com/video/${videoId}?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1&dnt=1&playsinline=1`;
+    const videoId = match ? match[1] || match[2] : "1234976193";
+    return `https://player.vimeo.com/video/${videoId}?background=1&autoplay=1&loop=1&muted=1&autopause=0&playsinline=1&dnt=1`;
   }
   const ytid = getYouTubeId(url);
-  const base = url.split("?")[0];
-  return `${base}?autoplay=1&mute=1&loop=1&playlist=${ytid}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&disablekb=1&enablejsapi=1`;
+  return `https://www.youtube-nocookie.com/embed/${ytid}?autoplay=1&mute=1&controls=0&loop=1&playlist=${ytid}&playsinline=1&modestbranding=1&rel=0`;
 }
 
+/**
+ * Retorna URL de Modal com Som Ativo e Controles Completos
+ */
 function getEmbedModalUrl(url: string): string {
   if (!url) return "";
   if (isVimeo(url)) {
     const match = url.match(/video\/(\d+)|vimeo\.com\/(\d+)/);
-    const videoId = match ? (match[1] || match[2]) : "1234718190";
-    return `https://player.vimeo.com/video/${videoId}?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&dnt=1&playsinline=1`;
+    const videoId = match ? match[1] || match[2] : "1234976193";
+    return `https://player.vimeo.com/video/${videoId}?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=0&loop=1&dnt=1&playsinline=1`;
   }
   const ytid = getYouTubeId(url);
   const base = url.split("?")[0];
   return `${base}?autoplay=1&playsinline=1&enablejsapi=1&rel=0&modestbranding=1&iv_load_policy=3&vq=hd1080&playlist=${ytid}&loop=1`;
 }
 
-const getFeaturedProjects = (t: (key: string) => string): ProjectItem[] => [
-  {
-    category: "VLOG · Dia a dia",
-    title: t("projects.vlog.title"),
-    description: t("projects.vlog.desc"),
-    visualText: "RITMO · RETENÇÃO · SOUND DESIGN",
-    client: t("projects.vlog.client"),
-    image: "/thai reels.png",
-    videoUrl: "https://player.vimeo.com/video/1234976192?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1",
-    aspect: "vertical",
-    categories: ["vlog"],
-  },
-  {
-    category: "VLOG · Estilo de Vida",
-    title: t("projects.vlog2.title"),
-    description: t("projects.vlog2.desc"),
-    visualText: "NARRATIVA · RITMO · COLOR GRADING",
-    client: t("projects.vlog2.client"),
-    image: "https://i.vimeocdn.com/video/2211108141-4538a20a397410e4c9cd4754ddcc30bd70d2ad53172a50ef07b2b4497d481623-d_640.jpg",
-    videoUrl: "https://player.vimeo.com/video/1234975992?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1",
-    aspect: "vertical",
-    categories: ["vlog"],
-  },
-  {
-    category: "REELS",
-    title: t("projects.reels.title"),
-    description: t("projects.reels.desc"),
-    visualText: "CORTE NO BEAT · RETENÇÃO · SOUND DESIGN",
-    client: t("projects.reels.client"),
-    image: "https://i.vimeocdn.com/video/2211108366-84d0802f5686fa4ad5144cdf5e8dfadbec9311807fad72e85bcd2d0d4dac8b6d-d_640.jpg",
-    videoUrl: "https://player.vimeo.com/video/1234976193?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1",
-    aspect: "vertical",
-    categories: ["reels"],
-  },
-  {
-    category: "COMERCIAL",
-    title: t("projects.youtube.title"),
-    description: t("projects.youtube.desc"),
-    visualText: "PRODUTO · CONVERSÃO · MOTION",
-    client: t("projects.youtube.client"),
-    image: "/produtos-vimeo.jpg",
-    videoUrl: "https://player.vimeo.com/video/1234959083?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1",
-    aspect: "vertical",
-    categories: ["reels"],
-  },
-  {
-    category: "CLIPE MUSICAL",
-    title: t("projects.comercial.title"),
-    description: t("projects.comercial.desc"),
-    visualText: "SPEED RAMPS · SINCRONIA · COLOR GRADING",
-    client: t("projects.comercial.client"),
-    image: "/mctom.png.png",
-    videoUrl: "https://player.vimeo.com/video/1234976971?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1",
-    aspect: "video",
-    categories: ["videoclipes"],
-  },
-];
-
 export default function Projects() {
   const { t, language } = useLanguage();
-  const featuredProjects = useMemo(() => getFeaturedProjects(t), [t]);
-  const [activeCategory, setActiveCategory] = useState("all");
-  // Hide & Seek: Gaveta oculta por padrão
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<CategoryKey>("vlogs");
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const isModalOpen = selectedProject !== null;
 
-  // Microinteração de hover no cabeçalho: "Projetos" <-> "Vídeos"
-  const [isWordHovered, setIsWordHovered] = useState(false);
-
-  // Carrossel Horizontal para os cards verticais
+  // Carrossel Ref & Controles
   const carouselRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
+  const categoryTabs: CategoryTab[] = useMemo(
+    () => [
+      {
+        id: "vlogs",
+        label: t("projects.cat.vlogs"),
+        subtitle: t("projects.cat.vlogs.desc"),
+        badge: "9:16 VERTICAL",
+        icon: Smartphone,
+      },
+      {
+        id: "youtube",
+        label: t("projects.cat.youtube"),
+        subtitle: t("projects.cat.youtube.desc"),
+        badge: "16:9 WIDESCREEN",
+        icon: Youtube,
+      },
+    ],
+    [t]
+  );
+
+  // Catálogo completo de trabalhos categorizados por formato
+  const allProjects: ProjectItem[] = useMemo(
+    () => [
+      // ==========================================
+      // 1. VLOGS & CONTEÚDO VERTICAL (9:16 Vertical)
+      // Destaque prioritário para os dois vídeos principais solicitados
+      // ==========================================
+      {
+        id: "vlog-treino",
+        category: "VLOG · DIA A DIA",
+        formatType: "vlogs",
+        title: t("projects.vlog.title"),
+        description: t("projects.vlog.desc"),
+        socialProof: "+2.5M VIEWS",
+        tags: ["NARRATIVA", "RITMO", "SOUND DESIGN"],
+        client: t("projects.vlog.client"),
+        image: "/thai reels.png",
+        videoUrl: "https://player.vimeo.com/video/1234976192",
+        aspect: "vertical",
+      },
+      {
+        id: "vlog-viagem",
+        category: "VLOG · ESTILO DE VIDA",
+        formatType: "vlogs",
+        title: t("projects.vlog2.title"),
+        description: t("projects.vlog2.desc"),
+        socialProof: "ORGANIC VIRAL",
+        tags: ["STORYTELLING", "COLOR GRADING", "BEAT-SYNC"],
+        client: t("projects.vlog2.client"),
+        image:
+          "https://i.vimeocdn.com/video/2211108141-4538a20a397410e4c9cd4754ddcc30bd70d2ad53172a50ef07b2b4497d481623-d_640.jpg",
+        videoUrl: "https://player.vimeo.com/video/1234975992",
+        aspect: "vertical",
+      },
+      {
+        id: "reels-perna",
+        category: "FITNESS · MOTIVACIONAL",
+        formatType: "vlogs",
+        title: t("projects.reels.title"),
+        description: t("projects.reels.desc"),
+        socialProof: "HIGH RETENTION",
+        tags: ["CORTE NO BEAT", "SOUND DESIGN", "RETENÇÃO"],
+        client: t("projects.reels.client"),
+        image:
+          "https://i.vimeocdn.com/video/2211108366-84d0802f5686fa4ad5144cdf5e8dfadbec9311807fad72e85bcd2d0d4dac8b6d-d_640.jpg",
+        videoUrl: "https://player.vimeo.com/video/1234976193",
+        aspect: "vertical",
+      },
+      {
+        id: "fitlife-reels",
+        category: "FITNESS · PERFORMANCE",
+        formatType: "vlogs",
+        title: t("projects.fitlife.title"),
+        description: t("projects.fitlife.desc"),
+        socialProof: "60 FPS FLUID",
+        tags: ["BEAT-SYNC", "MOTION", "LEGENDAS"],
+        client: t("projects.fitlife.client"),
+        image: "/produtos-vimeo.jpg",
+        videoUrl: "https://player.vimeo.com/video/1234959083",
+        aspect: "vertical",
+      },
+      {
+        id: "produtos-ecommerce",
+        category: "ANÚNCIO · E-COMMERCE",
+        formatType: "vlogs",
+        title: t("projects.youtube.title"),
+        description: t("projects.youtube.desc"),
+        tags: ["PRODUTO", "CONVERSÃO", "MOTION"],
+        client: t("projects.youtube.client"),
+        image: "/produtos-vimeo.jpg",
+        videoUrl: "https://player.vimeo.com/video/1234959083",
+        aspect: "vertical",
+      },
+      {
+        id: "depois-40-anuncio",
+        category: "TRÁFEGO PAGO · FITNESS",
+        formatType: "vlogs",
+        title: t("projects.depois40.title"),
+        description: t("projects.depois40.desc"),
+        tags: ["GANCHO VISUAL", "CONVERSÃO", "RITMO"],
+        client: t("projects.depois40.client"),
+        image:
+          "https://i.vimeocdn.com/video/2211108366-84d0802f5686fa4ad5144cdf5e8dfadbec9311807fad72e85bcd2d0d4dac8b6d-d_640.jpg",
+        videoUrl: "https://player.vimeo.com/video/1234976193",
+        aspect: "vertical",
+      },
+
+      // ==========================================
+      // 2. CANAIS DE YOUTUBE (16:9 Widescreen)
+      // Exclusivamente a grande produção MC Tom da VG
+      // ==========================================
+      {
+        id: "mc-tom-videoclipe",
+        category: "VIDEOCLIPE OFICIAL · 16:9",
+        formatType: "youtube",
+        title: t("projects.comercial.title"),
+        description: t("projects.comercial.desc"),
+        socialProof: "+2.5M VIEWS",
+        tags: ["SPEED RAMPS", "SINCRONIA RÍTMICA", "COLOR GRADING"],
+        client: t("projects.comercial.client"),
+        image: "/mctom.png.png",
+        videoUrl: "https://player.vimeo.com/video/1234976971",
+        aspect: "video",
+      },
+    ],
+    [t]
+  );
+
+  // Filtra os projetos da aba ativa
+  const currentCategoryProjects = useMemo(() => {
+    return allProjects.filter((p) => p.formatType === activeTab);
+  }, [allProjects, activeTab]);
+
+  const activeCategoryTab = useMemo(() => {
+    return categoryTabs.find((tab) => tab.id === activeTab) || categoryTabs[0];
+  }, [categoryTabs, activeTab]);
+
+  // Atualiza estados dos botões de scroll
   const checkScroll = useCallback(() => {
     const el = carouselRef.current;
     if (!el) return;
@@ -162,6 +236,8 @@ export default function Projects() {
   useEffect(() => {
     const el = carouselRef.current;
     if (!el) return;
+    // Reseta scroll para o início ao trocar de aba
+    el.scrollTo({ left: 0, behavior: "smooth" });
     checkScroll();
     el.addEventListener("scroll", checkScroll, { passive: true });
     window.addEventListener("resize", checkScroll);
@@ -169,847 +245,306 @@ export default function Projects() {
       el.removeEventListener("scroll", checkScroll);
       window.removeEventListener("resize", checkScroll);
     };
-  }, [checkScroll]);
+  }, [activeTab, checkScroll]);
 
   const handleScroll = (direction: "left" | "right") => {
     const el = carouselRef.current;
     if (!el) return;
     const firstCard = el.firstElementChild as HTMLElement | null;
-    const cardWidth = firstCard ? firstCard.offsetWidth + 24 : 480;
+    const cardWidth = firstCard ? firstCard.offsetWidth + 24 : 450;
     const target = direction === "right" ? el.scrollLeft + cardWidth : el.scrollLeft - cardWidth;
-    
+
     el.scrollTo({
       left: target,
       behavior: "smooth",
     });
 
-    setTimeout(checkScroll, 400);
+    setTimeout(checkScroll, 350);
   };
 
-  // Close modal or drawer on Escape key
+  // Fecha modal com Escape
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        if (selectedProject) {
-          setSelectedProject(null);
-        } else if (isDrawerOpen) {
-          setIsDrawerOpen(false);
-        }
+      if (e.key === "Escape" && selectedProject) {
+        setSelectedProject(null);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedProject, isDrawerOpen]);
-
-  // Lista de projetos da categoria selecionada
-  const displayedProjects = useMemo(() => {
-    if (activeCategory === "all") {
-      return featuredProjects;
-    }
-    return featuredProjects.filter((p) => p.categories.includes(activeCategory));
-  }, [featuredProjects, activeCategory]);
-
-  // Destaques selecionados da visão inicial
-  const curatedHighlights = useMemo(() => {
-    // 1 Clipe Musical de alto impacto (16:9) + cards verticais (9:16)
-    const flagship = featuredProjects.find((p) => p.aspect === "video") || featuredProjects[3];
-    const verticalCards = featuredProjects.filter((p) => p.aspect === "vertical");
-    return {
-      flagship,
-      verticalCards,
-    };
-  }, [featuredProjects]);
-
-  const getCategoryCount = (categoryId: string) => {
-    if (categoryId === "all") return featuredProjects.length;
-    return featuredProjects.filter((p) => p.categories.includes(categoryId)).length;
-  };
-
-  const activeCategoryObj = useMemo(() => {
-    return CATEGORIES.find((c) => c.id === activeCategory) || CATEGORIES[0];
-  }, [activeCategory]);
-
-  const handleSelectCategory = (categoryId: string) => {
-    setActiveCategory(categoryId);
-    // Recolhe automaticamente ao selecionar a pasta
-    setIsDrawerOpen(false);
-  };
+  }, [selectedProject]);
 
   return (
     <section id="portfolio" className="py-24 bg-transparent relative selection:bg-accent selection:text-white">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Section Header com Micro-Interações de Reforço de Vídeo */}
-        <div className="flex flex-col mb-16">
-          {/* Subtitle tag com ícone de Player de Vídeo e indicação cinemática */}
-          <div className="inline-flex items-center gap-2 mb-4">
-            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="text-xs font-mono font-bold tracking-widest text-accent uppercase">
-              {t("projects.subtitle")}
-            </span>
-            <span className="text-neutral-600 font-mono text-xs">/</span>
-            <span className="text-[11px] font-mono tracking-wider text-neutral-400 uppercase inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/5">
-              <Film size={11} className="text-accent" />
-              <span>Vídeos & Produções 60fps</span>
-            </span>
-          </div>
-
-          <h3 className="text-3xl md:text-5xl font-bold max-w-3xl text-[#8A919E] leading-tight font-display">
-            {t("projects.title.1")}{" "}
-            {/* Palavra interativa com micro-efeito hover: Projetos -> Vídeos */}
-            <span
-              onMouseEnter={() => setIsWordHovered(true)}
-              onMouseLeave={() => setIsWordHovered(false)}
-              className="relative inline-block cursor-pointer font-bold transition-all duration-300"
-              title="Passe o mouse: todo o conteúdo é vídeo em alta resolução"
-            >
-              <span
-                className={`transition-all duration-300 underline decoration-accent/60 underline-offset-8 ${
-                  isWordHovered
-                    ? "text-accent drop-shadow-[0_0_12px_rgba(239,68,68,0.6)]"
-                    : "text-[#F8FAFC]"
-                }`}
-              >
-                {isWordHovered
-                  ? language === "pt"
-                    ? "vídeos"
-                    : "videos"
-                  : language === "pt"
-                  ? "projetos"
-                  : "projects"}
-              </span>
-            </span>{" "}
-            {language === "pt" ? "em que" : "where"}{" "}
-            <span className="text-[#F8FAFC] relative group inline-block font-semibold">
-              <span className="text-[#F8FAFC] group-hover:text-accent transition-colors duration-200">
-                {t("projects.title.highlight")}
-              </span>
-            </span>{" "}
-            {t("projects.title.2")}
-          </h3>
-
-          <p className="mt-4 text-sm md:text-base text-[#8A919E] font-light max-w-2xl leading-relaxed flex items-center gap-2 font-sans">
-            <span>
-              {language === "pt"
-                ? "Todos os trabalhos abaixo são produções audiovisuais completas. Assista com áudio e em alta definição."
-                : "All works below are full audiovisual productions. Watch with sound in high definition."}
-            </span>
-          </p>
-        </div>
-
-        {/* Indicador sutil e limpo quando uma categoria filtrada está ativa (sem poluição) */}
-        {activeCategory !== "all" && (
-          <div className="mb-12 flex items-center justify-between py-3 px-4 rounded-xl bg-white/[0.03] border border-white/10 text-xs font-mono">
-            <div className="flex items-center gap-3">
-              <span className="text-accent uppercase font-bold tracking-wider">
-                {language === "pt" ? "Pasta Selecionada:" : "Selected Folder:"}
-              </span>
-              <span className="flex items-center gap-2 text-white font-semibold">
-                <ShounenCategoryIcon category={activeCategory} isActive={true} size={14} />
-                <span>{t(activeCategoryObj.labelKey)}</span>
-              </span>
-              <span className="text-neutral-500">
-                • {displayedProjects.length} {displayedProjects.length === 1 ? "vídeo" : "vídeos"}
+        {/* Cabeçalho da Seção de Portfólio com Setas de Navegação Ancoradas no Topo Direito */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 text-left">
+          <div>
+            <div className="inline-flex items-center gap-2 mb-3 w-fit">
+              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+              <span className="text-xs font-mono uppercase tracking-[0.2em] text-accent font-semibold">
+                {t("projects.section_tag")}
               </span>
             </div>
 
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-display font-bold tracking-tight text-[#F8FAFC] leading-[1.05] uppercase">
+              {t("projects.section_title")}
+            </h2>
+            <p className="text-sm sm:text-base text-[#94A3B8] font-sans font-light mt-3 max-w-2xl">
+              {activeCategoryTab.subtitle}
+            </p>
+          </div>
+
+          {/* Setas de Navegação EXCLUSIVAMENTE ancoradas no canto superior direito do cabeçalho */}
+          <div className="flex items-center gap-2 self-end md:self-auto shrink-0">
+            <span className="px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-mono text-[#8A919E] font-medium tracking-wider mr-1">
+              {currentCategoryProjects.length} {currentCategoryProjects.length === 1 ? (language === "pt" ? "PROJETO" : "PROJECT") : (language === "pt" ? "VÍDEOS" : "VIDEOS")}
+            </span>
+
             <button
-              onClick={() => setActiveCategory("all")}
-              className="text-neutral-400 hover:text-white transition-colors cursor-pointer flex items-center gap-1.5 uppercase text-[11px] tracking-wider hover:underline"
+              onClick={() => handleScroll("left")}
+              disabled={!canScrollLeft}
+              aria-label={language === "pt" ? "Vídeo anterior" : "Previous video"}
+              className={`w-11 h-11 rounded-full border border-white/10 flex items-center justify-center transition-all cursor-pointer ${
+                canScrollLeft
+                  ? "bg-[#1A1C23] hover:bg-accent hover:border-accent text-[#F8FAFC] shadow-md hover:scale-105 active:scale-95"
+                  : "bg-white/[0.02] text-white/20 border-white/5 cursor-not-allowed"
+              }`}
             >
-              <span>← {language === "pt" ? "Ver Destaques" : "View Highlights"}</span>
+              <ChevronLeft size={20} />
+            </button>
+
+            <button
+              onClick={() => handleScroll("right")}
+              disabled={!canScrollRight}
+              aria-label={language === "pt" ? "Próximo vídeo" : "Next video"}
+              className={`w-11 h-11 rounded-full border border-white/10 flex items-center justify-center transition-all cursor-pointer ${
+                canScrollRight
+                  ? "bg-[#1A1C23] hover:bg-accent hover:border-accent text-[#F8FAFC] shadow-md hover:scale-105 active:scale-95"
+                  : "bg-white/[0.02] text-white/20 border-white/5 cursor-not-allowed"
+              }`}
+            >
+              <ChevronRight size={20} />
             </button>
           </div>
-        )}
+        </div>
 
-        {/* Projects Workspace */}
-        {/* Aplica fade-out e blur suave quando a gaveta de navegação está aberta */}
-        <div
-          className={`transition-all duration-500 ease-out ${
-            isDrawerOpen
-              ? "opacity-25 blur-sm pointer-events-none scale-[0.99]"
-              : "opacity-100 blur-0 scale-100"
-          }`}
-        >
-          {/* =====================================================================
-              CASO 1: ABA GERAL "TODOS OS VÍDEOS"
-              Exibe os Projetos em Destaque em Grid Otimizado, Limpo e Espaçado
-              (Sem despejar todos os vídeos de forma desorganizada na carga inicial)
-             ===================================================================== */}
-          {activeCategory === "all" ? (
-            <div className="space-y-20 md:space-y-24">
-              {/* Flagship Hero Project (Widescreen 16:9) */}
-              {curatedHighlights.flagship && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-center justify-between p-6 sm:p-8 md:p-10 rounded-2xl bg-[#1A1C23] border border-white/5 mb-14 shadow-2xl"
+        {/* =========================================================================
+            SISTEMA DE 2 ABAS / CATEGORIAS
+            1. Vlogs & Conteúdo Vertical  |  2. Canais do YouTube
+           ========================================================================= */}
+        <div className="mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-1.5 rounded-2xl bg-[#1A1C23]/80 border border-white/5 backdrop-blur-md max-w-4xl mx-auto">
+            {categoryTabs.map((tab) => {
+              const Icon = tab.icon;
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`relative flex items-center justify-center sm:justify-start gap-3.5 px-5 py-4 rounded-xl text-left transition-all duration-300 cursor-pointer ${
+                    isActive
+                      ? "bg-[#121316] text-[#F8FAFC] shadow-lg border border-accent/40 shadow-accent/10"
+                      : "text-[#8A919E] hover:text-[#F8FAFC] hover:bg-white/[0.03] border border-transparent"
+                  }`}
                 >
-                  <div className="w-full lg:w-1/2 flex flex-col items-start">
-                    <div className="flex items-center gap-3 mb-3.5 sm:mb-4">
-                      <span className="inline-flex items-center gap-1.5 text-xs font-mono tracking-[0.08em] text-accent uppercase py-1 px-2.5 rounded border border-accent/20 bg-accent/5">
-                        <Play size={10} className="fill-accent text-accent" />
-                        <span>{curatedHighlights.flagship.category}</span>
-                      </span>
-                      <span className="text-xs font-mono tracking-[0.08em] text-[#8A919E]">
-                        {curatedHighlights.flagship.client}
-                      </span>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.05] text-[#8A919E]">
-                        {language === "pt" ? "DESTAQUE PRINCIPAL" : "PRIMARY SPOTLIGHT"}
-                      </span>
-                    </div>
-
-                    <h4 className="text-3xl md:text-5xl font-display font-bold mb-4 text-[#F8FAFC] tracking-[0.04em] uppercase leading-tight">
-                      {curatedHighlights.flagship.title}
-                    </h4>
-
-                    <p className="text-[14px] md:text-base text-[#94A3B8] leading-[1.68] font-normal mb-5 max-w-xl font-sans">
-                      {curatedHighlights.flagship.description}
-                    </p>
-
-                    {curatedHighlights.flagship.visualText && (
-                      <div className="mb-6 py-2.5 px-3.5 rounded-lg bg-[#121316] border border-white/5 max-w-xl">
-                        <p className="text-xs font-mono text-[#8A919E] tracking-[0.08em] uppercase leading-relaxed">
-                          {curatedHighlights.flagship.visualText}
-                        </p>
-                      </div>
-                    )}
-
-                    <button
-                      onClick={() => setSelectedProject(curatedHighlights.flagship)}
-                      className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-[#F8FAFC] text-[#121316] font-semibold text-sm tracking-wide hover:bg-neutral-200 transition-all cursor-pointer group shadow-lg shadow-white/5 active:scale-95"
-                    >
-                      <Play size={16} className="fill-[#121316] group-hover:scale-110 transition-transform" />
-                      <span>{t("projects.watch")}</span>
-                    </button>
+                  <div
+                    className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
+                      isActive
+                        ? "bg-accent text-white shadow-md shadow-accent/40"
+                        : "bg-white/[0.04] text-[#8A919E]"
+                    }`}
+                  >
+                    <Icon size={18} />
                   </div>
 
-                  <div className="w-full lg:w-1/2 flex justify-center max-w-xl">
-                    <div
-                      onClick={() => setSelectedProject(curatedHighlights.flagship)}
-                      className="group relative overflow-hidden rounded-2xl bg-[#0c0c0e] border border-white/10 hover:border-accent/50 transition-all duration-500 cursor-pointer shadow-2xl w-full aspect-video transform-gpu [backface-visibility:hidden]"
-                    >
-                      <div className="absolute top-4 left-4 z-20 flex items-center gap-2 pointer-events-none">
-                        <span className="px-2.5 py-1 rounded-md bg-black/85 border border-white/10 text-[10px] font-mono uppercase tracking-widest text-neutral-300 flex items-center gap-1.5 shadow-lg">
-                          <span className="w-1.5 h-1.5 rounded-full bg-accent animate-ping" />
-                          <span>16:9 WIDE</span>
-                        </span>
-                        <span className="px-2 py-1 rounded-md bg-black/85 border border-white/10 text-[10px] font-mono text-emerald-400 shadow-lg">
-                          60 FPS
-                        </span>
-                      </div>
-
-                      {curatedHighlights.flagship.videoMp4 ? (
-                        <video
-                          autoPlay
-                          loop
-                          muted
-                          playsInline
-                          preload="auto"
-                          poster={curatedHighlights.flagship.image}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 transform-gpu"
-                        >
-                          <source src={curatedHighlights.flagship.videoMp4} type="video/mp4" />
-                        </video>
-                      ) : curatedHighlights.flagship.videoUrl ? (
-                        <div className="w-full h-full relative overflow-hidden bg-black [backface-visibility:hidden]">
-                          {/* Poster base para transição imediata e suave sem tela preta */}
-                          {curatedHighlights.flagship.image && (
-                            <img
-                              src={curatedHighlights.flagship.image}
-                              alt=""
-                              aria-hidden="true"
-                              className="w-full h-full object-cover absolute inset-0 -z-10 pointer-events-none"
-                            />
-                          )}
-                          {!isModalOpen && (
-                            <iframe
-                              src={getEmbedPreviewUrl(curatedHighlights.flagship.videoUrl)}
-                              className="w-full h-full absolute inset-0 border-0 pointer-events-none"
-                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                              referrerPolicy="strict-origin-when-cross-origin"
-                              title={curatedHighlights.flagship.title}
-                              loading="lazy"
-                            />
-                          )}
-                        </div>
-                      ) : (
-                        <img
-                          src={curatedHighlights.flagship.image}
-                          alt={curatedHighlights.flagship.title}
-                          loading="lazy"
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        />
-                      )}
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 pointer-events-none" />
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                        <div className="w-16 h-16 md:w-20 md:h-20 bg-accent rounded-full flex items-center justify-center text-white scale-90 group-hover:scale-100 transition-transform duration-300 shadow-[0_0_35px_rgba(239,68,68,0.7)]">
-                          <Play size={28} className="ml-1" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-
-              {/* Carrossel Horizontal de Destaques Verticais 9:16 (Vlogs & Reels) */}
-              <div className="relative">
-                {/* Cabeçalho da seção com controles de navegação por seta no topo direito */}
-                <div className="flex items-center justify-between mb-8">
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs sm:text-sm font-mono uppercase tracking-[0.08em] text-[#F8FAFC] font-bold">
-                        VLOGS & CONTEÚDO DINÂMICO · DESTAQUES VERTICAIS
-                      </span>
-                      <span className="px-2 py-0.5 rounded-full bg-accent/10 border border-accent/20 text-[10px] font-mono text-accent">
-                        {curatedHighlights.verticalCards.length} VÍDEOS
-                      </span>
-                    </div>
-                    <span className="text-[11px] font-mono text-[#8A919E] hidden sm:inline tracking-[0.08em] uppercase">
-                      • {language === "pt" ? "Otimizado para mobile & retenção" : "Optimized for mobile & retention"}
+                  <div className="flex flex-col min-w-0">
+                    <span className="font-display font-bold text-sm tracking-wide truncate">
+                      {tab.label}
+                    </span>
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-accent/80 font-semibold mt-0.5">
+                      {tab.badge}
                     </span>
                   </div>
 
-                  {/* Controles de Navegação por Carousel (Setas < e >) Centralizadas no Topo Direito */}
-                  <div className="flex items-center gap-2.5">
-                    {/* Seta para a Esquerda (<) */}
-                    <button
-                      onClick={() => handleScroll("left")}
-                      disabled={!canScrollLeft}
-                      aria-label="Vídeos anteriores"
-                      title="Vídeos anteriores"
-                      className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center border transition-all duration-300 ${
-                        canScrollLeft
-                          ? "bg-[#1A1C23] border-white/5 text-[#F8FAFC] hover:border-accent hover:text-accent hover:bg-[#222530] cursor-pointer shadow-lg active:scale-95 group"
-                          : "bg-[#1A1C23]/40 border-white/[0.02] text-[#8A919E]/30 cursor-not-allowed opacity-40"
-                      }`}
-                    >
-                      <ChevronLeft size={20} className={canScrollLeft ? "group-hover:-translate-x-0.5 transition-transform text-[#F8FAFC]" : ""} />
-                    </button>
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeTabIndicator"
+                      className="absolute inset-0 rounded-xl border border-accent/50 pointer-events-none"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
-                    {/* Seta para a Direita (>) */}
-                    <button
-                      onClick={() => handleScroll("right")}
-                      disabled={!canScrollRight}
-                      aria-label="Próximos vídeos"
-                      title="Próximos vídeos"
-                      className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center border transition-all duration-300 ${
-                        canScrollRight
-                          ? "bg-[#1A1C23] border-white/5 text-[#F8FAFC] hover:border-accent hover:text-accent hover:bg-[#222530] cursor-pointer shadow-lg active:scale-95 group"
-                          : "bg-[#1A1C23]/40 border-white/[0.02] text-[#8A919E]/30 cursor-not-allowed opacity-40"
-                      }`}
-                    >
-                      <ChevronRight size={20} className={canScrollRight ? "group-hover:translate-x-0.5 transition-transform text-[#F8FAFC]" : ""} />
-                    </button>
-                  </div>
-                </div>
+        {/* =========================================================================
+            CARROSSEL RESPONSIVO DA CATEGORIA ATIVA (SEM SETAS FLUTUANTES SOBRE OS CARDS)
+           ========================================================================= */}
+        <div className="relative">
+          <div
+            ref={carouselRef}
+            className={`flex gap-5 lg:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-6 pt-1 px-1 -mx-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden touch-pan-x ${
+              activeTab === "youtube" ? "justify-center" : ""
+            }`}
+          >
+            {currentCategoryProjects.map((project, idx) => {
+              const isVertical = project.aspect === "vertical";
+              const isCenterpiece = activeTab === "youtube";
 
-                {/* Container de visualização com scroll suave e touch swipe */}
-                <div className="relative">
-
-                  {/* Trilho de Scroll Horizontal com suporte a Swipe touch no mobile */}
-                  <div
-                    ref={carouselRef}
-                    className="flex gap-6 lg:gap-8 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 pt-1 px-1 -mx-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden touch-pan-x"
-                  >
-                    {curatedHighlights.verticalCards.map((project, idx) => (
-                      <motion.div
-                        key={`highlight-${project.title}-${idx}`}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: idx * 0.1 }}
-                        className="relative w-[88vw] max-w-[420px] sm:w-[500px] md:w-[520px] lg:w-[540px] shrink-0 snap-start flex flex-col sm:flex-row gap-4 sm:gap-5 p-4 sm:p-5 rounded-2xl bg-[#1A1C23] border border-white/5 hover:border-white/10 transition-all duration-300 group/card shadow-xl"
-                      >
-                        {/* Vertical Video Thumbnail Frame */}
-                        <div
-                          onClick={() => setSelectedProject(project)}
-                          className="w-full sm:w-40 md:w-44 shrink-0 aspect-[9/16] rounded-xl overflow-hidden bg-[#121316] border border-white/10 group relative cursor-pointer shadow-lg mx-auto sm:mx-0"
-                        >
-                          <div className="absolute top-2.5 left-2.5 z-20 flex items-center gap-1.5 pointer-events-none">
-                            <span className="px-2 py-0.5 rounded bg-black/80 backdrop-blur-md border border-white/10 text-[9px] font-mono uppercase tracking-widest text-[#F8FAFC] font-semibold">
-                              9:16
-                            </span>
-                            <span className="px-1.5 py-0.5 rounded bg-black/80 backdrop-blur-md border border-white/10 text-[9px] font-mono text-emerald-400 font-semibold">
-                              60 FPS
-                            </span>
-                          </div>
-
-                          {project.videoMp4 ? (
-                            <video
-                              autoPlay
-                              loop
-                              muted
-                              playsInline
-                              preload="metadata"
-                              poster={project.image}
-                              className="portfolio-video-vertical w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                            >
-                              <source src={project.videoMp4} type="video/mp4" />
-                            </video>
-                          ) : project.videoUrl ? (
-                            <div className="w-full h-full relative overflow-hidden bg-black [backface-visibility:hidden]">
-                              {project.image && (
-                                <img
-                                  src={project.image}
-                                  alt=""
-                                  aria-hidden="true"
-                                  className="w-full h-full object-cover absolute inset-0 -z-10 pointer-events-none"
-                                />
-                              )}
-                              {!isModalOpen && (
-                                <iframe
-                                  src={getEmbedPreviewUrl(project.videoUrl)}
-                                  className="w-full h-full absolute inset-0 border-0 pointer-events-none"
-                                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                                  referrerPolicy="strict-origin-when-cross-origin"
-                                  title={project.title}
-                                  loading="lazy"
-                                />
-                              )}
-                            </div>
-                          ) : (
-                            <img
-                              src={project.image}
-                              alt={project.title}
-                              loading="lazy"
-                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                            />
-                          )}
-
-                          <div className="absolute inset-0 bg-black/25 group-hover:bg-transparent transition-colors pointer-events-none" />
-                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                            <div className="w-12 h-12 bg-accent/90 rounded-full flex items-center justify-center text-white backdrop-blur-sm shadow-xl">
-                              <Play size={18} className="ml-0.5" />
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Info Side */}
-                        <div className="flex flex-col justify-between flex-1 min-w-0">
-                          <div>
-                            {/* Categoria & Subtítulo em linha única */}
-                            <div className="flex items-center gap-2 mb-2 sm:mb-2.5 whitespace-nowrap overflow-hidden">
-                              <span className="text-[10px] font-mono uppercase tracking-[0.08em] text-accent font-semibold shrink-0">
-                                {project.category}
-                              </span>
-                              <span className="text-neutral-600 font-mono text-[10px] shrink-0">•</span>
-                              <span className="text-[10px] font-mono uppercase tracking-[0.08em] text-[#8A919E] truncate">
-                                {project.client}
-                              </span>
-                            </div>
-
-                            {/* Título do Projeto */}
-                            <h5 className="text-base sm:text-lg font-bold text-[#F8FAFC] mb-2 sm:mb-2.5 leading-snug tracking-tight uppercase font-display line-clamp-1 sm:line-clamp-2">
-                              {project.title}
-                            </h5>
-
-                            {/* Parágrafo Descritivo curto e direto (1 a 2 linhas) */}
-                            <p className="text-[13px] sm:text-[14px] text-[#94A3B8] font-normal leading-relaxed mb-3 sm:mb-4 font-sans line-clamp-2">
-                              {project.description}
-                            </p>
-
-                            {/* Bloco de 2 ou 3 Tags compactas */}
-                            {project.visualText && (
-                              <div className="flex flex-wrap items-center gap-1.5 mb-3 sm:mb-4">
-                                {project.visualText.split("·").map((tag, tIdx) => (
-                                  <span
-                                    key={tIdx}
-                                    className="px-2 py-0.5 rounded bg-white/[0.04] border border-white/5 text-[9px] sm:text-[10px] font-mono text-[#8A919E] uppercase tracking-wider whitespace-nowrap"
-                                  >
-                                    {tag.trim()}
-                                  </span>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-
-                          {/* Botão Assistir ancorado na base do card */}
-                          <div className="pt-2 sm:pt-3 mt-auto border-t border-white/5 flex items-center justify-between">
-                            <button
-                              onClick={() => setSelectedProject(project)}
-                              className="inline-flex items-center gap-2 text-xs font-semibold text-[#F8FAFC] hover:text-accent transition-colors cursor-pointer group py-1"
-                            >
-                              <Play size={12} className="fill-current text-accent group-hover:scale-110 transition-transform" />
-                              <span>{t("projects.watch")}</span>
-                            </button>
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Indicador discreto de swipe / deslize no mobile */}
-                <div className="flex md:hidden items-center justify-center gap-2 mt-4 text-[11px] font-mono text-[#8A919E]">
-                  <span className="opacity-60 animate-pulse">←</span>
-                  <span className="tracking-[0.08em] uppercase text-[10px]">
-                    {language === "pt" ? "Deslize para ver mais" : "Swipe to explore"}
-                  </span>
-                  <span className="opacity-60 animate-pulse">→</span>
-                </div>
-              </div>
-
-              {/* Minimalist Editorial Banner de Acesso às Pastas */}
-              <div className="pt-8 text-center flex flex-col items-center justify-center">
-                <div className="inline-flex flex-wrap items-center justify-center gap-3 px-5 py-3 rounded-2xl bg-white/[0.02] border border-white/10 text-xs font-mono text-neutral-400 max-w-xl">
-                  <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                  <span>
-                    {language === "pt"
-                      ? "Acervo organizado em pastas por formato e segmento."
-                      : "Catalog organized into folders by format and niche."}
-                  </span>
-                  <button
-                    onClick={() => setIsDrawerOpen(true)}
-                    className="inline-flex items-center gap-1.5 text-white hover:text-accent font-semibold transition-colors cursor-pointer ml-1 underline underline-offset-4 decoration-accent/60"
-                  >
-                    <FolderOpen size={13} className="text-accent" />
-                    <span>{language === "pt" ? "Abrir Pastas" : "Open Folders"}</span>
-                    <ArrowRight size={12} />
-                  </button>
-                </div>
-              </div>
-            </div>
-          ) : (
-            /* =====================================================================
-                CASO 2: CATEGORIA ESPECÍFICA SELECIONADA
-                A lista se espalha de forma limpa, focada e exclusiva da pasta
-               ===================================================================== */
-            <div className="space-y-24 md:space-y-32">
-              <AnimatePresence mode="wait">
+              return (
                 <motion.div
-                  key={activeCategory}
+                  key={`${project.id}-${idx}`}
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -15 }}
-                  transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="space-y-24 md:space-y-32"
+                  transition={{ duration: 0.4, delay: idx * 0.08 }}
+                  className={`relative shrink-0 snap-start rounded-2xl bg-[#1A1C23] border border-white/5 hover:border-white/15 transition-all duration-300 group/card shadow-xl flex flex-col ${
+                    isCenterpiece
+                      ? "w-full max-w-[850px] p-5 sm:p-7 gap-5 mx-auto"
+                      : isVertical
+                      ? "w-[85vw] max-w-[390px] sm:w-[480px] sm:flex-row gap-4 sm:gap-5 p-4 sm:p-5"
+                      : "w-[85vw] max-w-[420px] sm:w-[500px] p-4 sm:p-5 gap-4"
+                  }`}
                 >
-                  {displayedProjects.map((project, index) => {
-                    const isReversed = index % 2 === 1;
-                    return (
-                      <motion.div
-                        key={`${activeCategory}-${project.title}-${index}`}
-                        initial={{ opacity: 0, y: 25 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-40px" }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        className={`flex flex-col ${
-                          isReversed ? "lg:flex-row-reverse" : "lg:flex-row"
-                        } gap-10 lg:gap-14 items-center justify-between p-6 sm:p-8 md:p-10 rounded-2xl bg-[#1A1C23] border border-white/5 shadow-2xl`}
+                  {/* Visual / Media Thumbnail com Motion Preview em Loop Silencioso */}
+                  <div
+                    onClick={() => setSelectedProject(project)}
+                    className={`relative rounded-xl overflow-hidden bg-[#121316] border border-white/10 group cursor-pointer shadow-lg shrink-0 ${
+                      isCenterpiece
+                        ? "w-full aspect-video"
+                        : isVertical
+                        ? "w-full sm:w-44 md:w-48 aspect-[9/16] mx-auto sm:mx-0"
+                        : "w-full aspect-video"
+                    }`}
+                  >
+                    {/* Badge de Formato no Topo da Thumbnail */}
+                    <div className="absolute top-2.5 left-2.5 z-20 flex items-center gap-1.5 pointer-events-none">
+                      <span className="px-2 py-0.5 rounded bg-black/85 backdrop-blur-md border border-white/10 text-[9px] font-mono uppercase tracking-widest text-[#F8FAFC] font-semibold shadow-sm">
+                        {isVertical ? "9:16" : "16:9"}
+                      </span>
+                      <span className="px-1.5 py-0.5 rounded bg-black/85 backdrop-blur-md border border-white/10 text-[9px] font-mono text-emerald-400 font-semibold shadow-sm">
+                        60 FPS
+                      </span>
+                    </div>
+
+                    {/* Badge Sutil de Impacto / Social Proof */}
+                    {project.socialProof && (
+                      <div className="absolute top-2.5 right-2.5 z-20 pointer-events-none">
+                        <span className="px-2.5 py-0.5 rounded bg-black/85 backdrop-blur-md border border-white/10 text-[9px] font-mono text-emerald-400 font-semibold shadow-sm flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                          <span>{project.socialProof}</span>
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Motion Preview (Autoplay em Loop Silencioso / Thumbnail Viva) */}
+                    <iframe
+                      src={getMotionPreviewUrl(project.videoUrl)}
+                      className="absolute inset-0 w-full h-full object-cover border-0 pointer-events-none opacity-85 group-hover:opacity-100 transition-opacity duration-300"
+                      allow="autoplay; fullscreen; picture-in-picture"
+                      loading="lazy"
+                      tabIndex={-1}
+                      aria-hidden="true"
+                      title={`Preview ${project.title}`}
+                    />
+
+                    {/* Imagem de Capa em Alta Resolução (Poster Fallback) */}
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover -z-10"
+                    />
+
+                    {/* Overlay Escuro com Play Button no Hover */}
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors pointer-events-none" />
+                    <div className="absolute inset-0 flex items-center justify-center opacity-85 group-hover:opacity-100 transition-opacity pointer-events-none">
+                      <div className="w-12 h-12 bg-accent/90 group-hover:bg-accent rounded-full flex items-center justify-center text-white backdrop-blur-sm shadow-xl group-hover:scale-110 transition-transform">
+                        <Play size={18} className="ml-0.5 fill-current" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Lado de Informações e Texto */}
+                  <div className="flex flex-col justify-between flex-1 min-w-0">
+                    <div>
+                      {/* Categoria & Subtítulo em linha única */}
+                      <div className="flex items-center gap-2 mb-2 whitespace-nowrap overflow-hidden">
+                        <span className="text-[10px] font-mono uppercase tracking-[0.08em] text-accent font-semibold shrink-0">
+                          {project.category}
+                        </span>
+                        <span className="text-neutral-600 font-mono text-[10px] shrink-0">•</span>
+                        <span className="text-[10px] font-mono uppercase tracking-[0.08em] text-[#8A919E] truncate">
+                          {project.client}
+                        </span>
+                      </div>
+
+                      {/* Título do Vídeo em Caixa Alta com Espaçamento Estilo Cinema */}
+                      <h4 className="text-base sm:text-lg font-bold text-[#F8FAFC] mb-2 leading-snug tracking-[0.08em] uppercase font-display line-clamp-1 sm:line-clamp-2">
+                        {project.title}
+                      </h4>
+
+                      {/* Descrição em Frase Curta e Direta (Máximo 2 Linhas) */}
+                      <p className="text-xs sm:text-[13px] text-[#94A3B8] font-normal leading-relaxed mb-3.5 font-sans line-clamp-2">
+                        {project.description}
+                      </p>
+
+                      {/* Tags Técnicas Monospace com Respiro Horizontal Amplo */}
+                      {project.tags && project.tags.length > 0 && (
+                        <div className="flex flex-wrap items-center gap-2 mb-3.5">
+                          {project.tags.map((tag, tIdx) => (
+                            <span
+                              key={tIdx}
+                              className="px-2.5 py-1 rounded bg-white/[0.04] border border-white/5 text-[9px] sm:text-[10px] font-mono text-[#8A919E] uppercase tracking-[0.1em] whitespace-nowrap"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Botão Assistir Alinhado na Base */}
+                    <div className="pt-2 sm:pt-3 mt-auto border-t border-white/5 flex items-center justify-between">
+                      <button
+                        onClick={() => setSelectedProject(project)}
+                        className="inline-flex items-center gap-2 text-xs font-semibold text-[#F8FAFC] hover:text-accent transition-colors cursor-pointer group py-1"
                       >
-                        {/* Info Side */}
-                        <div className="w-full lg:w-1/2 flex flex-col items-start">
-                          <div className="flex items-center gap-3 mb-3.5 sm:mb-4">
-                            <span className="inline-flex items-center gap-1.5 text-xs font-mono tracking-[0.08em] text-accent uppercase py-1 px-2.5 rounded border border-accent/20 bg-accent/5">
-                              <Play size={10} className="fill-accent text-accent" />
-                              <span>{project.category}</span>
-                            </span>
-                            <span className="text-xs font-mono tracking-[0.08em] text-[#8A919E]">
-                              {project.client}
-                            </span>
-                          </div>
+                        <Play size={12} className="fill-current text-accent group-hover:scale-110 transition-transform" />
+                        <span>{t("projects.watch")}</span>
+                      </button>
 
-                          <h4 className="text-3xl md:text-5xl font-display font-bold mb-4 text-[#F8FAFC] tracking-[0.04em] uppercase leading-tight">
-                            {project.title}
-                          </h4>
-
-                          <p className="text-[14px] md:text-base text-[#94A3B8] leading-[1.68] font-normal mb-5 max-w-xl font-sans">
-                            {project.description}
-                          </p>
-
-                          {project.visualText && (
-                            <div className="mb-6 py-2.5 px-3.5 rounded-lg bg-[#121316] border border-white/5 max-w-xl">
-                              <p className="text-xs font-mono text-[#8A919E] tracking-[0.08em] uppercase leading-relaxed">
-                                {project.visualText}
-                              </p>
-                            </div>
-                          )}
-
-                          <button
-                            onClick={() => setSelectedProject(project)}
-                            className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-[#F8FAFC] text-[#121316] font-semibold text-sm tracking-wide hover:bg-neutral-200 transition-all cursor-pointer group shadow-lg shadow-white/5 active:scale-95"
-                          >
-                            <Play size={16} className="fill-[#121316] group-hover:scale-110 transition-transform" />
-                            <span>{t("projects.watch")}</span>
-                          </button>
-                        </div>
-
-                        {/* Video / Visual Media Frame */}
-                        <div
-                          className={`w-full lg:w-1/2 flex justify-center ${
-                            project.aspect === "vertical"
-                              ? "max-w-sm mx-auto"
-                              : "max-w-xl"
-                          }`}
-                        >
-                          <div
-                            onClick={() => setSelectedProject(project)}
-                            className={`group relative overflow-hidden rounded-2xl bg-[#121316] border border-white/10 hover:border-accent/50 transition-all duration-500 cursor-pointer shadow-2xl w-full ${
-                              project.aspect === "vertical"
-                                ? "aspect-[9/16] max-h-[580px]"
-                                : "aspect-video"
-                            }`}
-                          >
-                            {/* Watermark / Badge de Formato de Vídeo */}
-                            <div className="absolute top-4 left-4 z-20 flex items-center gap-2">
-                              <span className="px-2.5 py-1 rounded-md bg-black/70 backdrop-blur-md border border-white/10 text-[10px] font-mono uppercase tracking-widest text-neutral-300 flex items-center gap-1.5 shadow-lg">
-                                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-ping" />
-                                <span>
-                                  {project.aspect === "vertical"
-                                    ? project.category === "VLOG"
-                                      ? "9:16 VLOG"
-                                      : "9:16 REELS"
-                                    : "16:9 WIDE"}
-                                </span>
-                              </span>
-                              <span className="px-2 py-1 rounded-md bg-black/70 backdrop-blur-md border border-white/10 text-[10px] font-mono text-emerald-400 shadow-lg">
-                                60 FPS
-                              </span>
-                            </div>
-
-                            {/* Player direto ou Thumbnail com Play overlay */}
-                            {project.videoMp4 ? (
-                              <video
-                                autoPlay
-                                loop
-                                muted
-                                playsInline
-                                preload="metadata"
-                                poster={project.image}
-                                className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 ${
-                                  project.aspect === "vertical" ? "portfolio-video-vertical" : ""
-                                }`}
-                              >
-                                <source src={project.videoMp4} type="video/mp4" />
-                              </video>
-                            ) : project.videoUrl ? (
-                              <div className="w-full h-full relative overflow-hidden bg-black [backface-visibility:hidden]">
-                                {project.image && (
-                                  <img
-                                    src={project.image}
-                                    alt=""
-                                    aria-hidden="true"
-                                    className="w-full h-full object-cover absolute inset-0 -z-10 pointer-events-none"
-                                  />
-                                )}
-                                {!isModalOpen && (
-                                  <iframe
-                                    src={getEmbedPreviewUrl(project.videoUrl)}
-                                    className="w-full h-full absolute inset-0 border-0 pointer-events-none"
-                                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                                    referrerPolicy="strict-origin-when-cross-origin"
-                                    title={project.title}
-                                    loading="lazy"
-                                  />
-                                )}
-                              </div>
-                            ) : (
-                              <img
-                                src={project.image}
-                                alt={project.title}
-                                loading="lazy"
-                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                              />
-                            )}
-                            <div className="absolute inset-0 bg-black/25 group-hover:bg-transparent transition-colors duration-500 pointer-events-none" />
-                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                              <div className="w-16 h-16 md:w-20 md:h-20 bg-accent/90 rounded-full flex items-center justify-center text-white backdrop-blur-sm scale-90 group-hover:scale-100 transition-transform duration-300 shadow-2xl">
-                                <Play size={28} className="ml-1" />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
+                      {isCenterpiece && (
+                        <span className="text-[10px] font-mono text-accent font-semibold uppercase tracking-wider">
+                          {language === "pt" ? "PRODUÇÃO PRINCIPAL" : "MAIN PRODUCTION"}
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </motion.div>
-              </AnimatePresence>
+              );
+            })}
+          </div>
+
+          {/* Indicador de Swipe no Mobile */}
+          {activeTab === "vlogs" && (
+            <div className="flex sm:hidden items-center justify-center gap-2 mt-2 text-[10px] font-mono text-[#8A919E]">
+              <span className="opacity-60 animate-pulse">←</span>
+              <span className="tracking-[0.08em] uppercase">
+                {language === "pt" ? "Deslize para ver mais vídeos" : "Swipe to explore more"}
+              </span>
+              <span className="opacity-60 animate-pulse">→</span>
             </div>
           )}
         </div>
       </div>
 
       {/* =========================================================================
-          ÚNICO CONTROLE VISÍVEL NA TELA:
-          BOTÃO FLUTUANTE MINIMALISTA NA PARTE INFERIOR ("ABRIR PASTAS")
-          Posicionado no canto inferior esquerdo em formato de pílula arredondada escura
-         ========================================================================= */}
-      <div className="fixed bottom-6 left-6 z-40 sm:bottom-8 sm:left-8">
-        <motion.button
-          onClick={() => setIsDrawerOpen((prev) => !prev)}
-          className="group relative flex items-center gap-3 bg-[#1A1C23]/95 hover:bg-[#222530] text-[#F8FAFC] border border-white/10 hover:border-accent/70 rounded-full px-4 py-3 sm:px-5 sm:py-3.5 shadow-[0_10px_35px_rgba(0,0,0,0.85)] backdrop-blur-xl transition-all duration-300 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-          whileHover={{ scale: 1.04 }}
-          whileTap={{ scale: 0.96 }}
-          aria-expanded={isDrawerOpen}
-          aria-label={isDrawerOpen ? "Fechar pastas" : "Abrir pastas"}
-        >
-          {/* Ícone de Grid de Vídeos / Pastas com pulso sutil */}
-          <div className="w-8 h-8 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-colors duration-300">
-            <LayoutGrid size={15} />
-          </div>
-
-          {/* Micro-legenda padrão "ABRIR PASTAS / Todos os Vídeos (4)" */}
-          <div className="flex flex-col text-left">
-            <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.08em] text-accent font-bold leading-none">
-              ABRIR PASTAS / {t("projects.library.title")} ({featuredProjects.length})
-            </span>
-            {/* Revelação suave do nome da pasta ativa e contagem */}
-            <span className="text-xs font-medium text-[#8A919E] mt-1 max-w-[170px] sm:max-w-[210px] truncate group-hover:text-[#F8FAFC] transition-colors flex items-center gap-1.5 font-sans">
-              <span className="text-[#8A919E]/70">Pasta:</span>
-              <span className="text-[#F8FAFC] font-semibold">{t(activeCategoryObj.labelKey)}</span>
-              <span className="text-[10px] font-mono text-accent">
-                ({getCategoryCount(activeCategory)})
-              </span>
-            </span>
-          </div>
-
-          {/* Indicador de status lateral */}
-          <span className="w-1.5 h-1.5 rounded-full bg-accent ml-1 animate-pulse" />
-        </motion.button>
-      </div>
-
-      {/* =========================================================================
-          GAVETA LATERAL DE PASTAS (SLIDE-OVER OVERLAY)
-          Desliza para dentro cobrindo elegantemente a lateral da tela;
-          Recolhe automaticamente ao selecionar qualquer pasta.
+          MODAL / LIGHTBOX DE VÍDEO (COM ÁUDIO EM ALTA QUALIDADE A PARTIR DO INÍCIO)
          ========================================================================= */}
       <AnimatePresence>
-        {isDrawerOpen && (
-          <div className="fixed inset-0 z-50 flex" role="dialog" aria-modal="true" aria-label="Navegação de Pastas de Vídeos">
-            {/* Backdrop com blur escuro e foco na gaveta */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              onClick={() => setIsDrawerOpen(false)}
-              className="fixed inset-0 bg-[#121316]/80 backdrop-blur-md"
-            />
-
-            {/* Painel lateral deslizante (Slide-over) */}
-            <motion.aside
-              initial={{ x: "-100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              transition={{ type: "spring", stiffness: 380, damping: 36 }}
-              className="relative w-full max-w-sm sm:max-w-md bg-[#1A1C23] border-r border-white/10 h-full p-6 sm:p-8 flex flex-col justify-between shadow-2xl z-10 overflow-y-auto"
-            >
-              <div>
-                {/* Header da Gaveta */}
-                <div className="flex items-center justify-between pb-5 mb-6 border-b border-white/10">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-accent/20 border border-accent/40 flex items-center justify-center text-accent">
-                      <Clapperboard size={16} />
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-mono tracking-widest text-white uppercase font-bold">
-                        {t("projects.library.title")}
-                      </h4>
-                      <p className="text-[11px] text-neutral-400 font-mono mt-0.5">
-                        Categorias de Edição Audiovisual
-                      </p>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => setIsDrawerOpen(false)}
-                    className="text-neutral-400 hover:text-white p-2 rounded-xl hover:bg-white/10 transition-colors cursor-pointer"
-                    aria-label="Fechar pastas"
-                  >
-                    <X size={20} />
-                  </button>
-                </div>
-
-                {/* Lista de Categorias com Ícones Shounen + Player de Vídeo */}
-                <div className="mb-4">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 px-3">
-                    Pastas Disponíveis
-                  </span>
-                </div>
-
-                <nav className="space-y-2" role="tablist">
-                  {CATEGORIES.map((cat) => {
-                    const isSelected = activeCategory === cat.id;
-                    const count = getCategoryCount(cat.id);
-                    return (
-                      <button
-                        key={cat.id}
-                        role="tab"
-                        aria-selected={isSelected}
-                        onClick={() => handleSelectCategory(cat.id)}
-                        className={`w-full group flex items-center justify-between px-4 py-3.5 rounded-xl text-sm transition-all duration-200 cursor-pointer text-left border ${
-                          isSelected
-                            ? "bg-white/[0.08] border-accent/60 text-white font-medium shadow-[0_0_20px_rgba(239,68,68,0.15)]"
-                            : "border-transparent text-neutral-400 hover:text-white hover:bg-white/[0.04]"
-                        }`}
-                      >
-                        <div className="flex items-center gap-3.5 truncate mr-2">
-                          <div
-                            className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
-                              isSelected
-                                ? "bg-accent/20 text-accent border border-accent/40"
-                                : "bg-white/[0.04] text-neutral-400 group-hover:text-white group-hover:bg-white/[0.08]"
-                            }`}
-                          >
-                            <ShounenCategoryIcon
-                              category={cat.id}
-                              isActive={isSelected}
-                              size={15}
-                            />
-                          </div>
-
-                          <div className="flex flex-col truncate">
-                            <span className="truncate">{t(cat.labelKey)}</span>
-                            <span className="text-[10px] font-mono text-neutral-500 group-hover:text-neutral-400">
-                              {cat.description ||
-                                (cat.id === "all"
-                                  ? "Destaques & Acervo Geral"
-                                  : `${count} ${count === 1 ? "projeto" : "projetos"}`)}
-                            </span>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center gap-2 shrink-0">
-                          <span
-                            className={`text-xs font-mono px-2 py-0.5 rounded-md ${
-                              isSelected
-                                ? "bg-accent text-white font-bold"
-                                : "bg-white/[0.05] text-neutral-400 group-hover:text-neutral-200"
-                            }`}
-                          >
-                            {count}
-                          </span>
-                          {isSelected && <Check size={14} className="text-accent shrink-0" />}
-                        </div>
-                      </button>
-                    );
-                  })}
-                </nav>
-              </div>
-
-              {/* Rodapé da Gaveta */}
-              <div className="pt-6 border-t border-white/10 mt-6">
-                <div className="flex items-center justify-between text-xs font-mono text-neutral-400">
-                  <span className="flex items-center gap-1.5">
-                    <Eye size={13} className="text-accent" />
-                    <span>{featuredProjects.length} {t("projects.library.total")}</span>
-                  </span>
-                  <button
-                    onClick={() => handleSelectCategory("all")}
-                    className="text-accent hover:underline cursor-pointer uppercase text-[11px]"
-                  >
-                    Ver Destaques
-                  </button>
-                </div>
-              </div>
-            </motion.aside>
-          </div>
-        )}
-      </AnimatePresence>
-
-      {/* Project Modal */}
-      <AnimatePresence>
-        {selectedProject && (
+        {isModalOpen && selectedProject && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -1019,75 +554,72 @@ export default function Projects() {
             aria-modal="true"
             aria-label={selectedProject.title}
           >
+            {/* Backdrop com Blur */}
             <div
-              className="absolute inset-0 bg-black/95 backdrop-blur-md"
+              className="absolute inset-0 bg-black/90 backdrop-blur-md"
               onClick={() => setSelectedProject(null)}
             />
 
+            {/* Botão de Fechar no Canto Superior Direito */}
             <button
               onClick={() => setSelectedProject(null)}
               className="fixed top-4 right-4 md:top-8 md:right-8 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-colors z-[60] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-              aria-label="Fechar vídeo"
+              aria-label={language === "pt" ? "Fechar vídeo" : "Close video"}
             >
               <X size={24} />
             </button>
 
+            {/* Container do Player */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
               transition={{ duration: 0.2 }}
               className={`relative w-full ${
-                selectedProject.aspect === "vertical" ? "max-w-md" : "max-w-6xl"
-              } max-h-[92vh] flex items-center justify-center z-10`}
+                selectedProject.aspect === "vertical" ? "max-w-md" : "max-w-5xl"
+              } max-h-[92vh] flex flex-col items-center justify-center z-10`}
             >
               <div
-                className={`relative w-full max-h-[92vh] overflow-hidden shadow-2xl flex justify-center bg-black ${
+                className={`relative w-full max-h-[82vh] overflow-hidden shadow-2xl flex justify-center bg-black ${
                   selectedProject.aspect === "vertical"
                     ? "aspect-[9/16] rounded-2xl mx-auto"
                     : "aspect-video rounded-xl md:rounded-2xl mx-auto"
                 }`}
-                style={{
-                  maxHeight: "92vh",
-                  maxWidth:
-                    selectedProject.aspect === "vertical"
-                      ? "min(100%, calc(92vh * 9 / 16))"
-                      : "min(100%, calc(92vh * 16 / 9))",
-                }}
               >
-                {selectedProject.videoMp4 ? (
-                  <video
-                    autoPlay
-                    controls
-                    playsInline
-                    preload="auto"
-                    className={
-                      selectedProject.aspect === "vertical"
-                        ? "portfolio-video-vertical w-full h-full object-contain bg-black"
-                        : "w-full h-full object-contain bg-black"
-                    }
-                    poster={selectedProject.image}
-                  >
-                    <source src={selectedProject.videoMp4} type="video/mp4" />
-                    Seu navegador não suporta tags de vídeo.
-                  </video>
-                ) : selectedProject.videoUrl ? (
-                  <iframe
-                    src={getEmbedModalUrl(selectedProject.videoUrl)}
-                    className="absolute inset-0 w-full h-full border-0"
-                    style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
-                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                    title={selectedProject.title}
-                  />
-                ) : (
-                  <img
-                    src={selectedProject.image}
-                    alt={selectedProject.title}
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                )}
+                <iframe
+                  src={getEmbedModalUrl(selectedProject.videoUrl)}
+                  className="absolute inset-0 w-full h-full border-0"
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                  title={selectedProject.title}
+                />
+              </div>
+
+              {/* Barra inferior de Ação Imediata no Modal */}
+              <div className="mt-4 w-full flex flex-col sm:flex-row items-center justify-between gap-3 px-2 text-white">
+                <div className="text-center sm:text-left">
+                  <h3 className="text-sm sm:text-base font-bold font-display uppercase tracking-wide">
+                    {selectedProject.title}
+                  </h3>
+                  <p className="text-[11px] font-mono text-[#8A919E]">
+                    {selectedProject.category} • {selectedProject.client}
+                  </p>
+                </div>
+
+                <a
+                  href={`https://wa.me/5511954629657?text=${encodeURIComponent(
+                    language === "pt"
+                      ? `Olá Guironas! Gostei do projeto "${selectedProject.title}" e gostaria de um orçamento nesse formato.`
+                      : `Hello Guironas! I loved the project "${selectedProject.title}" and would like a quote for a similar edit.`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent hover:bg-rose-600 rounded-full text-xs font-bold uppercase tracking-wider transition-all shadow-lg shadow-accent/30"
+                >
+                  <MessageCircle size={15} />
+                  <span>{language === "pt" ? "Orçar este Formato" : "Get a Quote for this Format"}</span>
+                </a>
               </div>
             </motion.div>
           </motion.div>

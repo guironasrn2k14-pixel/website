@@ -58,6 +58,24 @@ export default function About() {
               <p className="mt-6 text-sm text-[#8A919E] leading-relaxed font-sans">
                 {t('about.steps')}
               </p>
+
+              {/* Softwares & Pipeline Profissional */}
+              <div className="mt-8 pt-6 border-t border-white/5 flex flex-col gap-3">
+                <span className="text-xs font-mono uppercase tracking-wider text-accent font-semibold flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                  {t('about.pipeline.title')}
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {['Premiere Pro', 'After Effects', 'DaVinci Resolve', 'CapCut Pro', 'Color Grading', 'Sound Design'].map((tool) => (
+                    <span
+                      key={tool}
+                      className="px-3 py-1 rounded-lg border border-white/10 bg-white/[0.03] text-xs font-mono text-[#F8FAFC]"
+                    >
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           </motion.div>
 
