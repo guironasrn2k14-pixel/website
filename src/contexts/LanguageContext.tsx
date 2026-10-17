@@ -42,7 +42,7 @@ const translations = {
     'projects.cat.vlogs': 'Vlogs & Conteúdo Vertical',
     'projects.cat.vlogs.desc': 'Narrativas dinâmicas de dia a dia, viagens e estilo de vida com ritmo acelerado e alta retenção.',
     'projects.cat.youtube': 'Canais do YouTube',
-    'projects.cat.youtube.desc': 'Grande produção cinematográfica em 16:9 widescreen, com sincronia musical milimétrica e color grading.',
+    'projects.cat.youtube.desc': 'Produções audiovisuais em 16:9 widescreen, com sincronia rítmica, storytelling e color grading de alto impacto.',
     'projects.cat.shorts': 'Vlogs & Conteúdo Vertical',
     'projects.cat.shorts.desc': 'Narrativas dinâmicas de dia a dia, viagens e estilo de vida com ritmo acelerado e alta retenção.',
     'projects.cat.vsl': 'VSLs & Anúncios',
@@ -103,6 +103,11 @@ const translations = {
     'projects.vlog2.client': 'Vlog · Estilo de Vida',
     'projects.vlog2.tags': 'STORYTELLING · COLOR GRADING · BEAT-SYNC',
     'projects.vlog2.format': '9:16 · Reels Vlog',
+
+    'projects.gordinho.title': 'Lembra Daquele Gordinho',
+    'projects.gordinho.desc': 'Narrativa envolvente de transformação e superação com ritmo dinâmico e cortes precisos.',
+    'projects.gordinho.client': 'Lifestyle & Superação / YouTube',
+    'projects.gordinho.format': '16:9 · Conteúdo Longo',
 
     'projects.caneta.title': 'Caneta Emagrecedora - Análise Médica',
     'projects.caneta.desc': 'Didática visual e motion explicativo para simplificação médica e retenção.',
@@ -175,7 +180,7 @@ const translations = {
     'contact.desc': 'Vamos conversar sobre o seu próximo vídeo e criar uma edição com narrativa envolvente e foco total em retenção de audiência.',
     'contact.cta.primary': 'Solicitar Orçamento no WhatsApp',
     'contact.cta.secondary': 'Explorar Portfólio',
-    'contact.email': 'contato@guironas.shop',
+    'contact.email': 'guironas@hotmail.com',
     'contact.social.insta': 'Instagram',
     'contact.social.yt': 'YouTube',
     
@@ -229,7 +234,7 @@ const translations = {
     'projects.cat.vlogs': 'Vlogs & Vertical Content',
     'projects.cat.vlogs.desc': 'Fast-paced dynamic storytelling, daily vlogs, and high-retention vertical edits.',
     'projects.cat.youtube': 'YouTube Channels',
-    'projects.cat.youtube.desc': 'Grand 16:9 widescreen cinematic production, millimeter-precise beat sync, and color grading.',
+    'projects.cat.youtube.desc': 'High-impact 16:9 widescreen productions with rhythmic sync, storytelling, and cinematic color grading.',
     'projects.cat.shorts': 'Vlogs & Vertical Content',
     'projects.cat.shorts.desc': 'Fast-paced dynamic storytelling, daily vlogs, and high-retention vertical edits.',
     'projects.cat.vsl': 'VSLs & Ads',
@@ -290,6 +295,11 @@ const translations = {
     'projects.vlog2.client': 'Vlog · Lifestyle',
     'projects.vlog2.tags': 'STORYTELLING · COLOR GRADING · BEAT-SYNC',
     'projects.vlog2.format': '9:16 · Vertical Vlog',
+
+    'projects.gordinho.title': 'Lembra Daquele Gordinho',
+    'projects.gordinho.desc': 'Engaging personal transformation narrative with dynamic pacing, storytelling, and precise cuts.',
+    'projects.gordinho.client': 'Lifestyle & Motivation / YouTube',
+    'projects.gordinho.format': '16:9 · Long Video',
 
     'projects.caneta.title': 'Weight-Loss Injections - Medical Breakdown',
     'projects.caneta.desc': 'Visual pedagogy and explanatory motion graphics for medical simplification and retention.',
@@ -362,7 +372,7 @@ const translations = {
     'contact.desc': 'Let\'s discuss your next project and build an edit with engaging storytelling and peak audience retention.',
     'contact.cta.primary': 'Request Quote on WhatsApp',
     'contact.cta.secondary': 'Explore Portfolio',
-    'contact.email': 'contato@guironas.shop',
+    'contact.email': 'guironas@hotmail.com',
     'contact.social.insta': 'Instagram',
     'contact.social.yt': 'YouTube',
     

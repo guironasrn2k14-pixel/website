@@ -82,9 +82,11 @@ export default function Workflow() {
                     </span>
                   </div>
 
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-emerald-400 font-semibold mb-2 block">
-                    {step.badge}
-                  </span>
+                  <div className="mb-2">
+                    <span className="inline-block px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-mono uppercase tracking-widest text-emerald-400 font-semibold">
+                      {step.badge}
+                    </span>
+                  </div>
 
                   <h3 className="text-lg font-bold font-display text-[#F8FAFC] mb-2.5 uppercase tracking-wide">
                     {step.title}

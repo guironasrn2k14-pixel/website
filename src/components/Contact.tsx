@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { ArrowRight, MessageCircle, Mail, Instagram, Youtube } from "lucide-react";
+import { ArrowRight, MessageCircle, Mail } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 
 export default function Contact() {
@@ -61,39 +61,21 @@ export default function Contact() {
           {/* Links Rápidos: E-mail e Redes Sociais */}
           <div className="pt-8 border-t border-white/5 w-full flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#8A919E]">
             <a
-              href="mailto:contato@guironas.shop"
+              href="mailto:guironas@hotmail.com"
               className="flex items-center gap-2 hover:text-[#F8FAFC] transition-colors"
             >
               <Mail size={15} className="text-accent" />
-              <span>contato@guironas.shop</span>
+              <span>guironas@hotmail.com</span>
             </a>
 
-            <div className="flex items-center gap-6">
+            <div className="flex items-center">
               <a
-                href="https://www.instagram.com/guironas/"
+                href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 hover:text-[#F8FAFC] transition-colors"
+                className="flex items-center gap-2 hover:text-[#F8FAFC] transition-colors"
               >
-                <Instagram size={14} className="text-accent" />
-                <span>Instagram</span>
-              </a>
-              <a
-                href="https://www.youtube.com/@guironas"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 hover:text-[#F8FAFC] transition-colors"
-              >
-                <Youtube size={14} className="text-accent" />
-                <span>YouTube</span>
-              </a>
-              <a
-                href="https://wa.me/5511954629657"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 hover:text-[#F8FAFC] transition-colors"
-              >
-                <MessageCircle size={14} className="text-emerald-400" />
+                <MessageCircle size={15} className="text-emerald-400" />
                 <span>(11) 95462-9657</span>
               </a>
             </div>

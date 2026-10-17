@@ -57,21 +57,7 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* Métricas de conversão e retenção */}
-          <div className="grid grid-cols-3 gap-6 sm:gap-12 mt-14 pt-8 border-t border-white/5 text-center max-w-xl w-full">
-            <div>
-              <div className="text-xl sm:text-2xl font-bold font-display text-[#F8FAFC]">+1.5M</div>
-              <div className="text-[11px] font-mono text-[#8A919E] uppercase tracking-wider mt-0.5">{t('hero.metrics.views')}</div>
-            </div>
-            <div>
-              <div className="text-xl sm:text-2xl font-bold font-display text-emerald-400">70-85%</div>
-              <div className="text-[11px] font-mono text-[#8A919E] uppercase tracking-wider mt-0.5">{t('hero.metrics.retention')}</div>
-            </div>
-            <div>
-              <div className="text-xl sm:text-2xl font-bold font-display text-[#F8FAFC]">100%</div>
-              <div className="text-[11px] font-mono text-[#8A919E] uppercase tracking-wider mt-0.5">{t('hero.metrics.delivery')}</div>
-            </div>
-          </div>
+
         </motion.div>
       </div>
     </section>

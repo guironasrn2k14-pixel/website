@@ -19,7 +19,6 @@ export interface ProjectItem {
   formatType: CategoryKey;
   title: string;
   description: string;
-  socialProof?: string; // ex: "+2.5M VIEWS", "ORGANIC VIRAL", "HIGH RETENTION"
   tags?: string[];
   client: string;
   image: string;
@@ -112,7 +111,7 @@ export default function Projects() {
     () => [
       // ==========================================
       // 1. VLOGS & CONTEÚDO VERTICAL (9:16 Vertical)
-      // Destaque prioritário para os dois vídeos principais solicitados
+      // Cada vídeo é 100% único, sem duplicatas
       // ==========================================
       {
         id: "vlog-treino",
@@ -120,7 +119,6 @@ export default function Projects() {
         formatType: "vlogs",
         title: t("projects.vlog.title"),
         description: t("projects.vlog.desc"),
-        socialProof: "+2.5M VIEWS",
         tags: ["NARRATIVA", "RITMO", "SOUND DESIGN"],
         client: t("projects.vlog.client"),
         image: "/thai reels.png",
@@ -133,7 +131,6 @@ export default function Projects() {
         formatType: "vlogs",
         title: t("projects.vlog2.title"),
         description: t("projects.vlog2.desc"),
-        socialProof: "ORGANIC VIRAL",
         tags: ["STORYTELLING", "COLOR GRADING", "BEAT-SYNC"],
         client: t("projects.vlog2.client"),
         image:
@@ -147,25 +144,11 @@ export default function Projects() {
         formatType: "vlogs",
         title: t("projects.reels.title"),
         description: t("projects.reels.desc"),
-        socialProof: "HIGH RETENTION",
         tags: ["CORTE NO BEAT", "SOUND DESIGN", "RETENÇÃO"],
         client: t("projects.reels.client"),
         image:
           "https://i.vimeocdn.com/video/2211108366-84d0802f5686fa4ad5144cdf5e8dfadbec9311807fad72e85bcd2d0d4dac8b6d-d_640.jpg",
         videoUrl: "https://player.vimeo.com/video/1234976193",
-        aspect: "vertical",
-      },
-      {
-        id: "fitlife-reels",
-        category: "FITNESS · PERFORMANCE",
-        formatType: "vlogs",
-        title: t("projects.fitlife.title"),
-        description: t("projects.fitlife.desc"),
-        socialProof: "60 FPS FLUID",
-        tags: ["BEAT-SYNC", "MOTION", "LEGENDAS"],
-        client: t("projects.fitlife.client"),
-        image: "/produtos-vimeo.jpg",
-        videoUrl: "https://player.vimeo.com/video/1234959083",
         aspect: "vertical",
       },
       {
@@ -180,23 +163,10 @@ export default function Projects() {
         videoUrl: "https://player.vimeo.com/video/1234959083",
         aspect: "vertical",
       },
-      {
-        id: "depois-40-anuncio",
-        category: "TRÁFEGO PAGO · FITNESS",
-        formatType: "vlogs",
-        title: t("projects.depois40.title"),
-        description: t("projects.depois40.desc"),
-        tags: ["GANCHO VISUAL", "CONVERSÃO", "RITMO"],
-        client: t("projects.depois40.client"),
-        image:
-          "https://i.vimeocdn.com/video/2211108366-84d0802f5686fa4ad5144cdf5e8dfadbec9311807fad72e85bcd2d0d4dac8b6d-d_640.jpg",
-        videoUrl: "https://player.vimeo.com/video/1234976193",
-        aspect: "vertical",
-      },
 
       // ==========================================
       // 2. CANAIS DE YOUTUBE (16:9 Widescreen)
-      // Exclusivamente a grande produção MC Tom da VG
+      // Produções de alto impacto para canais e conteúdos no YouTube
       // ==========================================
       {
         id: "mc-tom-videoclipe",
@@ -204,11 +174,22 @@ export default function Projects() {
         formatType: "youtube",
         title: t("projects.comercial.title"),
         description: t("projects.comercial.desc"),
-        socialProof: "+2.5M VIEWS",
         tags: ["SPEED RAMPS", "SINCRONIA RÍTMICA", "COLOR GRADING"],
         client: t("projects.comercial.client"),
         image: "/mctom.png.png",
         videoUrl: "https://player.vimeo.com/video/1234976971",
+        aspect: "video",
+      },
+      {
+        id: "lembra-daquele-gordinho",
+        category: "STORYTELLING · 16:9",
+        formatType: "youtube",
+        title: t("projects.gordinho.title"),
+        description: t("projects.gordinho.desc"),
+        tags: ["STORYTELLING", "NARRATIVA", "COLOR GRADING"],
+        client: t("projects.gordinho.client"),
+        image: "/lembra-daquele-gordinho.jpg",
+        videoUrl: "https://player.vimeo.com/video/1236741441",
         aspect: "video",
       },
     ],
@@ -289,7 +270,7 @@ export default function Projects() {
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-display font-bold tracking-tight text-[#F8FAFC] leading-[1.05] uppercase">
               {t("projects.section_title")}
             </h2>
-            <p className="text-sm sm:text-base text-[#94A3B8] font-sans font-light mt-3 max-w-2xl">
+            <p className="text-sm sm:text-base text-[#94A3B8] font-sans font-normal mt-3 max-w-2xl">
               {activeCategoryTab.subtitle}
             </p>
           </div>
@@ -386,12 +367,12 @@ export default function Projects() {
           <div
             ref={carouselRef}
             className={`flex gap-5 lg:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-6 pt-1 px-1 -mx-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden touch-pan-x ${
-              activeTab === "youtube" ? "justify-center" : ""
+              currentCategoryProjects.length === 1 ? "justify-center" : ""
             }`}
           >
             {currentCategoryProjects.map((project, idx) => {
               const isVertical = project.aspect === "vertical";
-              const isCenterpiece = activeTab === "youtube";
+              const isCenterpiece = currentCategoryProjects.length === 1;
 
               return (
                 <motion.div
@@ -399,44 +380,35 @@ export default function Projects() {
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: idx * 0.08 }}
-                  className={`relative shrink-0 snap-start rounded-2xl bg-[#1A1C23] border border-white/5 hover:border-white/15 transition-all duration-300 group/card shadow-xl flex flex-col ${
+                  className={`relative shrink-0 snap-start rounded-3xl bg-[#1A1C23] border border-white/5 hover:border-white/15 transition-all duration-300 group/card shadow-2xl flex ${
                     isCenterpiece
-                      ? "w-full max-w-[850px] p-5 sm:p-7 gap-5 mx-auto"
+                      ? "flex-col w-full max-w-[880px] p-5 sm:p-7 md:p-8 gap-5 sm:gap-6 mx-auto"
                       : isVertical
-                      ? "w-[85vw] max-w-[390px] sm:w-[480px] sm:flex-row gap-4 sm:gap-5 p-4 sm:p-5"
-                      : "w-[85vw] max-w-[420px] sm:w-[500px] p-4 sm:p-5 gap-4"
+                      ? "flex-row w-[90vw] max-w-[480px] sm:w-[580px] md:w-[630px] lg:w-[660px] gap-4 sm:gap-6 p-3.5 sm:p-5 md:p-6 items-stretch"
+                      : "flex-col w-[88vw] max-w-[460px] sm:w-[520px] md:w-[560px] p-4 sm:p-6 gap-4"
                   }`}
                 >
                   {/* Visual / Media Thumbnail com Motion Preview em Loop Silencioso */}
                   <div
                     onClick={() => setSelectedProject(project)}
-                    className={`relative rounded-xl overflow-hidden bg-[#121316] border border-white/10 group cursor-pointer shadow-lg shrink-0 ${
+                    style={{ aspectRatio: isVertical ? "9/16" : "16/9" }}
+                    className={`relative rounded-2xl overflow-hidden bg-[#121316] border border-white/10 group cursor-pointer shadow-2xl shrink-0 ${
                       isCenterpiece
                         ? "w-full aspect-video"
                         : isVertical
-                        ? "w-full sm:w-44 md:w-48 aspect-[9/16] mx-auto sm:mx-0"
+                        ? "w-[150px] xs:w-[170px] sm:w-[225px] md:w-[245px] lg:w-[260px] aspect-[9/16] self-stretch"
                         : "w-full aspect-video"
                     }`}
                   >
-                    {/* Badge de Formato no Topo da Thumbnail */}
-                    <div className="absolute top-2.5 left-2.5 z-20 flex items-center gap-1.5 pointer-events-none">
-                      <span className="px-2 py-0.5 rounded bg-black/85 backdrop-blur-md border border-white/10 text-[9px] font-mono uppercase tracking-widest text-[#F8FAFC] font-semibold shadow-sm">
-                        {isVertical ? "9:16" : "16:9"}
-                      </span>
-                      <span className="px-1.5 py-0.5 rounded bg-black/85 backdrop-blur-md border border-white/10 text-[9px] font-mono text-emerald-400 font-semibold shadow-sm">
-                        60 FPS
-                      </span>
-                    </div>
-
-                    {/* Badge Sutil de Impacto / Social Proof */}
-                    {project.socialProof && (
-                      <div className="absolute top-2.5 right-2.5 z-20 pointer-events-none">
-                        <span className="px-2.5 py-0.5 rounded bg-black/85 backdrop-blur-md border border-white/10 text-[9px] font-mono text-emerald-400 font-semibold shadow-sm flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                          <span>{project.socialProof}</span>
-                        </span>
+                    {/* Badge de Formato & Qualidade (Design Limpo, Fluido e sem Bugs Visuais) */}
+                    <div className="absolute top-2.5 left-2.5 z-20 flex items-center pointer-events-none">
+                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/85 backdrop-blur-md border border-emerald-500/30 text-[10px] font-mono shadow-md leading-none">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)] animate-pulse" />
+                        <span className="text-[#F8FAFC] font-bold tracking-wider">{isVertical ? "9:16" : "16:9"}</span>
+                        <span className="text-emerald-500/40 text-[9px]">•</span>
+                        <span className="text-emerald-400 font-semibold tracking-wide">60 FPS</span>
                       </div>
-                    )}
+                    </div>
 
                     {/* Motion Preview (Autoplay em Loop Silencioso / Thumbnail Viva) */}
                     <iframe
@@ -460,43 +432,43 @@ export default function Projects() {
                     {/* Overlay Escuro com Play Button no Hover */}
                     <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors pointer-events-none" />
                     <div className="absolute inset-0 flex items-center justify-center opacity-85 group-hover:opacity-100 transition-opacity pointer-events-none">
-                      <div className="w-12 h-12 bg-accent/90 group-hover:bg-accent rounded-full flex items-center justify-center text-white backdrop-blur-sm shadow-xl group-hover:scale-110 transition-transform">
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 bg-accent/90 group-hover:bg-accent rounded-full flex items-center justify-center text-white backdrop-blur-sm shadow-xl group-hover:scale-110 transition-transform">
                         <Play size={18} className="ml-0.5 fill-current" />
                       </div>
                     </div>
                   </div>
 
                   {/* Lado de Informações e Texto */}
-                  <div className="flex flex-col justify-between flex-1 min-w-0">
+                  <div className="flex flex-col justify-between flex-1 min-w-0 py-0.5 sm:py-1">
                     <div>
                       {/* Categoria & Subtítulo em linha única */}
-                      <div className="flex items-center gap-2 mb-2 whitespace-nowrap overflow-hidden">
-                        <span className="text-[10px] font-mono uppercase tracking-[0.08em] text-accent font-semibold shrink-0">
+                      <div className="flex items-center gap-2 mb-2 sm:mb-2.5 whitespace-nowrap overflow-hidden">
+                        <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.08em] text-accent font-bold shrink-0">
                           {project.category}
                         </span>
                         <span className="text-neutral-600 font-mono text-[10px] shrink-0">•</span>
-                        <span className="text-[10px] font-mono uppercase tracking-[0.08em] text-[#8A919E] truncate">
+                        <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.08em] text-[#8A919E] truncate font-medium">
                           {project.client}
                         </span>
                       </div>
 
                       {/* Título do Vídeo em Caixa Alta com Espaçamento Estilo Cinema */}
-                      <h4 className="text-base sm:text-lg font-bold text-[#F8FAFC] mb-2 leading-snug tracking-[0.08em] uppercase font-display line-clamp-1 sm:line-clamp-2">
+                      <h4 className="text-base sm:text-xl md:text-2xl font-bold text-[#F8FAFC] mb-2 sm:mb-3 leading-snug tracking-[0.06em] uppercase font-display line-clamp-2">
                         {project.title}
                       </h4>
 
                       {/* Descrição em Frase Curta e Direta (Máximo 2 Linhas) */}
-                      <p className="text-xs sm:text-[13px] text-[#94A3B8] font-normal leading-relaxed mb-3.5 font-sans line-clamp-2">
+                      <p className="text-xs sm:text-sm text-[#94A3B8] font-normal leading-relaxed mb-4 font-sans line-clamp-3">
                         {project.description}
                       </p>
 
                       {/* Tags Técnicas Monospace com Respiro Horizontal Amplo */}
                       {project.tags && project.tags.length > 0 && (
-                        <div className="flex flex-wrap items-center gap-2 mb-3.5">
+                        <div className="flex flex-wrap items-center gap-2 mb-4">
                           {project.tags.map((tag, tIdx) => (
                             <span
                               key={tIdx}
-                              className="px-2.5 py-1 rounded bg-white/[0.04] border border-white/5 text-[9px] sm:text-[10px] font-mono text-[#8A919E] uppercase tracking-[0.1em] whitespace-nowrap"
+                              className="px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/5 text-[9px] sm:text-[10px] font-mono text-[#8A919E] uppercase tracking-[0.1em] whitespace-nowrap font-medium"
                             >
                               {tag}
                             </span>
@@ -506,17 +478,17 @@ export default function Projects() {
                     </div>
 
                     {/* Botão Assistir Alinhado na Base */}
-                    <div className="pt-2 sm:pt-3 mt-auto border-t border-white/5 flex items-center justify-between">
+                    <div className="pt-3 sm:pt-4 mt-auto border-t border-white/5 flex items-center justify-between">
                       <button
                         onClick={() => setSelectedProject(project)}
-                        className="inline-flex items-center gap-2 text-xs font-semibold text-[#F8FAFC] hover:text-accent transition-colors cursor-pointer group py-1"
+                        className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#F8FAFC] hover:text-accent transition-colors cursor-pointer group py-1"
                       >
-                        <Play size={12} className="fill-current text-accent group-hover:scale-110 transition-transform" />
+                        <Play size={13} className="fill-current text-accent group-hover:scale-110 transition-transform" />
                         <span>{t("projects.watch")}</span>
                       </button>
 
                       {isCenterpiece && (
-                        <span className="text-[10px] font-mono text-accent font-semibold uppercase tracking-wider">
+                        <span className="text-[10px] sm:text-xs font-mono text-accent font-semibold uppercase tracking-wider">
                           {language === "pt" ? "PRODUÇÃO PRINCIPAL" : "MAIN PRODUCTION"}
                         </span>
                       )}
@@ -528,7 +500,7 @@ export default function Projects() {
           </div>
 
           {/* Indicador de Swipe no Mobile */}
-          {activeTab === "vlogs" && (
+          {currentCategoryProjects.length > 1 && (
             <div className="flex sm:hidden items-center justify-center gap-2 mt-2 text-[10px] font-mono text-[#8A919E]">
               <span className="opacity-60 animate-pulse">←</span>
               <span className="tracking-[0.08em] uppercase">
@@ -576,14 +548,14 @@ export default function Projects() {
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ duration: 0.2 }}
               className={`relative w-full ${
-                selectedProject.aspect === "vertical" ? "max-w-md" : "max-w-5xl"
-              } max-h-[92vh] flex flex-col items-center justify-center z-10`}
+                selectedProject.aspect === "vertical" ? "max-w-sm sm:max-w-md" : "max-w-5xl"
+              } max-h-[92vh] flex flex-col items-center justify-center z-10 px-2 sm:px-0`}
             >
               <div
-                className={`relative w-full max-h-[82vh] overflow-hidden shadow-2xl flex justify-center bg-black ${
+                className={`relative overflow-hidden shadow-2xl flex justify-center bg-black ${
                   selectedProject.aspect === "vertical"
-                    ? "aspect-[9/16] rounded-2xl mx-auto"
-                    : "aspect-video rounded-xl md:rounded-2xl mx-auto"
+                    ? "w-auto h-[62vh] sm:h-[72vh] max-h-[640px] aspect-[9/16] rounded-2xl mx-auto max-w-full"
+                    : "w-full aspect-video max-h-[72vh] rounded-xl md:rounded-2xl mx-auto"
                 }`}
               >
                 <iframe

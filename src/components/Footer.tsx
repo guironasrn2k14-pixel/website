@@ -26,37 +26,21 @@ export default function Footer() {
             </span>
           </div>
 
-          {/* Redes Sociais e Contato Rápido */}
+          {/* Contato Rápido */}
           <div className="flex items-center gap-6 text-xs font-mono text-[#8A919E]">
-            <a
-              href="https://www.instagram.com/guironas/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-white transition-colors"
-            >
-              Instagram
-            </a>
-            <a
-              href="https://www.youtube.com/@guironas"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-white transition-colors"
-            >
-              YouTube
-            </a>
             <a
               href="https://wa.me/5511954629657?text=Olá%20Guironas!"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-emerald-400 transition-colors"
+              className="hover:text-emerald-400 transition-colors text-emerald-400"
             >
               WhatsApp
             </a>
             <a
-              href="mailto:contato@guironas.shop"
+              href="mailto:guironas@hotmail.com"
               className="hover:text-white transition-colors"
             >
-              contato@guironas.shop
+              guironas@hotmail.com
             </a>
           </div>
 
