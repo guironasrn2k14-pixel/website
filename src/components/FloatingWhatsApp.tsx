@@ -1,9 +1,26 @@
 import { motion } from "motion/react";
+import { useLanguage } from "../contexts/LanguageContext";
 
 export default function FloatingWhatsApp() {
+  const { language } = useLanguage();
+
+  const prefilledMessage =
+    language === "pt"
+      ? "Olá! Gostaria de falar sobre um projeto."
+      : language === "es"
+      ? "¡Hola! Me gustaría hablar sobre un proyecto."
+      : "Hello! I would like to talk about a project.";
+
+  const ariaLabel =
+    language === "pt"
+      ? "Falar no WhatsApp"
+      : language === "es"
+      ? "Hablar por WhatsApp"
+      : "Chat on WhatsApp";
+
   return (
     <motion.a
-      href="https://wa.me/5511954629657?text=Olá!%20Gostaria%20de%20falar%20sobre%20um%20projeto."
+      href={`https://wa.me/5511954629657?text=${encodeURIComponent(prefilledMessage)}`}
       target="_blank"
       rel="noopener noreferrer"
       initial={{ scale: 0, opacity: 0 }}
@@ -11,8 +28,8 @@ export default function FloatingWhatsApp() {
       transition={{ delay: 1, type: "spring", stiffness: 260, damping: 20 }}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
-      className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] hover:bg-[#1EBE5D] rounded-full flex items-center justify-center text-white shadow-2xl shadow-[#25D366]/30 transition-colors"
-      aria-label="Falar no WhatsApp"
+      className="fixed bottom-6 right-6 z-40 w-14 h-14 bg-[#25D366] hover:bg-[#1EBE5D] rounded-full flex items-center justify-center text-white shadow-2xl shadow-[#25D366]/30 transition-colors cursor-pointer"
+      aria-label={ariaLabel}
     >
       <svg
         viewBox="0 0 24 24"

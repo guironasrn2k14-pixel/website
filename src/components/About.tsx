@@ -96,7 +96,7 @@ export default function About() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#121316] via-transparent to-transparent" />
             </div>
 
-            <div className="absolute -bottom-8 -left-8 md:bottom-12 md:-left-12 p-8 bg-[#1A1C23] border border-white/5 rounded-2xl shadow-2xl max-w-sm">
+            <div className="relative mt-6 md:mt-0 md:absolute md:bottom-12 md:-left-12 p-6 sm:p-8 bg-[#1A1C23] border border-white/5 rounded-2xl shadow-2xl max-w-sm">
               <h3 className="text-2xl font-bold mb-3 text-[#F8FAFC] font-display">{t('about.title.3')}</h3>
               <p className="text-[#8A919E] leading-relaxed text-sm font-sans">
                 {t('about.desc')}

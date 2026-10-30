@@ -3,8 +3,14 @@ import { FileText, Scissors, CheckCircle2, Sparkles, ArrowRight } from "lucide-r
 import { useLanguage } from "../contexts/LanguageContext";
 
 export default function Workflow() {
-  const { t } = useLanguage();
-  const whatsappUrl = "https://wa.me/5511954629657?text=Olá%20Guironas!%20Gostaria%20de%20iniciar%20um%20projeto.";
+  const { t, language } = useLanguage();
+  const whatsappUrl = `https://wa.me/5511954629657?text=${encodeURIComponent(
+    language === "pt"
+      ? "Olá Guironas! Gostaria de iniciar um projeto."
+      : language === "es"
+      ? "¡Hola Guironas! Me gustaría iniciar un proyecto."
+      : "Hello Guironas! I would like to start a project."
+  )}`;
 
   const steps = [
     {
@@ -12,28 +18,28 @@ export default function Workflow() {
       title: t("workflow.step1.title"),
       desc: t("workflow.step1.desc"),
       icon: FileText,
-      badge: "Briefing Ágil",
+      badge: t("workflow.step1.badge"),
     },
     {
       num: "02",
       title: t("workflow.step2.title"),
       desc: t("workflow.step2.desc"),
       icon: Scissors,
-      badge: "Cortes & Sound",
+      badge: t("workflow.step2.badge"),
     },
     {
       num: "03",
       title: t("workflow.step3.title"),
       desc: t("workflow.step3.desc"),
       icon: CheckCircle2,
-      badge: "Garantia 100%",
+      badge: t("workflow.step3.badge"),
     },
     {
       num: "04",
       title: t("workflow.step4.title"),
       desc: t("workflow.step4.desc"),
       icon: Sparkles,
-      badge: "4K 60FPS",
+      badge: t("workflow.step4.badge"),
     },
   ];
 
@@ -98,7 +104,7 @@ export default function Workflow() {
                 </div>
 
                 <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-[#8A919E]">
-                  <span>Passo {step.num} de 04</span>
+                  <span>{t("workflow.step.label")} {step.num} {t("workflow.step.of")} 04</span>
                   <span className="w-1.5 h-1.5 rounded-full bg-accent/60" />
                 </div>
               </motion.div>
@@ -109,7 +115,7 @@ export default function Workflow() {
         {/* CTA Rápido do Processo */}
         <div className="mt-14 text-center flex flex-col sm:flex-row items-center justify-center gap-4">
           <span className="text-xs sm:text-sm text-[#94A3B8] font-mono">
-            Tem um prazo curto ou projeto especial?
+            {t("workflow.cta.question")}
           </span>
           <a
             href={whatsappUrl}
@@ -117,7 +123,7 @@ export default function Workflow() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-accent hover:text-rose-400 transition-colors underline underline-offset-4"
           >
-            <span>Fale direto comigo no WhatsApp</span>
+            <span>{t("workflow.cta.button")}</span>
             <ArrowRight size={14} />
           </a>
         </div>

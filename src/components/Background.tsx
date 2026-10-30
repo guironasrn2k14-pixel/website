@@ -57,7 +57,7 @@ export default function Background() {
   return (
     <div 
       className={`fixed inset-0 z-0 pointer-events-none overflow-hidden select-none transition-colors duration-300 ${
-        isLight ? "bg-[#F8FAFC]" : "bg-[#121316]"
+        isLight ? "bg-[#FAFAFA]" : "bg-[#121316]"
       }`}
       aria-hidden="true"
     >

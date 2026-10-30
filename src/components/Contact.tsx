@@ -3,9 +3,14 @@ import { ArrowRight, MessageCircle, Mail } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 
 export default function Contact() {
-  const { t } = useLanguage();
-  const whatsappUrl =
-    "https://wa.me/5511954629657?text=Olá%20Guironas!%20Gostaria%20de%20solicitar%20um%20orçamento%20para%20edição%20de%20vídeo.";
+  const { t, language } = useLanguage();
+  const whatsappUrl = `https://wa.me/5511954629657?text=${encodeURIComponent(
+    language === "pt"
+      ? "Olá Guironas! Gostaria de solicitar um orçamento para edição de vídeo."
+      : language === "es"
+      ? "¡Hola Guironas! Me gustaría solicitar un presupuesto para edición de video."
+      : "Hello Guironas! I would like to request a quote for video editing."
+  )}`;
 
   return (
     <section id="contact" className="py-28 relative overflow-hidden bg-transparent">
@@ -24,7 +29,11 @@ export default function Contact() {
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-accent/20 bg-accent/10 mb-6">
             <span className="w-2 h-2 rounded-full bg-accent animate-ping" />
             <span className="text-[11px] font-mono tracking-widest text-accent uppercase font-bold">
-              CTA FINAL · ALTA CONVERSÃO
+              {language === "pt"
+                ? "CTA FINAL · ALTA CONVERSÃO"
+                : language === "es"
+                ? "CTA FINAL · ALTA CONVERSIÓN"
+                : "FINAL CTA · HIGH CONVERSION"}
             </span>
           </div>
 

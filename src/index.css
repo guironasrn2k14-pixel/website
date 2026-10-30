@@ -95,9 +95,9 @@ body {
    LIGHT MODE STYLING OVERRIDES (Minimalist, Professional & Audiovisual)
    ========================================================================= */
 
-/* Transição global suave de tema */
-*, *::before, *::after {
-  transition-property: background-color, border-color, color, fill, stroke;
+/* Transição suave de tema para containers e textos principais (evita jank em iframes e animações móveis) */
+body, header, nav, footer, section, [class*="bg-card-bg"], [class*="bg-\[\#"], button, a, h1, h2, h3, h4, h5, h6 {
+  transition-property: background-color, border-color, color;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 200ms;
 }
@@ -136,8 +136,8 @@ body {
   opacity: 1 !important;
 }
 
-.light a.font-display,
-.light span.font-display {
+.light a.font-display:not(.bg-accent):not([class*="bg-accent"]),
+.light span.font-display:not(.bg-accent):not([class*="bg-accent"]) {
   color: #0F172A !important;
 }
 
@@ -176,11 +176,15 @@ body {
   color: #E11D48 !important;
 }
 
-.light .bg-accent {
+.light .bg-accent,
+.light a.bg-accent,
+.light button.bg-accent {
   background-color: #E11D48 !important;
+  color: #FFFFFF !important;
 }
 
 .light .bg-accent text,
+.light .bg-accent span,
 .light .bg-accent [class*="text-"],
 .light .bg-accent * {
   color: #FFFFFF !important;

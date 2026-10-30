@@ -176,7 +176,7 @@ export default function Projects() {
         description: t("projects.comercial.desc"),
         tags: ["SPEED RAMPS", "SINCRONIA RÍTMICA", "COLOR GRADING"],
         client: t("projects.comercial.client"),
-        image: "/mctom.png.png",
+        image: "/videclipe.png.png",
         videoUrl: "https://player.vimeo.com/video/1234976971",
         aspect: "video",
       },
@@ -243,6 +243,17 @@ export default function Projects() {
     setTimeout(checkScroll, 350);
   };
 
+  // Trava scroll da página quando modal está aberto (previne scroll fantasma em mobile)
+  useEffect(() => {
+    if (isModalOpen) {
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prevOverflow;
+      };
+    }
+  }, [isModalOpen]);
+
   // Fecha modal com Escape
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -278,13 +289,30 @@ export default function Projects() {
           {/* Setas de Navegação EXCLUSIVAMENTE ancoradas no canto superior direito do cabeçalho */}
           <div className="flex items-center gap-2 self-end md:self-auto shrink-0">
             <span className="px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-mono text-[#8A919E] font-medium tracking-wider mr-1">
-              {currentCategoryProjects.length} {currentCategoryProjects.length === 1 ? (language === "pt" ? "PROJETO" : "PROJECT") : (language === "pt" ? "VÍDEOS" : "VIDEOS")}
+              {currentCategoryProjects.length}{" "}
+              {currentCategoryProjects.length === 1
+                ? language === "pt"
+                  ? "PROJETO"
+                  : language === "es"
+                  ? "PROYECTO"
+                  : "PROJECT"
+                : language === "pt"
+                ? "VÍDEOS"
+                : language === "es"
+                ? "VIDEOS"
+                : "VIDEOS"}
             </span>
 
             <button
               onClick={() => handleScroll("left")}
               disabled={!canScrollLeft}
-              aria-label={language === "pt" ? "Vídeo anterior" : "Previous video"}
+              aria-label={
+                language === "pt"
+                  ? "Vídeo anterior"
+                  : language === "es"
+                  ? "Video anterior"
+                  : "Previous video"
+              }
               className={`w-11 h-11 rounded-full border border-white/10 flex items-center justify-center transition-all cursor-pointer ${
                 canScrollLeft
                   ? "bg-[#1A1C23] hover:bg-accent hover:border-accent text-[#F8FAFC] shadow-md hover:scale-105 active:scale-95"
@@ -297,7 +325,13 @@ export default function Projects() {
             <button
               onClick={() => handleScroll("right")}
               disabled={!canScrollRight}
-              aria-label={language === "pt" ? "Próximo vídeo" : "Next video"}
+              aria-label={
+                language === "pt"
+                  ? "Próximo vídeo"
+                  : language === "es"
+                  ? "Siguiente video"
+                  : "Next video"
+              }
               className={`w-11 h-11 rounded-full border border-white/10 flex items-center justify-center transition-all cursor-pointer ${
                 canScrollRight
                   ? "bg-[#1A1C23] hover:bg-accent hover:border-accent text-[#F8FAFC] shadow-md hover:scale-105 active:scale-95"
@@ -366,6 +400,7 @@ export default function Projects() {
         <div className="relative">
           <div
             ref={carouselRef}
+            data-lenis-prevent
             className={`flex gap-5 lg:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-6 pt-1 px-1 -mx-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden touch-pan-x ${
               currentCategoryProjects.length === 1 ? "justify-center" : ""
             }`}
@@ -384,7 +419,7 @@ export default function Projects() {
                     isCenterpiece
                       ? "flex-col w-full max-w-[880px] p-5 sm:p-7 md:p-8 gap-5 sm:gap-6 mx-auto"
                       : isVertical
-                      ? "flex-row w-[90vw] max-w-[480px] sm:w-[580px] md:w-[630px] lg:w-[660px] gap-4 sm:gap-6 p-3.5 sm:p-5 md:p-6 items-stretch"
+                      ? "flex-row w-[92vw] max-w-[500px] sm:w-[580px] md:w-[630px] lg:w-[660px] h-[330px] sm:h-[390px] md:h-[420px] gap-3.5 sm:gap-5 md:gap-6 p-3 sm:p-5 md:p-6 items-stretch"
                       : "flex-col w-[88vw] max-w-[460px] sm:w-[520px] md:w-[560px] p-4 sm:p-6 gap-4"
                   }`}
                 >
@@ -396,7 +431,7 @@ export default function Projects() {
                       isCenterpiece
                         ? "w-full aspect-video"
                         : isVertical
-                        ? "w-[150px] xs:w-[170px] sm:w-[225px] md:w-[245px] lg:w-[260px] aspect-[9/16] self-stretch"
+                        ? "h-full aspect-[9/16] max-w-[52%] self-stretch"
                         : "w-full aspect-video"
                     }`}
                   >
@@ -489,7 +524,11 @@ export default function Projects() {
 
                       {isCenterpiece && (
                         <span className="text-[10px] sm:text-xs font-mono text-accent font-semibold uppercase tracking-wider">
-                          {language === "pt" ? "PRODUÇÃO PRINCIPAL" : "MAIN PRODUCTION"}
+                          {language === "pt"
+                            ? "PRODUÇÃO PRINCIPAL"
+                            : language === "es"
+                            ? "PRODUCCIÓN PRINCIPAL"
+                            : "MAIN PRODUCTION"}
                         </span>
                       )}
                     </div>
@@ -504,7 +543,11 @@ export default function Projects() {
             <div className="flex sm:hidden items-center justify-center gap-2 mt-2 text-[10px] font-mono text-[#8A919E]">
               <span className="opacity-60 animate-pulse">←</span>
               <span className="tracking-[0.08em] uppercase">
-                {language === "pt" ? "Deslize para ver mais vídeos" : "Swipe to explore more"}
+                {language === "pt"
+                  ? "Deslize para ver mais vídeos"
+                  : language === "es"
+                  ? "Desliza para ver más videos"
+                  : "Swipe to explore more"}
               </span>
               <span className="opacity-60 animate-pulse">→</span>
             </div>
@@ -521,24 +564,30 @@ export default function Projects() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6"
             role="dialog"
             aria-modal="true"
             aria-label={selectedProject.title}
+            onClick={() => setSelectedProject(null)}
           >
             {/* Backdrop com Blur */}
             <div
               className="absolute inset-0 bg-black/90 backdrop-blur-md"
-              onClick={() => setSelectedProject(null)}
             />
 
             {/* Botão de Fechar no Canto Superior Direito */}
             <button
               onClick={() => setSelectedProject(null)}
-              className="fixed top-4 right-4 md:top-8 md:right-8 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-colors z-[60] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-              aria-label={language === "pt" ? "Fechar vídeo" : "Close video"}
+              className="fixed top-4 right-4 md:top-8 md:right-8 w-11 h-11 sm:w-12 sm:h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-colors z-[110] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              aria-label={
+                language === "pt"
+                  ? "Fechar vídeo"
+                  : language === "es"
+                  ? "Cerrar video"
+                  : "Close video"
+              }
             >
-              <X size={24} />
+              <X size={22} />
             </button>
 
             {/* Container do Player */}
@@ -547,16 +596,18 @@ export default function Projects() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ duration: 0.2 }}
+              onClick={(e) => e.stopPropagation()}
               className={`relative w-full ${
-                selectedProject.aspect === "vertical" ? "max-w-sm sm:max-w-md" : "max-w-5xl"
+                selectedProject.aspect === "vertical" ? "max-w-xs sm:max-w-sm md:max-w-md" : "max-w-5xl"
               } max-h-[92vh] flex flex-col items-center justify-center z-10 px-2 sm:px-0`}
             >
               <div
                 className={`relative overflow-hidden shadow-2xl flex justify-center bg-black ${
                   selectedProject.aspect === "vertical"
-                    ? "w-auto h-[62vh] sm:h-[72vh] max-h-[640px] aspect-[9/16] rounded-2xl mx-auto max-w-full"
+                    ? "w-auto max-w-full h-[62vh] sm:h-[72vh] max-h-[640px] aspect-[9/16] rounded-2xl mx-auto"
                     : "w-full aspect-video max-h-[72vh] rounded-xl md:rounded-2xl mx-auto"
                 }`}
+                style={{ aspectRatio: selectedProject.aspect === "vertical" ? "9/16" : "16/9" }}
               >
                 <iframe
                   src={getEmbedModalUrl(selectedProject.videoUrl)}
@@ -583,6 +634,8 @@ export default function Projects() {
                   href={`https://wa.me/5511954629657?text=${encodeURIComponent(
                     language === "pt"
                       ? `Olá Guironas! Gostei do projeto "${selectedProject.title}" e gostaria de um orçamento nesse formato.`
+                      : language === "es"
+                      ? `¡Hola Guironas! Me gustó el proyecto "${selectedProject.title}" y quisiera un presupuesto en este formato.`
                       : `Hello Guironas! I loved the project "${selectedProject.title}" and would like a quote for a similar edit.`
                   )}`}
                   target="_blank"
@@ -590,7 +643,13 @@ export default function Projects() {
                   className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent hover:bg-rose-600 rounded-full text-xs font-bold uppercase tracking-wider transition-all shadow-lg shadow-accent/30"
                 >
                   <MessageCircle size={15} />
-                  <span>{language === "pt" ? "Orçar este Formato" : "Get a Quote for this Format"}</span>
+                  <span>
+                    {language === "pt"
+                      ? "Orçar este Formato"
+                      : language === "es"
+                      ? "Cotizar este Formato"
+                      : "Get a Quote for this Format"}
+                  </span>
                 </a>
               </div>
             </motion.div>

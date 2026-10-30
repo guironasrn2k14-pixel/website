@@ -74,7 +74,7 @@ export default function Clients() {
 
                 <div className="w-full lg:w-2/3 flex flex-col items-center lg:items-start text-center lg:text-left gap-6 order-1 lg:order-2">
                   <Quote className="text-accent/40 w-12 h-12 mb-2" />
-                  <p className="text-2xl md:text-3xl text-[#F8FAFC] font-light leading-relaxed font-sans">
+                  <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-[#F8FAFC] font-light leading-relaxed font-sans">
                     "{testimonials[activeIndex].quote}"
                   </p>
                   <div className="mt-4">

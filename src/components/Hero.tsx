@@ -3,8 +3,14 @@ import { ArrowRight, MessageCircle } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 
 export default function Hero() {
-  const { t } = useLanguage();
-  const whatsappUrl = "https://wa.me/5511954629657?text=Olá%20Guironas!%20Gostaria%20de%20solicitar%20um%20orçamento%20para%20edição%20de%20vídeo.";
+  const { t, language } = useLanguage();
+  const whatsappUrl = `https://wa.me/5511954629657?text=${encodeURIComponent(
+    language === "pt"
+      ? "Olá Guironas! Gostaria de solicitar um orçamento para edição de vídeo."
+      : language === "es"
+      ? "¡Hola Guironas! Me gustaría solicitar un presupuesto para edición de video."
+      : "Hello Guironas! I would like to request a quote for video editing."
+  )}`;
 
   return (
     <section

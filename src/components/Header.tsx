@@ -57,10 +57,10 @@ export default function Header() {
           : "bg-transparent py-5"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-3 sm:gap-4">
         <a
           href="#home"
-          className="text-2xl font-bold tracking-tighter hover:text-accent transition-colors whitespace-nowrap"
+          className="text-xl sm:text-2xl font-bold tracking-tighter hover:text-accent transition-colors whitespace-nowrap"
         >
           GUI<span className="text-accent">RONAS</span>
         </a>
@@ -84,7 +84,7 @@ export default function Header() {
             <div className="flex items-center p-1 bg-card-bg border border-white/10 rounded-full">
               <button
                 onClick={() => setLanguage('pt')}
-                className={`px-3 py-1.5 text-[11px] font-bold tracking-widest uppercase rounded-full transition-all duration-300 ${
+                className={`px-2.5 py-1 text-[11px] font-bold tracking-widest uppercase rounded-full transition-all duration-300 ${
                   language === 'pt' ? 'bg-white text-black shadow-md' : 'text-gray-500 hover:text-white'
                 }`}
               >
@@ -92,11 +92,19 @@ export default function Header() {
               </button>
               <button
                 onClick={() => setLanguage('en')}
-                className={`px-3 py-1.5 text-[11px] font-bold tracking-widest uppercase rounded-full transition-all duration-300 ${
+                className={`px-2.5 py-1 text-[11px] font-bold tracking-widest uppercase rounded-full transition-all duration-300 ${
                   language === 'en' ? 'bg-white text-black shadow-md' : 'text-gray-500 hover:text-white'
                 }`}
               >
                 EN
+              </button>
+              <button
+                onClick={() => setLanguage('es')}
+                className={`px-2.5 py-1 text-[11px] font-bold tracking-widest uppercase rounded-full transition-all duration-300 ${
+                  language === 'es' ? 'bg-white text-black shadow-md' : 'text-gray-500 hover:text-white'
+                }`}
+              >
+                ES
               </button>
             </div>
 
@@ -117,12 +125,12 @@ export default function Header() {
         </nav>
 
         {/* Mobile Nav Toggle */}
-        <div className="flex items-center gap-3 lg:hidden">
+        <div className="flex items-center gap-2 sm:gap-3 lg:hidden">
           {/* Mobile Language Toggle */}
-          <div className="flex items-center p-0.5 bg-card-bg border border-white/10 rounded-full mr-1">
+          <div className="flex items-center p-0.5 bg-card-bg border border-white/10 rounded-full">
             <button
               onClick={() => setLanguage('pt')}
-              className={`px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase rounded-full transition-all ${
+              className={`px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase rounded-full transition-all ${
                 language === 'pt' ? 'bg-white text-black shadow-md' : 'text-gray-500'
               }`}
             >
@@ -130,11 +138,19 @@ export default function Header() {
             </button>
             <button
               onClick={() => setLanguage('en')}
-              className={`px-2.5 py-1 text-[10px] font-bold tracking-widest uppercase rounded-full transition-all ${
+              className={`px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase rounded-full transition-all ${
                 language === 'en' ? 'bg-white text-black shadow-md' : 'text-gray-500'
               }`}
             >
               EN
+            </button>
+            <button
+              onClick={() => setLanguage('es')}
+              className={`px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase rounded-full transition-all ${
+                language === 'es' ? 'bg-white text-black shadow-md' : 'text-gray-500'
+              }`}
+            >
+              ES
             </button>
           </div>
 
@@ -169,7 +185,7 @@ export default function Header() {
                 <a
                   key={link.key}
                   href={link.href}
-                  className="text-lg font-medium text-gray-400 hover:text-white transition-colors uppercase tracking-widest"
+                  className="text-lg font-medium text-gray-400 hover:text-accent transition-colors uppercase tracking-widest"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {t(link.key)}
